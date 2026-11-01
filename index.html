@@ -158,6 +158,41 @@
         icon: '🌱',
         content: `
           <div class="space-y-6">
+            <!-- KENNARATEYMI 1. ÁRGANGS -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-base border-b pb-2">👩‍🏫 Teymið í 1. árgangi</h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-1">
+                <!-- Bertha María -->
+                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <img src="bertha.jpg" alt="Bertha María Árnadóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
+                  <div>
+                    <h4 class="font-bold text-xs text-slate-900">Bertha María Árnadóttir</h4>
+                    <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
+                  </div>
+                </div>
+
+                <!-- Sesselja Sólveig -->
+                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <img src="sesselja.jpg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
+                  <div>
+                    <h4 class="font-bold text-xs text-slate-900">Sesselja Sólveig Jóhannesdóttir</h4>
+                    <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
+                  </div>
+                </div>
+
+                <!-- Vildís Ósk -->
+                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <img src="vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
+                  <div>
+                    <h4 class="font-bold text-xs text-slate-900">Vildís Ósk Harðardóttir</h4>
+                    <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NÁMSGREINAR 1. ÁRGANGS -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📖 Íslenska</h3>
               <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Megintilgangur náms og kennslu í íslensku er að nemendur efli málnotkun, tjáningu og sköpun í töluðu og rituðu máli.</p>
@@ -167,6 +202,7 @@
                 <li><a href="https://mms.is/namsefni/skrift-1a" target="_blank" class="hover:underline">Skrift 1a ↗</a> og <a href="https://mms.is/namsefni/skrift-1b-rafbok" target="_blank" class="hover:underline">Skrift 1b ↗</a></li>
               </ul>
             </div>
+
             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📐 Stærðfræði</h3>
               <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Lögð er áhersla á að nemendur öðlist skilning á tölum, mynstrum og grunnreikningi gegnum hlutbundin gögn og leik.</p>
@@ -404,7 +440,7 @@
     // ----------------------------------------------------
     // NAVIGATION & VIEW SWITCHING LOGIC
     // ----------------------------------------------------
-    let currentParentView = 'home'; // Tracks where we came from ('years' or 'subjects')
+    let currentParentView = 'home';
 
     function hideAllViews() {
       document.getElementById('homeView').classList.add('hidden');
@@ -452,7 +488,6 @@
       document.getElementById('detailTitle').innerText = title;
       document.getElementById('detailContent').innerHTML = content;
 
-      // Update back button text based on parent view
       const backBtn = document.getElementById('backNavBtn');
       if (parentView === 'years') {
         backBtn.innerText = '← Til baka í Árganga';
