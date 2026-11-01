@@ -12,7 +12,7 @@
   <div id="homeView" class="max-w-4xl mx-auto pt-8 pb-16 space-y-10">
     <header class="text-center space-y-4">
       <div class="flex justify-center mb-2">
-        <img src="logo.png" alt="Vallaskóli Lógó" class="h-28 md:h-36 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
+        <img src="logo.jpg" alt="Vallaskóli Lógó" class="h-28 md:h-36 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
         <div id="fallbackLogo" class="hidden items-center justify-center w-24 h-24 rounded-2xl bg-sky-700 text-white font-extrabold text-3xl shadow-md">
           V
         </div>
@@ -41,7 +41,7 @@
         </div>
       </button>
 
-      <button onclick="showSubjects()" class="p-8 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition text-center group flex flex-col items-center justify-center space-y-4">
+      <button onclick="showSubjects()" class="p-8 bg-white border border-slate-200/80 rounded-3xl hover:border-amber-600 hover:shadow-xl hover:-translate-y-1 transition text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-2xl bg-amber-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           📚
         </div>
@@ -108,7 +108,7 @@
 
   <!-- ==================== POPUP GLUGGI FYRIR KENNARA ==================== -->
   <div id="teacherModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50" onclick="closeTeacherModalOnBg(event)">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center relative shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in duration-200">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center relative shadow-2xl border border-slate-100 space-y-4">
       <button onclick="closeTeacherModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 font-bold text-lg p-1 transition">✕</button>
       
       <img id="teacherModalImg" src="" alt="Mynd af kennara" class="w-32 h-32 rounded-full object-cover mx-auto border-4 border-sky-100 shadow-md">
@@ -165,6 +165,17 @@
         icon: '🌱',
         content: `
           <div class="space-y-6">
+            <!-- ALMENNT UM ÁRGANGINN -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">🏫 Almennt um 1. árgang</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600">
+                <p><strong>Fjöldi nemenda:</strong> 50 nemendur (skólaárið 2026–2027)</p>
+                <p><strong>Heimastofur:</strong> Stofur 6, 7 og 8 (vesturgangur, vesturinngangur)</p>
+                <p><strong>Kennslutími:</strong> Hefst kl. 08:10 alla daga (30 stundir/viku)</p>
+                <p><strong>Frímínútur:</strong> Kl. 09:30 – 09:50 alla daga</p>
+              </div>
+            </div>
+
             <!-- KENNARATEYMI 1. ÁRGANGS -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
               <div class="flex items-center justify-between border-b pb-2">
@@ -173,27 +184,24 @@
               </div>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
-                <!-- Bertha María -->
                 <button onclick="openTeacherModal('Bertha María Árnadóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'bertha.jpg')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/60 hover:border-sky-200 rounded-xl border border-slate-100 transition text-left group">
-                  <img src="bertha.jpeg" alt="Bertha María Árnadóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
+                  <img src="bertha.jpg" alt="Bertha María Árnadóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
                   <div>
                     <h4 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 transition">Bertha María Árnadóttir</h4>
                     <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
                   </div>
                 </button>
 
-                <!-- Sesselja Sólveig -->
                 <button onclick="openTeacherModal('Sesselja Sólveig Jóhannesdóttir', 'Umsjónarkennari', 'sesselja@vallaskoli.is', 'sesselja.jpg')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/60 hover:border-sky-200 rounded-xl border border-slate-100 transition text-left group">
-                  <img src="sesselja.jpeg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
+                  <img src="sesselja.jpg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
                   <div>
                     <h4 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 transition">Sesselja Sólveig Jóhannesdóttir</h4>
                     <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
                   </div>
                 </button>
 
-                <!-- Vildís Ósk -->
                 <button onclick="openTeacherModal('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'vildis.jpg')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/60 hover:border-sky-200 rounded-xl border border-slate-100 transition text-left group">
-                  <img src="vildis.jpeg" alt="Vildís Ósk Harðardóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
+                  <img src="vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
                   <div>
                     <h4 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 transition">Vildís Ósk Harðardóttir</h4>
                     <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
@@ -202,25 +210,82 @@
               </div>
             </div>
 
-            <!-- NÁMSGREINAR 1. ÁRGANGS -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+            <!-- 📖 ÍSLENSKA -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📖 Íslenska</h3>
-              <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Megintilgangur náms og kennslu í íslensku er að nemendur efli málnotkun, tjáningu og sköpun í töluðu og rituðu máli.</p>
-              <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Námsefni</h4>
-              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
-                <li><a href="https://mms.is/namsefni/lestrarlandid-vb1-rafbok" target="_blank" class="hover:underline">Lestrarland 1 ↗</a> og <a href="https://mms.is/namsefni/lestrarlandid-vb-2-rafbok" target="_blank" class="hover:underline">Lestrarland 2 ↗</a></li>
-                <li><a href="https://mms.is/namsefni/skrift-1a" target="_blank" class="hover:underline">Skrift 1a ↗</a> og <a href="https://mms.is/namsefni/skrift-1b-rafbok" target="_blank" class="hover:underline">Skrift 1b ↗</a></li>
-              </ul>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl border border-slate-100">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika í daglegu lífi, leik og starfi. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Hæfniviðmið</h4>
+                <ul class="list-disc pl-4 text-xs space-y-1 text-slate-600">
+                  <li><strong>Talað mál, hlustun & áhorf:</strong> Beitt skýrum framburði, horft og hlustað af athygli á fjölbreytt efni.</li>
+                  <li><strong>Lestur & lesskilningur:</strong> Beitt aðferðum við umskráningu hljóða og stafa svo lestur flæði vel.</li>
+                  <li><strong>Bókmenntir:</strong> Unnið með ævintýri, sögur og ljóð ætluð börnum.</li>
+                  <li><strong>Ritun:</strong> Dregið rétt til stafs, skrifað skýrt og læsilega og á lyklaborð. Beitt einföldum stafsetningsreglum.</li>
+                  <li><strong>Mál & málnotkun:</strong> Þekkt einkenni málsins, rímað og farið í orðaleiki.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <ul class="list-disc pl-4 text-xs space-y-1 text-sky-700">
+                  <li><a href="https://mms.is/namsefni/lestrarlandid-vb1-rafbok" target="_blank" class="hover:underline">Lestrarland 1 (Rafbók) ↗</a></li>
+                  <li><a href="https://mms.is/namsefni/lestrarlandid-vb-2-rafbok" target="_blank" class="hover:underline">Lestrarland 2 (Rafbók) ↗</a></li>
+                  <li><a href="https://mms.is/namsefni/skrift-1a" target="_blank" class="hover:underline">Skrift 1a ↗</a> og <a href="https://mms.is/namsefni/skrift-1b-rafbok" target="_blank" class="hover:underline">Skrift 1b ↗</a></li>
+                  <li class="text-slate-600">Ýmis útprentuð verkefni</li>
+                </ul>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                <div>
+                  <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                  <p class="text-xs text-slate-600">Símat, verkefnavinna og lesfimi (mæld 3x yfir skólaárið). Matskvarðar: <em>Hæfni náð, Á góðri leið, Þarfnast þjálfunar</em>.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Annað</h4>
+                  <p class="text-xs text-sky-700"><a href="https://island.is/s/midstod-menntunar-og-skolathjonustu/leid-til-laesis-lesskimun-fyrir-1-bekk" target="_blank" class="hover:underline">Leið til læsis – Lesskimun fyrir 1. bekk ↗</a></p>
+                </div>
+              </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+            <!-- 📐 STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📐 Stærðfræði</h3>
-              <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Lögð er áhersla á að nemendur öðlist skilning á tölum, mynstrum og grunnreikningi gegnum hlutbundin gögn og leik.</p>
-              <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Námsefni</h4>
-              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
-                <li>Sproti 1a og 1b (Nemendabók og æfingahefti)</li>
-                <li>Stærðfræðispæjarar og tölustafaskrift</li>
-              </ul>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl border border-slate-100">
+                  Megintilgangur náms og kennslu í stærðfræði er að nemendur öðlist alhliða hæfni og skilning til að nota stærðfræði sem verkfæri í fjölbreyttum tilgangi og við ólíkar aðstæður í daglegu lífi, leik og starfi.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Hæfniviðmið</h4>
+                <ul class="list-disc pl-4 text-xs space-y-1 text-slate-600">
+                  <li><strong>Vinnulag:</strong> Nýtir sér verkfæri og hlutbundin gögn, tekur þátt í samræðum um stærðfræði og lausnarleiðir, notar rétt heiti yfir tákn.</li>
+                  <li><strong>Algebra:</strong> Kannað, búið til og tjáð sig um reglur í talnarunum og mynstrum og spáð fyrir um framhald mynsturs.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <ul class="list-disc pl-4 text-xs space-y-1 text-sky-700">
+                  <li><a href="https://mms.is/namsefni/sproti-1a-nemendabok" target="_blank" class="hover:underline">Sproti 1a (Nemendabók) ↗</a> og <a href="https://mms.is/namsefni/sproti-1a-aefingahefti" target="_blank" class="hover:underline">Æfingahefti ↗</a></li>
+                  <li><a href="https://mms.is/namsefni/sproti-1b-nemendabok" target="_blank" class="hover:underline">Sproti 1b (Nemendabók) ↗</a> og <a href="https://mms.is/namsefni/sproti-1b-aefingahefti" target="_blank" class="hover:underline">Æfingahefti ↗</a></li>
+                  <li><a href="https://mms.is/namsefni/skrift-tolustafir" target="_blank" class="hover:underline">Skrift tölustafir ↗</a></li>
+                  <li><a href="https://mms.is/namsefni/staerdfraedispaejarar-1-rafbok" target="_blank" class="hover:underline">Stærðfræðispæjarar (rafbók) ↗</a></li>
+                  <li class="text-slate-600">Ýmis útprentuð verkefni og stærðfræðihefti</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs text-slate-600">Símat og verkefnavinna metin út frá hæfniviðmiðum (<em>Hæfni náð, Á góðri leið, Þarfnast þjálfunar</em>).</p>
+              </div>
             </div>
           </div>
         `
@@ -228,24 +293,7 @@
       'y2': {
         title: '2. árgangur — Námskrá',
         icon: '🍃',
-        content: `
-          <div class="space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
-              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📖 Íslenska & Lesskilningur</h3>
-              <p class="text-xs text-slate-600">Unnið er með umskráningu stafa/hljóða, lesskilning, ritun og stafsetningu. Lesfimi er mæld 3x á skólaári.</p>
-              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
-                <li>Ritrún 1 og 2, Litla Lesrún, Skrift 2a og 2b</li>
-              </ul>
-            </div>
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
-              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📐 Stærðfræði</h3>
-              <p class="text-xs text-slate-600">Unnið með plús, mínus, tugakerfið, form, mælingar og Evolytesforritið.</p>
-              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
-                <li>Sproti 2a og 2b, Stærðfræðispæjarar 1 og 2, Evolytes</li>
-              </ul>
-            </div>
-          </div>
-        `
+        content: `<div class="space-y-6"><div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">📖 Íslenska & Lesskilningur</h3><p class="text-xs text-slate-600">Unnið er með umskráningu stafa/hljóða, lesskilning, ritun og stafsetningu. Lesfimi er mæld 3x á skólaári.</p><ul class="list-disc pl-4 text-xs text-sky-700 space-y-1"><li>Ritrún 1 og 2, Litla Lesrún, Skrift 2a og 2b</li></ul></div></div>`
       },
       'y3': { title: '3. árgangur — Námskrá', icon: '🌿', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 3. árgangs</h3><p class="text-xs text-slate-600">Lestrartækni, ritun, málfræði og stærðfræði.</p></div>` },
       'y4': { title: '4. árgangur — Námskrá', icon: '☘️', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 4. árgangs</h3><p class="text-xs text-slate-600">Lesfimi, ítarlegri ritun og samþætting faggreina.</p></div>` },
@@ -324,7 +372,7 @@
       else showHome();
     }
 
-    // ------------------ KENNARA SPRETTIGLUGGI (POPUP) ------------------
+    // KENNARA SPRETTIGLUGGI (POPUP)
     function openTeacherModal(name, role, email, imgSrc) {
       document.getElementById('teacherModalName').innerText = name;
       document.getElementById('teacherModalRole').innerText = role;
@@ -350,7 +398,7 @@
       }
     }
 
-    // ------------------ RENDER GRID TILES ------------------
+    // RENDER GRID TILES
     function renderYearsGrid() {
       const container = document.getElementById('yearsGrid');
       container.innerHTML = YEARS_LIST.map(item => `
