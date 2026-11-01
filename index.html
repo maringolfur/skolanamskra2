@@ -8,11 +8,11 @@
 </head>
 <body class="bg-[#fcfbf9] min-h-screen text-slate-800 font-sans p-4 md:p-8">
 
-  <!-- ==================== 1. FORSÍÐA (YFIRFLOKKAR) ==================== -->
+  <!-- ==================== FORSÍÐA (YFIRFLOKKAR) ==================== -->
   <div id="homeView" class="max-w-4xl mx-auto pt-8 pb-16 space-y-10">
     <header class="text-center space-y-4">
       <div class="flex justify-center mb-2">
-        <img src="logo.png" alt="Vallaskóli Lógó" class="h-28 md:h-36 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
+        <img src="logo.jpg" alt="Vallaskóli Lógó" class="h-28 md:h-36 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
         <div id="fallbackLogo" class="hidden items-center justify-center w-24 h-24 rounded-2xl bg-sky-700 text-white font-extrabold text-3xl shadow-md">
           V
         </div>
@@ -30,9 +30,7 @@
       </div>
     </header>
 
-    <!-- HÉR ERU TVÆR HÖFUÐFLÍSAR -->
     <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-      <!-- Flís 1: Árgangar -->
       <button onclick="showYears()" class="p-8 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-2xl bg-sky-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           🎓
@@ -43,7 +41,6 @@
         </div>
       </button>
 
-      <!-- Flís 2: Faggreinar -->
       <button onclick="showSubjects()" class="p-8 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-2xl bg-amber-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           📚
@@ -56,7 +53,7 @@
     </main>
   </div>
 
-  <!-- ==================== 2. ÁRGANGASÍÐA ==================== -->
+  <!-- ==================== ÁRGANGASÍÐA ==================== -->
   <div id="yearsView" class="max-w-4xl mx-auto hidden pt-6 pb-16">
     <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-8">
       <button onclick="showHome()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
@@ -65,12 +62,10 @@
       <h2 class="text-lg font-extrabold text-slate-900">🎓 Árgangar</h2>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="yearsGrid">
-      <!-- Árgangaflísar byggjast í JS -->
-    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="yearsGrid"></div>
   </div>
 
-  <!-- ==================== 3. FAGGREINASÍÐA ==================== -->
+  <!-- ==================== FAGGREINASÍÐA ==================== -->
   <div id="subjectsView" class="max-w-4xl mx-auto hidden pt-6 pb-16">
     <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-8">
       <button onclick="showHome()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
@@ -79,12 +74,10 @@
       <h2 class="text-lg font-extrabold text-slate-900">📚 Faggreinar</h2>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="subjectsGrid">
-      <!-- Faggreinaflísar byggjast í JS -->
-    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="subjectsGrid"></div>
   </div>
 
-  <!-- ==================== 4. BAKSÍÐA / UPPLÝSINGASÍÐA ==================== -->
+  <!-- ==================== BAKSÍÐA / UPPLÝSINGASÍÐA ==================== -->
   <div id="detailView" class="max-w-3xl mx-auto hidden pt-6 pb-16">
     <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
       <button id="backNavBtn" onclick="goBackFromDetail()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
@@ -113,10 +106,31 @@
     </div>
   </div>
 
+  <!-- ==================== POPUP GLUGGI FYRIR KENNARA ==================== -->
+  <div id="teacherModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50" onclick="closeTeacherModalOnBg(event)">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center relative shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in duration-200">
+      <button onclick="closeTeacherModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 font-bold text-lg p-1 transition">✕</button>
+      
+      <img id="teacherModalImg" src="" alt="Mynd af kennara" class="w-32 h-32 rounded-full object-cover mx-auto border-4 border-sky-100 shadow-md">
+      
+      <div class="space-y-1">
+        <h3 id="teacherModalName" class="text-lg font-bold text-slate-900"></h3>
+        <p id="teacherModalRole" class="text-xs text-slate-500 font-medium"></p>
+      </div>
+
+      <div class="pt-2">
+        <a id="teacherModalEmail" href="" class="inline-flex items-center gap-2 px-4 py-2.5 bg-sky-50 hover:bg-sky-100 text-sky-800 rounded-xl text-xs font-semibold transition border border-sky-200/50">
+          ✉️ <span id="teacherModalEmailText"></span>
+        </a>
+      </div>
+
+      <button onclick="closeTeacherModal()" class="w-full pt-2 text-xs text-slate-400 hover:text-slate-600 underline">
+        Loka glugga
+      </button>
+    </div>
+  </div>
+
   <script>
-    // ----------------------------------------------------
-    // LISTI YFIR ÁRGANGA
-    // ----------------------------------------------------
     const YEARS_LIST = [
       { id: 'y1', title: '1. árgangur', icon: '🌱' },
       { id: 'y2', title: '2. árgangur', icon: '🍃' },
@@ -132,9 +146,6 @@
       { id: 'stod', title: 'Stoðkennsla', icon: '🤝' }
     ];
 
-    // ----------------------------------------------------
-    // LISTI YFIR FAGGREINAR
-    // ----------------------------------------------------
     const SUBJECTS_LIST = [
       { id: 's_isl', title: 'Íslenska', icon: '📖' },
       { id: 's_stf', title: 'Stærðfræði', icon: '📐' },
@@ -148,11 +159,7 @@
       { id: 'stod', title: 'Stoðkennsla', icon: '🤝' }
     ];
 
-    // ----------------------------------------------------
-    // BAKSÍÐUEFNI (DATA FOR EACH PAGE)
-    // ----------------------------------------------------
     const CONTENT_DATA = {
-      // ÁRGANGAR
       'y1': {
         title: '1. árgangur — Námskrá',
         icon: '🌱',
@@ -160,35 +167,38 @@
           <div class="space-y-6">
             <!-- KENNARATEYMI 1. ÁRGANGS -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-              <h3 class="font-bold text-sky-900 text-base border-b pb-2">👩‍🏫 Teymið í 1. árgangi</h3>
+              <div class="flex items-center justify-between border-b pb-2">
+                <h3 class="font-bold text-sky-900 text-base">👩‍🏫 Teymið í 1. árgangi</h3>
+                <span class="text-[11px] text-slate-400 italic">Smelltu á kennara til að opna sprettiglugga</span>
+              </div>
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-1">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
                 <!-- Bertha María -->
-                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <img src="bertha.jpeg" alt="Bertha María Árnadóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
+                <button onclick="openTeacherModal('Bertha María Árnadóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'bertha.jpg')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/60 hover:border-sky-200 rounded-xl border border-slate-100 transition text-left group">
+                  <img src="bertha.jpg" alt="Bertha María Árnadóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
                   <div>
-                    <h4 class="font-bold text-xs text-slate-900">Bertha María Árnadóttir</h4>
+                    <h4 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 transition">Bertha María Árnadóttir</h4>
                     <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
                   </div>
-                </div>
+                </button>
 
                 <!-- Sesselja Sólveig -->
-                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <img src="Sesselja.jpeg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
+                <button onclick="openTeacherModal('Sesselja Sólveig Jóhannesdóttir', 'Umsjónarkennari', 'sesselja@vallaskoli.is', 'sesselja.jpg')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/60 hover:border-sky-200 rounded-xl border border-slate-100 transition text-left group">
+                  <img src="sesselja.jpg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
                   <div>
-                    <h4 class="font-bold text-xs text-slate-900">Sesselja Sólveig Jóhannesdóttir</h4>
+                    <h4 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 transition">Sesselja Sólveig Jóhannesdóttir</h4>
                     <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
                   </div>
-                </div>
+                </button>
 
                 <!-- Vildís Ósk -->
-                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <img src="vildis.jpeg" alt="Vildís Ósk Harðardóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
+                <button onclick="openTeacherModal('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'vildis.jpg')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/60 hover:border-sky-200 rounded-xl border border-slate-100 transition text-left group">
+                  <img src="vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
                   <div>
-                    <h4 class="font-bold text-xs text-slate-900">Vildís Ósk Harðardóttir</h4>
+                    <h4 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 transition">Vildís Ósk Harðardóttir</h4>
                     <p class="text-[11px] text-slate-500">Umsjónarkennari</p>
                   </div>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -237,209 +247,26 @@
           </div>
         `
       },
-      'y3': {
-        title: '3. árgangur — Námskrá',
-        icon: '🌿',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 3. árgangs</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Í 3. bekk er áfram unnið með lestrartækni, ritun, málfræði (nafnorð, sagnorð, lýsingarorð) og stærðfræði (margföldun, deilingu, prósentur og mælingar).</p>
-          </div>
-        `
-      },
-      'y4': {
-        title: '4. árgangur — Námskrá',
-        icon: '☘️',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 4. árgangs</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Lokamarkmið yngsta stigs. Lesfimi, ítarlegri ritun, samþætting við samfélags- og náttúrugreinar ásamt innlögn í Sprota 4a og 4b.</p>
-          </div>
-        `
-      },
-      'y5': {
-        title: '5. árgangur — Námskrá',
-        icon: '🍀',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Upphaf miðstigs (5. árgangur)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Kennsla hefst í ensku. Lögð er áhersla á sjálfstæðari vinnubrögð í íslensku, stærðfræði og greinasviðum miðstigs.</p>
-          </div>
-        `
-      },
-      'y6': {
-        title: '6. árgangur — Námskrá',
-        icon: '🌲',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">6. árgangur</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Orðspor, Söguskinna, bókaklúbbar, PALS-lestur og aukin áhersla á náttúruvísindi og samfélagsfræðilotur.</p>
-          </div>
-        `
-      },
-      'y7': {
-        title: '7. árgangur — Námskrá',
-        icon: '🌳',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">7. árgangur (Lok miðstigs)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Undirbúningur fyrir unglingastig. Danska bætist við námskrána. Stika í stærðfræði, ritgerðasmíð og samþætt þemaverkefni.</p>
-          </div>
-        `
-      },
-      'y8': {
-        title: '8. árgangur — Unglingastig',
-        icon: '🎓',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">8. árgangur námskrá</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Fagkennsla í lotum. Enska (Next Up / Billy Elliot), Danska (Tak), Íslenska, Stærðfræði, Náttúrufræði og Samfélagsfræði metið á Mentor.</p>
-          </div>
-        `
-      },
-      'y9': {
-        title: '9. árgangur — Unglingastig',
-        icon: '🎓',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">9. árgangur námskrá</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Aukin dýpt í bókmenntum (The Holes o.fl.), algebrustærðfræði, vísindatilraunum og valgreinum.</p>
-          </div>
-        `
-      },
-      'y10': {
-        title: '10. árgangur — Unglingastig',
-        icon: '🎓',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">10. árgangur og Brautskráning</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Lokaárgangur grunnskóla. Einkunnagjöf A, B+, B, C+, C, D samkvæmt mats- og hæfniviðmiðum Aðalnámskrár við lok 10. bekkjar.</p>
-          </div>
-        `
-      },
-
-      // FAGGREINAR
-      's_isl': {
-        title: 'Íslenska — Fagnámskrá',
-        icon: '📖',
-        content: `
-          <div class="space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3">
-              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Markmið & Málrækt</h3>
-              <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika.</p>
-              <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Meginþættir</h4>
-              <ul class="list-disc pl-4 text-xs text-slate-600 space-y-1">
-                <li>Talað mál, hlustun og áhorf</li>
-                <li>Lestur, lesfimi og lesskilningur</li>
-                <li>Ritun, stafsetning og málfræði</li>
-                <li>Bókmenntir og skapandi textavinna</li>
-              </ul>
-            </div>
-          </div>
-        `
-      },
-      's_stf': {
-        title: 'Stærðfræði — Fagnámskrá',
-        icon: '📐',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Markmið í stærðfræði</h3>
-            <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag, efnahag og tækni.</p>
-            <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Flokkar hæfniviðmiða</h4>
-            <ul class="list-disc pl-4 text-xs text-slate-600 space-y-1">
-              <li>Tölur og reikningur (tölugildi, brot, prósentur)</li>
-              <li>Algebra og mynstur</li>
-              <li>Rúmfræði, mælingar og form</li>
-              <li>Tölfræði og líkindi</li>
-            </ul>
-          </div>
-        `
-      },
-      's_nat': {
-        title: 'Náttúrufræði — Fagnámskrá',
-        icon: '🔬',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Náttúruvísindi & Vísindalæsi</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Kennsla í náttúrufræði tekur til líffræði, eðlisfræði, efnafræði og jarðvísinda. Áhersla er lögð á vísindaleg vinnubrögð, tilraunir, umhverfislæsi og sjálfbærni.</p>
-          </div>
-        `
-      },
-      's_ens': {
-        title: 'Enska — Fagnámskrá',
-        icon: '🇬🇧',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Enskukennsla í Vallaskóla</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Enska er kennd frá 5. bekk. Lögð er áhersla á málskilning, samskipti, ritun og bókmenntalæsi á unglingastigi (s.s. Next Up og léttlestrarbækur).</p>
-          </div>
-        `
-      },
-      's_sam': {
-        title: 'Samfélagsfræði — Fagnámskrá',
-        icon: '🗺️',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Samfélagsgreinar</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Samfélagsfræði fléttar saman sögu, landafræði, þjóðfélagsfræði, lífsleikni og trúarbragðafræði til að efla víðsýni og gagnrýna hugsun nemenda.</p>
-          </div>
-        `
-      },
-      's_dan': {
-        title: 'Danska — Fagnámskrá',
-        icon: '🇩🇰',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Danska & Norðurlandamál</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Kennsla í dönsku hefst í 7. bekk. Unnið er með málskilning, tölur, hlustun og kynningu á norrænni menningu.</p>
-          </div>
-        `
-      },
-      's_ith': {
-        title: 'Skólaíþróttir & Sund — Fagnámskrá',
-        icon: '🏃',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Íþróttir og sund</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Lögð er áhersla á hreyfigleði, líkamsvitund, sundfærni, samvinnu í leikjum og heilbrigðan lífsstíl frá 1. allt til 10. bekkjar.</p>
-          </div>
-        `
-      },
-      's_lver': {
-        title: 'List- og verkgreinar — Fagnámskrá',
-        icon: '🎨',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">List- og verkgreinahringekja</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Nemendur kynnast fjölbreyttum námsgreinum: myndlist, tónmennt, textílmennt, hönnun og smíði, heimilisfræði og sviðslistum.</p>
-          </div>
-        `
-      },
-      'isat': {
-        title: 'ÍSAT — Íslenska sem annað mál',
-        icon: '🌍',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">ÍSAT í Vallaskóla</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Sérsniðin málörvun og kennsla fyrir nemendur með annað móðurmál en íslensku. Stuðlað er að virkri þátttöku í skólasamfélaginu.</p>
-          </div>
-        `
-      },
-      'stod': {
-        title: 'Stoðkennsla & Sérkennsla',
-        icon: '🤝',
-        content: `
-          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
-            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Stoðþjónusta og námsver</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">Einstaklingsbundinn námsstuðningur, sérkennsla, lestraríhlutun og stoðþjónusta í samstarfi við námsráðgjafa og sérkennara skólans.</p>
-          </div>
-        `
-      }
+      'y3': { title: '3. árgangur — Námskrá', icon: '🌿', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 3. árgangs</h3><p class="text-xs text-slate-600">Lestrartækni, ritun, málfræði og stærðfræði.</p></div>` },
+      'y4': { title: '4. árgangur — Námskrá', icon: '☘️', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 4. árgangs</h3><p class="text-xs text-slate-600">Lesfimi, ítarlegri ritun og samþætting faggreina.</p></div>` },
+      'y5': { title: '5. árgangur — Námskrá', icon: '🍀', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">5. árgangur</h3><p class="text-xs text-slate-600">Upphaf enskukennslu og sjálfstæðari vinnubrögð.</p></div>` },
+      'y6': { title: '6. árgangur — Námskrá', icon: '🌲', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">6. árgangur</h3><p class="text-xs text-slate-600">Orðspor, bókaklúbbar og náttúrufræðilotur.</p></div>` },
+      'y7': { title: '7. árgangur — Námskrá', icon: '🌳', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">7. árgangur</h3><p class="text-xs text-slate-600">Upphaf dönskukennslu og undirbúningur fyrir unglingastig.</p></div>` },
+      'y8': { title: '8. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">8. árgangur</h3><p class="text-xs text-slate-600">Enska (Next Up), Danska (Tak), Íslenska og Stærðfræði.</p></div>` },
+      'y9': { title: '9. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">9. árgangur</h3><p class="text-xs text-slate-600">Aukin dýpt í bókmenntum (Holes), algebru og vísindum.</p></div>` },
+      'y10': { title: '10. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">10. árgangur</h3><p class="text-xs text-slate-600">Lokaárgangur grunnskóla og brautskráning.</p></div>` },
+      's_isl': { title: 'Íslenska — Fagnámskrá', icon: '📖', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Íslenska</h3><p class="text-xs text-slate-600">Talað mál, lestur, ritun, stafsetning og bókmenntir.</p></div>` },
+      's_stf': { title: 'Stærðfræði — Fagnámskrá', icon: '📐', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Stærðfræði</h3><p class="text-xs text-slate-600">Tölur, algebra, rúmfræði, mælingar og tölfræði.</p></div>` },
+      's_nat': { title: 'Náttúrufræði — Fagnámskrá', icon: '🔬', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Náttúrufræði</h3><p class="text-xs text-slate-600">Líffræði, eðlisfræði, efnafræði og jarðvísindi.</p></div>` },
+      's_ens': { title: 'Enska — Fagnámskrá', icon: '🇬🇧', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Enska</h3><p class="text-xs text-slate-600">Málskilningur, samskipti, ritun og bókmenntalæsi.</p></div>` },
+      's_sam': { title: 'Samfélagsfræði — Fagnámskrá', icon: '🗺️', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Samfélagsfræði</h3><p class="text-xs text-slate-600">Saga, landafræði, þjóðfélagsfræði og lífsleikni.</p></div>` },
+      's_dan': { title: 'Danska — Fagnámskrá', icon: '🇩🇰', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Danska</h3><p class="text-xs text-slate-600">Norðurlandamál og málskilningur.</p></div>` },
+      's_ith': { title: 'Skólaíþróttir & Sund — Fagnámskrá', icon: '🏃', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Skólaíþróttir</h3><p class="text-xs text-slate-600">Hreyfigleði, sundfærni og heilbrigður lífsstíll.</p></div>` },
+      's_lver': { title: 'List- og verkgreinar — Fagnámskrá', icon: '🎨', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">List- og verkgreinar</h3><p class="text-xs text-slate-600">Myndlist, tónmennt, textílmennt, smíði og heimilisfræði.</p></div>` },
+      'isat': { title: 'ÍSAT — Íslenska sem annað mál', icon: '🌍', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">ÍSAT</h3><p class="text-xs text-slate-600">Málörvun fyrir nemendur með annað móðurmál en íslensku.</p></div>` },
+      'stod': { title: 'Stoðkennsla & Sérkennsla', icon: '🤝', content: `<div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-lg border-b pb-2">Stoðþjónusta</h3><p class="text-xs text-slate-600">Einstaklingsbundinn stuðningur og sérkennsla.</p></div>` }
     };
 
-    // ----------------------------------------------------
-    // NAVIGATION & VIEW SWITCHING LOGIC
-    // ----------------------------------------------------
     let currentParentView = 'home';
 
     function hideAllViews() {
@@ -474,46 +301,56 @@
       hideAllViews();
 
       const item = CONTENT_DATA[id];
-      const fallbackTitle = id;
-      
-      const title = item ? item.title : fallbackTitle;
+      const title = item ? item.title : id;
       const icon = item ? item.icon : '📚';
-      const content = item ? item.content : `
-        <div class="bg-white p-6 rounded-2xl border border-slate-200/80">
-          <p class="text-xs text-slate-600">Nánari upplýsingar fyrir þennan hluta eru í vinnslu.</p>
-        </div>
-      `;
+      const content = item ? item.content : `<div class="bg-white p-6 rounded-2xl border border-slate-200/80"><p class="text-xs text-slate-600">Upplýsingar í vinnslu.</p></div>`;
 
       document.getElementById('detailIcon').innerText = icon;
       document.getElementById('detailTitle').innerText = title;
       document.getElementById('detailContent').innerHTML = content;
 
       const backBtn = document.getElementById('backNavBtn');
-      if (parentView === 'years') {
-        backBtn.innerText = '← Til baka í Árganga';
-      } else if (parentView === 'subjects') {
-        backBtn.innerText = '← Til baka í Faggreinar';
-      } else {
-        backBtn.innerText = '← Til baka';
-      }
+      if (parentView === 'years') backBtn.innerText = '← Til baka í Árganga';
+      else if (parentView === 'subjects') backBtn.innerText = '← Til baka í Faggreinar';
+      else backBtn.innerText = '← Til baka';
 
       document.getElementById('detailView').classList.remove('hidden');
       window.scrollTo(0, 0);
     }
 
     function goBackFromDetail() {
-      if (currentParentView === 'years') {
-        showYears();
-      } else if (currentParentView === 'subjects') {
-        showSubjects();
-      } else {
-        showHome();
+      if (currentParentView === 'years') showYears();
+      else if (currentParentView === 'subjects') showSubjects();
+      else showHome();
+    }
+
+    // ------------------ KENNARA SPRETTIGLUGGI (POPUP) ------------------
+    function openTeacherModal(name, role, email, imgSrc) {
+      document.getElementById('teacherModalName').innerText = name;
+      document.getElementById('teacherModalRole').innerText = role;
+      document.getElementById('teacherModalEmailText').innerText = email;
+      document.getElementById('teacherModalEmail').href = "mailto:" + email;
+      
+      const imgElem = document.getElementById('teacherModalImg');
+      imgElem.src = imgSrc;
+      imgElem.onerror = function() {
+        this.src = 'https://via.placeholder.com/150?text=' + encodeURIComponent(name.split(' ')[0]);
+      };
+
+      document.getElementById('teacherModal').style.display = 'flex';
+    }
+
+    function closeTeacherModal() {
+      document.getElementById('teacherModal').style.display = 'none';
+    }
+
+    function closeTeacherModalOnBg(e) {
+      if (e.target.id === 'teacherModal') {
+        closeTeacherModal();
       }
     }
 
-    // ----------------------------------------------------
-    // RENDER GRID TILES
-    // ----------------------------------------------------
+    // ------------------ RENDER GRID TILES ------------------
     function renderYearsGrid() {
       const container = document.getElementById('yearsGrid');
       container.innerHTML = YEARS_LIST.map(item => `
