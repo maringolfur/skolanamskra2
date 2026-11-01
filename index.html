@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skólanámskrá Vallaskóla</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#fcfbf9] min-h-screen text-slate-800 font-sans p-4 md:p-8">
+
+  <!-- ==================== 1. FORSÍÐA (YFIRFLOKKAR) ==================== -->
+  <div id="homeView" class="max-w-4xl mx-auto pt-8 pb-16 space-y-10">
+    <header class="text-center space-y-4">
+      <div class="flex justify-center mb-2">
+        <img src="logo.jpg" alt="Vallaskóli Lógó" class="h-28 md:h-36 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
+        <div id="fallbackLogo" class="hidden items-center justify-center w-24 h-24 rounded-2xl bg-sky-700 text-white font-extrabold text-3xl shadow-md">
+          V
+        </div>
+      </div>
+      <div class="space-y-2">
+        <p class="text-xs md:text-sm font-semibold tracking-wider text-sky-800 uppercase italic">
+          Virðing &bull; Þekking &bull; Lífsgleði
+        </p>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Skólanámskrá Vallaskóla
+        </h1>
+        <p class="text-sm text-slate-500 max-w-md mx-auto pt-1">
+          Veldu hvort þú vilt skoða námskrána eftir árgangi eða faggreinum.
+        </p>
+      </div>
+    </header>
+
+    <!-- HÉR ERU TVÆR HÖFUÐFLÍSAR -->
+    <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+      <!-- Flís 1: Árgangar -->
+      <button onclick="showYears()" class="p-8 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition text-center group flex flex-col items-center justify-center space-y-4">
+        <div class="w-20 h-20 rounded-2xl bg-sky-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
+          🎓
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 group-hover:text-sky-700">Árgangar</h2>
+          <p class="text-xs text-slate-500 mt-1">Skoða námskrá eftir 1. – 10. bekk, ÍSAT og stoðkennslu</p>
+        </div>
+      </button>
+
+      <!-- Flís 2: Faggreinar -->
+      <button onclick="showSubjects()" class="p-8 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition text-center group flex flex-col items-center justify-center space-y-4">
+        <div class="w-20 h-20 rounded-2xl bg-amber-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
+          📚
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 group-hover:text-amber-700">Faggreinar</h2>
+          <p class="text-xs text-slate-500 mt-1">Skoða námskrá eftir námsgreinum og fagsviðum</p>
+        </div>
+      </button>
+    </main>
+  </div>
+
+  <!-- ==================== 2. ÁRGANGASÍÐA ==================== -->
+  <div id="yearsView" class="max-w-4xl mx-auto hidden pt-6 pb-16">
+    <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-8">
+      <button onclick="showHome()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+        ← Til baka á forsíðu
+      </button>
+      <h2 class="text-lg font-extrabold text-slate-900">🎓 Árgangar</h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="yearsGrid">
+      <!-- Árgangaflísar byggjast í JS -->
+    </div>
+  </div>
+
+  <!-- ==================== 3. FAGGREINASÍÐA ==================== -->
+  <div id="subjectsView" class="max-w-4xl mx-auto hidden pt-6 pb-16">
+    <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-8">
+      <button onclick="showHome()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+        ← Til baka á forsíðu
+      </button>
+      <h2 class="text-lg font-extrabold text-slate-900">📚 Faggreinar</h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="subjectsGrid">
+      <!-- Faggreinaflísar byggjast í JS -->
+    </div>
+  </div>
+
+  <!-- ==================== 4. BAKSÍÐA / UPPLÝSINGASÍÐA ==================== -->
+  <div id="detailView" class="max-w-3xl mx-auto hidden pt-6 pb-16">
+    <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+      <button id="backNavBtn" onclick="goBackFromDetail()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+        ← Til baka
+      </button>
+      <button onclick="showHome()" class="text-xs text-sky-800 font-semibold hover:underline">
+        Forsíða
+      </button>
+    </div>
+
+    <div class="flex items-center gap-4 mb-8">
+      <span id="detailIcon" class="text-5xl"></span>
+      <div>
+        <h1 id="detailTitle" class="text-2xl md:text-3xl font-extrabold text-slate-900"></h1>
+        <p class="text-xs text-sky-800 font-semibold uppercase tracking-wider pt-1">Vallaskóli &bull; Skólanámskrá</p>
+      </div>
+    </div>
+
+    <div id="detailContent" class="space-y-6"></div>
+
+    <div class="pt-10 border-t border-slate-200 mt-12 flex justify-between items-center">
+      <button onclick="goBackFromDetail()" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition">
+        ← Til baka
+      </button>
+      <a href="#" class="text-xs text-slate-400 hover:text-slate-600">Efst á síðu ↑</a>
+    </div>
+  </div>
+
+  <script>
+    // ----------------------------------------------------
+    // LISTI YFIR ÁRGANGA
+    // ----------------------------------------------------
+    const YEARS_LIST = [
+      { id: 'y1', title: '1. árgangur', icon: '🌱' },
+      { id: 'y2', title: '2. árgangur', icon: '🍃' },
+      { id: 'y3', title: '3. árgangur', icon: '🌿' },
+      { id: 'y4', title: '4. árgangur', icon: '☘️' },
+      { id: 'y5', title: '5. árgangur', icon: '🍀' },
+      { id: 'y6', title: '6. árgangur', icon: '🌲' },
+      { id: 'y7', title: '7. árgangur', icon: '🌳' },
+      { id: 'y8', title: '8. árgangur', icon: '🎓' },
+      { id: 'y9', title: '9. árgangur', icon: '🎓' },
+      { id: 'y10', title: '10. árgangur', icon: '🎓' },
+      { id: 'isat', title: 'ÍSAT', icon: '🌍' },
+      { id: 'stod', title: 'Stoðkennsla', icon: '🤝' }
+    ];
+
+    // ----------------------------------------------------
+    // LISTI YFIR FAGGREINAR
+    // ----------------------------------------------------
+    const SUBJECTS_LIST = [
+      { id: 's_isl', title: 'Íslenska', icon: '📖' },
+      { id: 's_stf', title: 'Stærðfræði', icon: '📐' },
+      { id: 's_nat', title: 'Náttúrufræði', icon: '🔬' },
+      { id: 's_ens', title: 'Enska', icon: '🇬🇧' },
+      { id: 's_sam', title: 'Samfélagsfræði', icon: '🗺️' },
+      { id: 's_dan', title: 'Danska', icon: '🇩🇰' },
+      { id: 's_ith', title: 'Skólaíþróttir', icon: '🏃' },
+      { id: 's_lver', title: 'List- og verkgreinar', icon: '🎨' },
+      { id: 'isat', title: 'ÍSAT', icon: '🌍' },
+      { id: 'stod', title: 'Stoðkennsla', icon: '🤝' }
+    ];
+
+    // ----------------------------------------------------
+    // BAKSÍÐUEFNI (DATA FOR EACH PAGE)
+    // ----------------------------------------------------
+    const CONTENT_DATA = {
+      // ÁRGANGAR
+      'y1': {
+        title: '1. árgangur — Námskrá',
+        icon: '🌱',
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📖 Íslenska</h3>
+              <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Megintilgangur náms og kennslu í íslensku er að nemendur efli málnotkun, tjáningu og sköpun í töluðu og rituðu máli.</p>
+              <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Námsefni</h4>
+              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
+                <li><a href="https://mms.is/namsefni/lestrarlandid-vb1-rafbok" target="_blank" class="hover:underline">Lestrarland 1 ↗</a> og <a href="https://mms.is/namsefni/lestrarlandid-vb-2-rafbok" target="_blank" class="hover:underline">Lestrarland 2 ↗</a></li>
+                <li><a href="https://mms.is/namsefni/skrift-1a" target="_blank" class="hover:underline">Skrift 1a ↗</a> og <a href="https://mms.is/namsefni/skrift-1b-rafbok" target="_blank" class="hover:underline">Skrift 1b ↗</a></li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📐 Stærðfræði</h3>
+              <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Lögð er áhersla á að nemendur öðlist skilning á tölum, mynstrum og grunnreikningi gegnum hlutbundin gögn og leik.</p>
+              <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Námsefni</h4>
+              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
+                <li>Sproti 1a og 1b (Nemendabók og æfingahefti)</li>
+                <li>Stærðfræðispæjarar og tölustafaskrift</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      'y2': {
+        title: '2. árgangur — Námskrá',
+        icon: '🍃',
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📖 Íslenska & Lesskilningur</h3>
+              <p class="text-xs text-slate-600">Unnið er með umskráningu stafa/hljóða, lesskilning, ritun og stafsetningu. Lesfimi er mæld 3x á skólaári.</p>
+              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
+                <li>Ritrún 1 og 2, Litla Lesrún, Skrift 2a og 2b</li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">📐 Stærðfræði</h3>
+              <p class="text-xs text-slate-600">Unnið með plús, mínus, tugakerfið, form, mælingar og Evolytesforritið.</p>
+              <ul class="list-disc pl-4 text-xs text-sky-700 space-y-1">
+                <li>Sproti 2a og 2b, Stærðfræðispæjarar 1 og 2, Evolytes</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      'y3': {
+        title: '3. árgangur — Námskrá',
+        icon: '🌿',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 3. árgangs</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Í 3. bekk er áfram unnið með lestrartækni, ritun, málfræði (nafnorð, sagnorð, lýsingarorð) og stærðfræði (margföldun, deilingu, prósentur og mælingar).</p>
+          </div>
+        `
+      },
+      'y4': {
+        title: '4. árgangur — Námskrá',
+        icon: '☘️',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Megináherslur 4. árgangs</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Lokamarkmið yngsta stigs. Lesfimi, ítarlegri ritun, samþætting við samfélags- og náttúrugreinar ásamt innlögn í Sprota 4a og 4b.</p>
+          </div>
+        `
+      },
+      'y5': {
+        title: '5. árgangur — Námskrá',
+        icon: '🍀',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Upphaf miðstigs (5. árgangur)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Kennsla hefst í ensku. Lögð er áhersla á sjálfstæðari vinnubrögð í íslensku, stærðfræði og greinasviðum miðstigs.</p>
+          </div>
+        `
+      },
+      'y6': {
+        title: '6. árgangur — Námskrá',
+        icon: '🌲',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">6. árgangur</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Orðspor, Söguskinna, bókaklúbbar, PALS-lestur og aukin áhersla á náttúruvísindi og samfélagsfræðilotur.</p>
+          </div>
+        `
+      },
+      'y7': {
+        title: '7. árgangur — Námskrá',
+        icon: '🌳',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">7. árgangur (Lok miðstigs)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Undirbúningur fyrir unglingastig. Danska bætist við námskrána. Stika í stærðfræði, ritgerðasmíð og samþætt þemaverkefni.</p>
+          </div>
+        `
+      },
+      'y8': {
+        title: '8. árgangur — Unglingastig',
+        icon: '🎓',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">8. árgangur námskrá</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Fagkennsla í lotum. Enska (Next Up / Billy Elliot), Danska (Tak), Íslenska, Stærðfræði, Náttúrufræði og Samfélagsfræði metið á Mentor.</p>
+          </div>
+        `
+      },
+      'y9': {
+        title: '9. árgangur — Unglingastig',
+        icon: '🎓',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">9. árgangur námskrá</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Aukin dýpt í bókmenntum (The Holes o.fl.), algebrustærðfræði, vísindatilraunum og valgreinum.</p>
+          </div>
+        `
+      },
+      'y10': {
+        title: '10. árgangur — Unglingastig',
+        icon: '🎓',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">10. árgangur og Brautskráning</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Lokaárgangur grunnskóla. Einkunnagjöf A, B+, B, C+, C, D samkvæmt mats- og hæfniviðmiðum Aðalnámskrár við lok 10. bekkjar.</p>
+          </div>
+        `
+      },
+
+      // FAGGREINAR
+      's_isl': {
+        title: 'Íslenska — Fagnámskrá',
+        icon: '📖',
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-3">
+              <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Markmið & Málrækt</h3>
+              <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika.</p>
+              <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Meginþættir</h4>
+              <ul class="list-disc pl-4 text-xs text-slate-600 space-y-1">
+                <li>Talað mál, hlustun og áhorf</li>
+                <li>Lestur, lesfimi og lesskilningur</li>
+                <li>Ritun, stafsetning og málfræði</li>
+                <li>Bókmenntir og skapandi textavinna</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      's_stf': {
+        title: 'Stærðfræði — Fagnámskrá',
+        icon: '📐',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Markmið í stærðfræði</h3>
+            <p class="text-xs text-slate-600 italic bg-slate-50 p-3 rounded-xl">Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag, efnahag og tækni.</p>
+            <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">Flokkar hæfniviðmiða</h4>
+            <ul class="list-disc pl-4 text-xs text-slate-600 space-y-1">
+              <li>Tölur og reikningur (tölugildi, brot, prósentur)</li>
+              <li>Algebra og mynstur</li>
+              <li>Rúmfræði, mælingar og form</li>
+              <li>Tölfræði og líkindi</li>
+            </ul>
+          </div>
+        `
+      },
+      's_nat': {
+        title: 'Náttúrufræði — Fagnámskrá',
+        icon: '🔬',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Náttúruvísindi & Vísindalæsi</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Kennsla í náttúrufræði tekur til líffræði, eðlisfræði, efnafræði og jarðvísinda. Áhersla er lögð á vísindaleg vinnubrögð, tilraunir, umhverfislæsi og sjálfbærni.</p>
+          </div>
+        `
+      },
+      's_ens': {
+        title: 'Enska — Fagnámskrá',
+        icon: '🇬🇧',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Enskukennsla í Vallaskóla</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Enska er kennd frá 5. bekk. Lögð er áhersla á málskilning, samskipti, ritun og bókmenntalæsi á unglingastigi (s.s. Next Up og léttlestrarbækur).</p>
+          </div>
+        `
+      },
+      's_sam': {
+        title: 'Samfélagsfræði — Fagnámskrá',
+        icon: '🗺️',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Samfélagsgreinar</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Samfélagsfræði fléttar saman sögu, landafræði, þjóðfélagsfræði, lífsleikni og trúarbragðafræði til að efla víðsýni og gagnrýna hugsun nemenda.</p>
+          </div>
+        `
+      },
+      's_dan': {
+        title: 'Danska — Fagnámskrá',
+        icon: '🇩🇰',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Danska & Norðurlandamál</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Kennsla í dönsku hefst í 7. bekk. Unnið er með málskilning, tölur, hlustun og kynningu á norrænni menningu.</p>
+          </div>
+        `
+      },
+      's_ith': {
+        title: 'Skólaíþróttir & Sund — Fagnámskrá',
+        icon: '🏃',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Íþróttir og sund</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Lögð er áhersla á hreyfigleði, líkamsvitund, sundfærni, samvinnu í leikjum og heilbrigðan lífsstíl frá 1. allt til 10. bekkjar.</p>
+          </div>
+        `
+      },
+      's_lver': {
+        title: 'List- og verkgreinar — Fagnámskrá',
+        icon: '🎨',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">List- og verkgreinahringekja</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Nemendur kynnast fjölbreyttum námsgreinum: myndlist, tónmennt, textílmennt, hönnun og smíði, heimilisfræði og sviðslistum.</p>
+          </div>
+        `
+      },
+      'isat': {
+        title: 'ÍSAT — Íslenska sem annað mál',
+        icon: '🌍',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">ÍSAT í Vallaskóla</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Sérsniðin málörvun og kennsla fyrir nemendur með annað móðurmál en íslensku. Stuðlað er að virkri þátttöku í skólasamfélaginu.</p>
+          </div>
+        `
+      },
+      'stod': {
+        title: 'Stoðkennsla & Sérkennsla',
+        icon: '🤝',
+        content: `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4">
+            <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Stoðþjónusta og námsver</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Einstaklingsbundinn námsstuðningur, sérkennsla, lestraríhlutun og stoðþjónusta í samstarfi við námsráðgjafa og sérkennara skólans.</p>
+          </div>
+        `
+      }
+    };
+
+    // ----------------------------------------------------
+    // NAVIGATION & VIEW SWITCHING LOGIC
+    // ----------------------------------------------------
+    let currentParentView = 'home'; // Tracks where we came from ('years' or 'subjects')
+
+    function hideAllViews() {
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('yearsView').classList.add('hidden');
+      document.getElementById('subjectsView').classList.add('hidden');
+      document.getElementById('detailView').classList.add('hidden');
+    }
+
+    function showHome() {
+      hideAllViews();
+      document.getElementById('homeView').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function showYears() {
+      hideAllViews();
+      renderYearsGrid();
+      document.getElementById('yearsView').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function showSubjects() {
+      hideAllViews();
+      renderSubjectsGrid();
+      document.getElementById('subjectsView').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function showDetail(id, parentView) {
+      currentParentView = parentView;
+      hideAllViews();
+
+      const item = CONTENT_DATA[id];
+      const fallbackTitle = id;
+      
+      const title = item ? item.title : fallbackTitle;
+      const icon = item ? item.icon : '📚';
+      const content = item ? item.content : `
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80">
+          <p class="text-xs text-slate-600">Nánari upplýsingar fyrir þennan hluta eru í vinnslu.</p>
+        </div>
+      `;
+
+      document.getElementById('detailIcon').innerText = icon;
+      document.getElementById('detailTitle').innerText = title;
+      document.getElementById('detailContent').innerHTML = content;
+
+      // Update back button text based on parent view
+      const backBtn = document.getElementById('backNavBtn');
+      if (parentView === 'years') {
+        backBtn.innerText = '← Til baka í Árganga';
+      } else if (parentView === 'subjects') {
+        backBtn.innerText = '← Til baka í Faggreinar';
+      } else {
+        backBtn.innerText = '← Til baka';
+      }
+
+      document.getElementById('detailView').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function goBackFromDetail() {
+      if (currentParentView === 'years') {
+        showYears();
+      } else if (currentParentView === 'subjects') {
+        showSubjects();
+      } else {
+        showHome();
+      }
+    }
+
+    // ----------------------------------------------------
+    // RENDER GRID TILES
+    // ----------------------------------------------------
+    function renderYearsGrid() {
+      const container = document.getElementById('yearsGrid');
+      container.innerHTML = YEARS_LIST.map(item => `
+        <button onclick="showDetail('${item.id}', 'years')" class="p-5 bg-white border border-slate-200/80 rounded-2xl hover:border-sky-600 hover:shadow-md hover:-translate-y-0.5 transition text-center group flex flex-col items-center justify-center space-y-2">
+          <span class="text-3xl group-hover:scale-110 transition duration-200">${item.icon}</span>
+          <span class="text-xs font-bold text-slate-800 group-hover:text-sky-700">${item.title}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderSubjectsGrid() {
+      const container = document.getElementById('subjectsGrid');
+      container.innerHTML = SUBJECTS_LIST.map(item => `
+        <button onclick="showDetail('${item.id}', 'subjects')" class="p-5 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-600 hover:shadow-md hover:-translate-y-0.5 transition text-center group flex flex-col items-center justify-center space-y-2">
+          <span class="text-3xl group-hover:scale-110 transition duration-200">${item.icon}</span>
+          <span class="text-xs font-bold text-slate-800 group-hover:text-amber-700">${item.title}</span>
+        </button>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
