@@ -25,12 +25,12 @@
           Skólanámskrá Vallaskóla
         </h1>
         <p class="text-sm md:text-base text-slate-500 max-w-md mx-auto pt-1">
-          Veldu flokk til að skoða námskrána, kennsluáætlanir eða faggreinar.
+          Veldu flokk til að skoða námskrána, árganga eða faggreinar.
         </p>
       </div>
     </header>
 
-    <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+    <main class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
       <!-- FLÍS 1: ALMENNUR HLUTI -->
       <button onclick="showDetail('almennt', 'home')" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-emerald-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-3xl bg-emerald-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
@@ -42,29 +42,18 @@
         </div>
       </button>
 
-      <!-- FLÍS 2: KENNSLUÁÆTLANIR -->
-      <button onclick="showYears()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-indigo-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
-        <div class="w-20 h-20 rounded-3xl bg-indigo-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
-          📋
-        </div>
-        <div>
-          <h2 class="text-xl font-bold text-slate-900 group-hover:text-indigo-700">Kennsluáætlanir</h2>
-          <p class="text-xs text-slate-500 mt-1.5">Skoða kennsluáætlanir raðað eftir árgangi (1. – 10. bekkur)</p>
-        </div>
-      </button>
-
-      <!-- FLÍS 3: ÁRGANGAR -->
+      <!-- FLÍS 2: ÁRGANGAR -->
       <button onclick="showYears()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-3xl bg-sky-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           🎓
         </div>
         <div>
           <h2 class="text-xl font-bold text-slate-900 group-hover:text-sky-700">Árgangar</h2>
-          <p class="text-xs text-slate-500 mt-1.5">Skoða námskrá eftir 1. – 10. bekk, ÍSAT og stoðkennslu</p>
+          <p class="text-xs text-slate-500 mt-1.5">Skoða námskrá og kennsluáætlanir eftir 1. – 10. bekk, ÍSAT og stoðþjónustu</p>
         </div>
       </button>
 
-      <!-- FLÍS 4: FAGGREINAR -->
+      <!-- FLÍS 3: FAGGREINAR -->
       <button onclick="showSubjects()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-amber-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-3xl bg-amber-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           📚
@@ -77,13 +66,13 @@
     </main>
   </div>
 
-  <!-- ==================== ÁRGANGASÍÐA / KENNSLUÁÆTLANIR ==================== -->
+  <!-- ==================== ÁRGANGASÍÐA ==================== -->
   <div id="yearsView" class="max-w-5xl mx-auto hidden pt-6 pb-16">
     <div class="flex items-center justify-between border-b border-slate-200/80 pb-4 mb-8">
       <button onclick="showHome()" class="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition shadow-sm border border-slate-200/60">
         ← Til baka á forsíðu
       </button>
-      <h2 class="text-xl font-extrabold text-slate-900">🎓 Árgangar & Kennsluáætlanir</h2>
+      <h2 class="text-xl font-extrabold text-slate-900">🎓 Árgangar</h2>
     </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5" id="yearsGrid"></div>
@@ -216,6 +205,67 @@
       </div>
     `;
 
+    // STOÐÞJÓNUSTA ELDRI DEILDAR (8.-10. ÁRGANGUR)
+    const STODTHJONUSTA_ELDRI = `
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        ${createTeacherCard('Bryndís Ósk Sævarsdóttir Woodward', 'Stoðþjónusta', 'bryndis@vallaskoli.is', 'bryndis.jpg')}
+        ${createTeacherCard('Íris Árný Magnúsdóttir', 'Stoðþjónusta', 'irisarny@vallaskoli.is', 'iam.jpg')}
+        ${createTeacherCard('Kristín Jónasdóttir', 'Stoðþjónusta', 'kristinj@vallaskoli.is', 'kristinj.jpg')}
+        ${createTeacherCard('Tómas Smári Guðmundsson', 'Exið / Stoðþjónusta', 'tomas@vallaskoli.is', 'tomas.jpg')}
+        ${createTeacherCard('Sigríður Margrét Gunnarsdóttir', 'Sérkennari', 'sigridurm@vallaskoli.is', 'sigridurm.jpg')}
+      </div>
+    `;
+
+    // AÐRIR KENNARAR & FAGTEYMI ELDRI DEILDAR (8.-10. ÁRGANGUR)
+    const ADRIR_ELDRI = `
+      <div class="space-y-4">
+        <div>
+          <h5 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">🎨 Verkgreinar, listgreinar og íþróttir</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            ${createTeacherCard('Aleksandar Petrovic', 'Íþróttir og sund', 'aleksandar@vallaskoli.is', 'aleksandar.jpg')}
+            ${createTeacherCard('Gylfi Birgir Sigurjónsson', 'Íþróttir og sund', 'gylfi@vallaskoli.is', 'gylfi.jpg')}
+            ${createTeacherCard('Sigríður Baxter', 'Íþróttir og sund', 'sigridur@vallaskoli.is', 'sigridur.jpg')}
+            ${createTeacherCard('Einar Ottó Antonsson', 'Íþróttir og sund', 'einar@vallaskoli.is', 'einar.jpg')}
+            ${createTeacherCard('Hannes Höskuldsson', 'Íþróttir og sund', 'hannes@vallaskoli.is', 'hannes.jpg')}
+            ${createTeacherCard('Eyberg Sólveigar Högnason', 'Meikarasmiðja', 'eyberg@vallaskoli.is', 'eyberg.jpg')}
+            ${createTeacherCard('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'halldora.jpg')}
+            ${createTeacherCard('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'daniela.jpg')}
+            ${createTeacherCard('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'thorey.jpg')}
+            ${createTeacherCard('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'bylgja.jpg')}
+            ${createTeacherCard('Guðný Guðjónsdóttir', 'Hönnun og smíði', 'gudny@vallaskoli.is', 'gudny.jpg')}
+          </div>
+        </div>
+        <div>
+          <h5 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">🗣️ Tungumálateymi</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            ${createTeacherCard('Gísli Felix Bjarnason', 'Tungumálateymi', 'gisli@vallaskoli.is', 'gisli.jpg')}
+            ${createTeacherCard('Guðbjartur Daníel Guðmundsson', 'Tungumálateymi', 'gudbjartur@vallaskoli.is', 'gudbjartur.jpg')}
+            ${createTeacherCard('Matthías Hlífar Mogensen Pálsson', 'Tungumálateymi', 'matthias@vallaskoli.is', 'matthias.jpg')}
+            ${createTeacherCard('Tinna Ósk Björnsdóttir', 'Tungumálateymi', 'tinna@vallaskoli.is', 'tinna.jpg')}
+          </div>
+        </div>
+        <div>
+          <h5 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">🌍 ÍSAM-teymi</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            ${createTeacherCard('Elsie Kristinsdóttir', 'ÍSAM-teymi', 'elsie@vallaskoli.is', 'elsie.jpg')}
+            ${createTeacherCard('Guðrún Björg Aðalsteinsdóttir', 'ÍSAM-teymi', 'gudrunb@vallaskoli.is', 'gudrunb.jpg')}
+            ${createTeacherCard('Guðríður Svava Óskarsdóttir', 'ÍSAM-teymi', 'gudridur@vallaskoli.is', 'gudridur.jpg')}
+            ${createTeacherCard('Íris Dröfn Kristjánsdóttir', 'ÍSAM-teymi', 'irisdrofn@vallaskoli.is', 'idk.jpg')}
+          </div>
+        </div>
+        <div>
+          <h5 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">📐 STÆ / NÁT teymi</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            ${createTeacherCard('Hólmar Höskuldsson', 'STÆ / NÁT teymi', 'holmar@vallaskoli.is', 'holmar.jpg')}
+            ${createTeacherCard('Magdalena Markowska', 'STÆ / NÁT teymi', 'magdalena@vallaskoli.is', 'magdalena.jpg')}
+            ${createTeacherCard('Stefán Ármann Þórðarson', 'STÆ / NÁT teymi', 'stefan@vallaskoli.is', 'stefan.jpg')}
+            ${createTeacherCard('Ríkharður Sverrisson', 'STÆ / NÁT teymi', 'rikhardur@vallaskoli.is', 'rikhardur.jpg')}
+            ${createTeacherCard('Sigurður Halldór Jesson', 'STÆ / NÁT teymi', 'sigurdur@vallaskoli.is', 'sigurdur.jpg')}
+          </div>
+        </div>
+      </div>
+    `;
+
     // HJÁLPARFALL FYRIR HINN FIMMTIPTA RAMMA FYRIR STARFSFÓLK
     function renderStaffSection(umsjonHtml, stodHtml, studningHtml, adrirHtml, stjornendurHtml) {
       return `
@@ -245,7 +295,7 @@
 
           <!-- 4. AÐRIR KENNARAR -->
           <div class="space-y-3 pt-4 border-t border-slate-100">
-            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🎨 Aðrir kennarar</h4>
+            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🎨 Aðrir kennarar & Fagteymi</h4>
             ${adrirHtml}
           </div>
 
@@ -292,7 +342,6 @@
         icon: '🌱',
         content: `
           <div class="space-y-6">
-            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 1. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -305,7 +354,6 @@
               </div>
             </div>
 
-            <!-- STARFSFÓLK -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Bertha María Arnardóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'bertha.jpg')}
@@ -330,7 +378,6 @@
               MANAGERS_YNGRI
             )}
 
-            <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
               <div>
@@ -339,7 +386,6 @@
                   Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
@@ -350,19 +396,16 @@
                   <li><strong>Málnotkun:</strong> Þekkja einkenni málsins, ríma og fara í orðaleiki.</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600">Lestrarland 1 & 2, Skrift 1a & 1b og ýmis útprentuð verkefni.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Símat, verkefnavinna, lesfimi 3x á ári og lesskimunin „Leið til læsis“.</p>
               </div>
             </div>
 
-            <!-- STÆRÐFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
               <div>
@@ -371,7 +414,6 @@
                   Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag og vísindi. Lögð er áhersla á að nemendur öðlist alhliða hæfni til að nota stærðfræði í daglegu lífi og leik.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
@@ -380,12 +422,10 @@
                   <li>Algebra: Kanna, búa til og tjá sig um reglur í talnarunum og myndrænum mynstrum.</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600">Sproti 1a & 1b (nemendabók og æfingahefti), Skrift tölustafir, Stærðfræðispæjarar (valdir kaflar) og stærðfræðihefti.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Símat og verkefnavinna út frá matskvörðunum: Hæfni náð, Á góðri leið, Þarfnast þjálfunar.</p>
@@ -399,7 +439,6 @@
         icon: '🍃',
         content: `
           <div class="space-y-6">
-            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 2. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -412,7 +451,6 @@
               </div>
             </div>
 
-            <!-- STARFSFÓLK -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Hrönn Bjarnadóttir', 'Umsjónarkennari', 'hronn@vallaskoli.is', 'hronn.jpg')}
@@ -435,7 +473,6 @@
               MANAGERS_YNGRI
             )}
 
-            <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
               <div>
@@ -444,7 +481,6 @@
                   Efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið & Kennsluáætlun</h4>
                 <p class="text-xs md:text-sm text-slate-600 mb-2">Lestur og heimalestur fer fram daglega allt árið. Unnið er með öll hæfniviðmið í íslensku jafnt og þétt yfir skólaárið:</p>
@@ -456,19 +492,16 @@
                   <li><strong>Málnotkun:</strong> Einkenni máls, orðaleikir, rím og stafrófsröðun.</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600">Ritrún 1 og 2, Litla Lesrún, Skrift 2a og 2b, Út fyrir bókina, Orð og setningar (Skólavefurinn), iPad öpp og lestrarbækur við hæfi.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Reglulegt leiðsagnarmat, verkefnavinna og lesfimipróf þrisvar á ári (september, janúar og maí).</p>
               </div>
             </div>
 
-            <!-- STÆRÐFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
               <div>
@@ -477,7 +510,6 @@
                   Öðlast alhliða hæfni og skilning til að nota stærðfræði sem verkfæri í daglegu lífi, leik og starfi.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
@@ -495,7 +527,6 @@
         icon: '🌿',
         content: `
           <div class="space-y-6">
-            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 3. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -508,7 +539,6 @@
               </div>
             </div>
 
-            <!-- STARFSFÓLK -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Birna Jóhanna Sævarsdóttir', 'Umsjónarkennari', 'birna@vallaskoli.is', 'birna.jpg')}
@@ -532,7 +562,6 @@
               MANAGERS_YNGRI
             )}
 
-            <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
               <div>
@@ -541,7 +570,6 @@
                   Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið & Kennsluáætlun</h4>
                 <p class="text-xs md:text-sm text-slate-600 mb-2">Lestur og heimalestur fer fram daglega allt árið. Unnið er með öll hæfniviðmið jafnt og þétt yfir skólaárið:</p>
@@ -553,19 +581,16 @@
                   <li><strong>Málnotkun:</strong> Einkenni máls, hlutverk nafnorða, lýsingarorða og sagnorða, stafrófsröðun.</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600">Ritrún 3, Lesrún, Skrift 2a og 2b (Ítalíuskrift), Blái blýanturinn, Setningar og málsgreinar, lestrar- og hljóðbækur af bókasafni.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Lesfimipróf (september, janúar og maí), símat í málfræði, skrift og ritun ásamt stuttum könnunum.</p>
               </div>
             </div>
 
-            <!-- STÆRÐFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
               <div>
@@ -574,7 +599,6 @@
                   Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag og vísindi. Nemendur þróa lausnaaðferðir, ígrunda og leysa þrautir.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
@@ -592,7 +616,6 @@
         icon: '☘️',
         content: `
           <div class="space-y-6">
-            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 4. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -605,7 +628,6 @@
               </div>
             </div>
 
-            <!-- STARFSFÓLK -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Erna Stefnisdóttir', 'Umsjónarkennari', 'erna@vallaskoli.is', 'erna.jpg')}
@@ -630,7 +652,6 @@
               MANAGERS_YNGRI
             )}
 
-            <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
               <div>
@@ -639,12 +660,10 @@
                   Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600">Setningar og málsgreinar 1, 2, 3 og málsgreinar og mas 1, 2, 3; Lesrún 1 og 2; Skinna 1; Könnum kortin 1 og 2; Ítalíuskrift 4A og 4B; ljóð og söngvar; verkefni úr Skólavefnum og MMS og lestrarbækur við hæfi.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
@@ -653,7 +672,6 @@
               </div>
             </div>
 
-            <!-- STÆRÐFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
               <div>
@@ -662,12 +680,10 @@
                   Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag, vísindi og tækni. Lögð er áhersla á skapandi hugsun, röksemdir og tilraunir.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600">Sproti 4a og 4b (nemendabók og æfingahefti), Könnum kortin, Stærðfræðispæjarar og önnur fjölbreytt verkefni.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Símat og stuttar kannanir eftir hvern kafla ásamt stöðu- og framvinduprófi í mars.</p>
@@ -704,7 +720,6 @@
         icon: '🌲',
         content: `
           <div class="space-y-6">
-            <!-- ALMENNT UM 6. ÁRGANG -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 6. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -716,7 +731,6 @@
               </div>
             </div>
 
-            <!-- STARFSFÓLK Í 6. ÁRGANGI -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Karitas Nína Viðarsdóttir', 'Umsjónarkennari', 'karitas@vallaskoli.is', 'karitas.jpg')}
@@ -729,7 +743,6 @@
               MANAGERS_YNGRI
             )}
 
-            <!-- 📖 ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
               <div>
@@ -738,7 +751,6 @@
                   Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika í daglegu lífi, leik og starfi. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Kennsluáætlun & Lotur</h4>
                 <div class="space-y-3 text-xs md:text-sm text-slate-600">
@@ -756,14 +768,12 @@
                   </div>
                 </div>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Leiðsagnarmat og sjálfstæð vinnubrögð. Unnið með vinnubók, hópavinnu (jafningjamat) og einstaklingsvinnu (sjálfsmat).</p>
               </div>
             </div>
 
-            <!-- 📐 STÆRÐFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
               <div>
@@ -774,7 +784,6 @@
               </div>
             </div>
 
-            <!-- 🇬🇧 ENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇬🇧 Enska</h3>
               <div>
@@ -783,7 +792,6 @@
                   Tungumálanám á að veita nemendum tækifæri til að rækta með sér tilfinningu fyrir félagslegum og menningarlegum aðstæðum og auka vitund um tækifæri alþjóðasamfélagsins.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Kennsluáætlun</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-slate-600">
@@ -795,7 +803,6 @@
                   <li><strong>Maí–júní:</strong> <em>Listen, read & create</em> (Mystery story, stuttmynd, smásögur, listening comprehension).</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-slate-600">
@@ -805,14 +812,12 @@
                   <li>Stuttmyndir, myndbönd og fjölbreytt kennaragerð verkefni (Mystery, ritun, o.fl.)</li>
                 </ul>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Melt er lestur, lesskilningur, hlustun, samskipti, frásögn, ritun, menningarlæsi og vinnusemi.</p>
               </div>
             </div>
 
-            <!-- 🇩🇰 DANSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇩🇰 Danska</h3>
               <div>
@@ -821,7 +826,6 @@
                   Megintilgangur dönskunáms er að nemendur öðlist alhliða hæfni til að nota dönsku sem lifandi verkfæri og öðlist skilning á skyldleika norrænu tungumálanna.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Kennsluáætlun</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-slate-600">
@@ -833,19 +837,16 @@
                   <li><strong>Maí–júní:</strong> 6. Lestur, orðaforði og upprifjun (Samþætting og uppsóp).</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600"><strong>Start og Smart</strong> (lesbækur og vinnubækur), hlustunaræfingar, verkefnablöð, leikir og ítarefni.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Símat byggt á les- og vinnubókum, hlustun, lesskilningi, verkefnum um fjölskylduna og munnlegri þátttöku.</p>
               </div>
             </div>
 
-            <!-- 🔬 NÁTTÚRUFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🔬 Náttúrufræði</h3>
               <div>
@@ -854,7 +855,6 @@
                   Efla vísindalæsi nemenda svo þeir geti notað hugtök úr náttúrugreinum í daglegu lífi, skilgreint manngerð og náttúruleg fyrirbæri og skilgreint samspil manns og náttúru.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Kennsluáætlun & Lotur</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-slate-600">
@@ -866,19 +866,16 @@
                   <li><strong>Lota 6 (Apríl–júní):</strong> Efni og efnafræði (frumeindir, lotukerfið, efnatákn, sýrur og basar, tilraunir).</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600"><strong>Náttúrulega 2</strong> (lesbók og vinnubók), Grænu skrefin, glósur, tilraunir og rafrænt efni.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Símat, vinnubækur, verklegar æfingar/tilraunir, einstaklings- og hópverkefni og kynningar.</p>
               </div>
             </div>
 
-            <!-- 🗺️ SAMFÉLAGSFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🗺️ Samfélagsfræði</h3>
               <div>
@@ -887,7 +884,6 @@
                   Þroska hæfni nemenda til að skilja sjálfan sig og aðra, skilja umhverfið, samfélagið, söguna og menninguna og taka virkan þátt í lýðræðislegri samræðu.
                 </p>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Kennsluáætlun</h4>
                 <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-slate-600">
@@ -900,12 +896,10 @@
                   <li><strong>Maí–júní:</strong> 7. Jörðin okkar og Ísland í samfélagi þjóða (Þorskastríðið og upprifjun).</li>
                 </ul>
               </div>
-
               <div>
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
                 <p class="text-xs md:text-sm text-slate-600"><strong>Norðurlönd</strong> (lesbók og vinnubók), <strong>Frá Róm til Þingvalla</strong> og <strong>Lífið í Ásgarði</strong> ásamt ítarefni.</p>
               </div>
-
               <div class="pt-3 border-t border-slate-100">
                 <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
                 <p class="text-xs md:text-sm text-slate-600">Símat, vinnubókarvinna, kynningar, kortavinna, upplýsingaleit og þátttaka í samræðum.</p>
@@ -919,17 +913,66 @@
         icon: '🌳', 
         content: `
           <div class="space-y-6">
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
-              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">7. árgangur</h3>
-              <p class="text-xs md:text-sm text-slate-600">Upphaf dönskukennslu og undirbúningur fyrir unglingastig.</p>
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 7. árgang</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
+                <p><strong>Fjöldi nemenda:</strong> 47 nemendur (skólaárið 2026–2027)</p>
+                <p><strong>Heimastofur:</strong> Stofur 18 og 19 á miðgangi skólans (gengið inn um Engjavegsinngang)</p>
+                <p><strong>Kennslutími:</strong> Þriðjudaga, miðvikudaga og föstudaga kl. 8:10; mánudaga og fimmtudaga kl. 8:50 (30 stundir/viku)</p>
+                <p><strong>Frímínútur:</strong> Kl. 10:10 – 10:30 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á mínÁrborg)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund, list- og verkgreinar og hefja dönskukennslu.</p>
+              </div>
             </div>
+
             ${renderStaffSection(
-              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 7. árgangs.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
-              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Kristrún Helga Marínósdóttir', 'Umsjónarkennari', 'kristrun@vallaskoli.is', 'kristrun.jpg')}
+                ${createTeacherCard('María Björg Gunnarsdóttir', 'Umsjónarkennari', 'mariabjorg@vallaskoli.is', 'mariabjorg.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Sigríður Margrét Gunnarsdóttir', 'Sérkennari', 'sigridurm@vallaskoli.is', 'sigridurm.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Harpa Rannveig Helgadóttir', 'Stuðningsfulltrúi', 'harpa@vallaskoli.is', 'harpa.jpg')}
+                ${createTeacherCard('Klaudia Adamovitch', 'Stuðningsfulltrúi', 'klaudia@vallaskoli.is', 'klaudia.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Aleksandar Petrovic', 'Íþróttir og sund', 'aleksandar@vallaskoli.is', 'aleksandar.jpg')}
+                ${createTeacherCard('Gylfi Birgir Sigurjónsson', 'Íþróttir og sund', 'gylfi@vallaskoli.is', 'gylfi.jpg')}
+                ${createTeacherCard('Sigríður Baxter', 'Íþróttir og sund', 'sigridur@vallaskoli.is', 'sigridur.jpg')}
+                ${createTeacherCard('Einar Ottó Antonsson', 'Íþróttir og sund', 'einar@vallaskoli.is', 'einar.jpg')}
+                ${createTeacherCard('Hannes Höskuldsson', 'Íþróttir og sund', 'hannes@vallaskoli.is', 'hannes.jpg')}
+                ${createTeacherCard('Eyberg Sólveigar Högnason', 'Meikarasmiðja', 'eyberg@vallaskoli.is', 'eyberg.jpg')}
+                ${createTeacherCard('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'halldora.jpg')}
+                ${createTeacherCard('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'daniela.jpg')}
+                ${createTeacherCard('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'thorey.jpg')}
+                ${createTeacherCard('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'bylgja.jpg')}
+                ${createTeacherCard('Guðný Guðjónsdóttir', 'Hönnun og smíði', 'gudny@vallaskoli.is', 'gudny.jpg')}
+              </div>`,
               MANAGERS_ELDRI
             )}
+
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag, efnahag, vísindi, tækni og stafræna þróun.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇩🇰 Danska</h3>
+              <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                Danska er annað erlenda tungumálið sem nemendur læra í grunnskóla. Tilgangurinn er að viðhalda og styrkja tengsl við Norðurlandaþjóðirnar og öðlast skilning á norrænni menningu.
+              </p>
+            </div>
           </div>
         ` 
       },
@@ -943,10 +986,13 @@
               <p class="text-xs md:text-sm text-slate-600">Enska (Next Up), Danska (Tak), Íslenska og Stærðfræði.</p>
             </div>
             ${renderStaffSection(
-              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 8. árgangs.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
-              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Tómas Smári Guðmundsson', 'Umsjónarkennari', 'tomas@vallaskoli.is', 'tomas.jpg')}
+                ${createTeacherCard('Matthías Hlífar Mogensen Pálsson', 'Umsjónarkennari', 'matthias@vallaskoli.is', 'matthias.jpg')}
+              </div>`,
+              STODTHJONUSTA_ELDRI,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar eldri deildar.</p>`,
+              ADRIR_ELDRI,
               MANAGERS_ELDRI
             )}
           </div>
@@ -962,10 +1008,14 @@
               <p class="text-xs md:text-sm text-slate-600">Aukin dýpt í bókmenntum (Holes), algebru og vísindum.</p>
             </div>
             ${renderStaffSection(
-              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 9. árgangs.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
-              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Guðríður Svava Óskarsdóttir', 'Umsjónarkennari', 'gudridur@vallaskoli.is', 'gudridur.jpg')}
+                ${createTeacherCard('Hólmar Höskuldsson', 'Umsjónarkennari', 'holmar@vallaskoli.is', 'holmar.jpg')}
+                ${createTeacherCard('Stefán Ármann Þórðarson', 'Umsjónarkennari', 'stefan@vallaskoli.is', 'stefan.jpg')}
+              </div>`,
+              STODTHJONUSTA_ELDRI,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar eldri deildar.</p>`,
+              ADRIR_ELDRI,
               MANAGERS_ELDRI
             )}
           </div>
@@ -981,10 +1031,14 @@
               <p class="text-xs md:text-sm text-slate-600">Lokaárgangur grunnskóla og brautskráning.</p>
             </div>
             ${renderStaffSection(
-              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 10. árgangs.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
-              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Elsie Kristinsdóttir', 'Umsjónarkennari', 'elsie@vallaskoli.is', 'elsie.jpg')}
+                ${createTeacherCard('Guðbjartur Daníel Guðmundsson', 'Umsjónarkennari', 'gudbjartur@vallaskoli.is', 'gudbjartur.jpg')}
+                ${createTeacherCard('Íris Dröfn Kristjánsdóttir', 'Umsjónarkennari', 'irisdrofn@vallaskoli.is', 'idk.jpg')}
+              </div>`,
+              STODTHJONUSTA_ELDRI,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar eldri deildar.</p>`,
+              ADRIR_ELDRI,
               MANAGERS_ELDRI
             )}
           </div>
@@ -1001,9 +1055,9 @@
             </div>
             ${renderStaffSection(
               `<p class="text-xs text-slate-500 italic">ÍSAT kennarateymi Vallaskóla.</p>`,
-              `<p class="text-xs text-slate-500 italic">Stoðþjónusta og málörvun sérkennara.</p>`,
+              STODTHJONUSTA_ELDRI,
               `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar og tvítyngdir leiðbeinendur.</p>`,
-              `<p class="text-xs text-slate-500 italic">Aðrir kennarar.</p>`,
+              ADRIR_ELDRI,
               MANAGERS_YNGRI
             )}
           </div>
@@ -1020,14 +1074,9 @@
             </div>
             ${renderStaffSection(
               `<p class="text-xs text-slate-500 italic">Umsjónarkennarar og umsjónarþjónusta.</p>`,
-              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                ${createTeacherCard('Ingunn Guðjónsdóttir', 'Sérkennari', 'ingunn@vallaskoli.is', 'ingunn.jpg')}
-                ${createTeacherCard('Jóhanna Margrét Árnadóttir', 'Sérkennari', 'johanna@vallaskoli.is', 'johanna.jpg')}
-                ${createTeacherCard('Rannveig Bjarnfinnsdóttir', 'Sérkennari', 'rannveig@vallaskoli.is', 'rannveig.jpg')}
-                ${createTeacherCard('Elín Helga', 'Sérkennari', 'elin@vallaskoli.is', 'elin.jpg')}
-              </div>`,
+              STODTHJONUSTA_ELDRI,
               `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar Vallaskóla.</p>`,
-              `<p class="text-xs text-slate-500 italic">Aðrir kennarar og ráðgjafar.</p>`,
+              ADRIR_ELDRI,
               MANAGERS_YNGRI
             )}
           </div>
