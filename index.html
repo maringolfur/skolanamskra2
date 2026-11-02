@@ -25,41 +25,65 @@
           Skólanámskrá Vallaskóla
         </h1>
         <p class="text-sm md:text-base text-slate-500 max-w-md mx-auto pt-1">
-          Veldu hvort þú vilt skoða námskrána eftir árgangi eða faggreinum.
+          Veldu flokk til að skoða námskrána, kennsluáætlanir eða faggreinar.
         </p>
       </div>
     </header>
 
-    <main class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
-      <button onclick="showYears()" class="p-10 md:p-12 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-5">
-        <div class="w-24 h-24 rounded-3xl bg-sky-50 flex items-center justify-center text-5xl group-hover:scale-110 transition duration-300">
-          🎓
+    <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <!-- FLÍS 1: ALMENNUR HLUTI -->
+      <button onclick="showDetail('almennt', 'home')" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-emerald-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
+        <div class="w-20 h-20 rounded-3xl bg-emerald-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
+          🏫
         </div>
         <div>
-          <h2 class="text-2xl font-bold text-slate-900 group-hover:text-sky-700">Árgangar</h2>
-          <p class="text-xs md:text-sm text-slate-500 mt-2">Skoða námskrá eftir 1. – 10. bekk, ÍSAT og stoðkennslu</p>
+          <h2 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700">Almennur hluti</h2>
+          <p class="text-xs text-slate-500 mt-1.5">Stefna skólans, gildi og almennt um skólastarfið</p>
         </div>
       </button>
 
-      <button onclick="showSubjects()" class="p-10 md:p-12 bg-white border border-slate-200/80 rounded-3xl hover:border-amber-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-5">
-        <div class="w-24 h-24 rounded-3xl bg-amber-50 flex items-center justify-center text-5xl group-hover:scale-110 transition duration-300">
+      <!-- FLÍS 2: KENNSLUÁÆTLANIR (ÁRGANGAR UNDIR) -->
+      <button onclick="showYears()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-indigo-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
+        <div class="w-20 h-20 rounded-3xl bg-indigo-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
+          📋
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 group-hover:text-indigo-700">Kennsluáætlanir</h2>
+          <p class="text-xs text-slate-500 mt-1.5">Skoða kennsluáætlanir raðað eftir árgangi (1. – 10. bekkur)</p>
+        </div>
+      </button>
+
+      <!-- FLÍS 3: ÁRGANGAR -->
+      <button onclick="showYears()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-sky-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
+        <div class="w-20 h-20 rounded-3xl bg-sky-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
+          🎓
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 group-hover:text-sky-700">Árgangar</h2>
+          <p class="text-xs text-slate-500 mt-1.5">Skoða námskrá eftir 1. – 10. bekk, ÍSAT og stoðkennslu</p>
+        </div>
+      </button>
+
+      <!-- FLÍS 4: FAGGREINAR -->
+      <button onclick="showSubjects()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-amber-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
+        <div class="w-20 h-20 rounded-3xl bg-amber-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           📚
         </div>
         <div>
-          <h2 class="text-2xl font-bold text-slate-900 group-hover:text-amber-700">Faggreinar</h2>
-          <p class="text-xs md:text-sm text-slate-500 mt-2">Skoða námskrá eftir námsgreinum og fagsviðum</p>
+          <h2 class="text-xl font-bold text-slate-900 group-hover:text-amber-700">Faggreinar</h2>
+          <p class="text-xs text-slate-500 mt-1.5">Skoða námskrá eftir námsgreinum og fagsviðum</p>
         </div>
       </button>
     </main>
   </div>
 
-  <!-- ==================== ÁRGANGASÍÐA ==================== -->
+  <!-- ==================== ÁRGANGASÍÐA / KENNSLUÁÆTLANIR ==================== -->
   <div id="yearsView" class="max-w-5xl mx-auto hidden pt-6 pb-16">
     <div class="flex items-center justify-between border-b border-slate-200/80 pb-4 mb-8">
       <button onclick="showHome()" class="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition shadow-sm border border-slate-200/60">
         ← Til baka á forsíðu
       </button>
-      <h2 class="text-xl font-extrabold text-slate-900">🎓 Árgangar</h2>
+      <h2 class="text-xl font-extrabold text-slate-900">🎓 Árgangar & Kennsluáætlanir</h2>
     </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5" id="yearsGrid"></div>
@@ -160,6 +184,34 @@
     ];
 
     const CONTENT_DATA = {
+      'almennt': {
+        title: 'Almennur hluti skólanámskrár',
+        icon: '🏫',
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennur hluti Vallaskóla</h3>
+              <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                Velkomin í almenna hluta skólanámskrár Vallaskóla. Einkunnarorð skólans eru <strong>Virðing, Þekking og Lífsgleði</strong>.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <div class="p-4 bg-sky-50 rounded-2xl border border-sky-100">
+                  <h4 class="font-bold text-sky-900 text-sm mb-1">🤝 Virðing</h4>
+                  <p class="text-xs text-slate-600">Samskipti einkennast af gagnkvæmri virðingu, umburðarlyndi og góðum vinnubrögðum.</p>
+                </div>
+                <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100">
+                  <h4 class="font-bold text-amber-900 text-sm mb-1">💡 Þekking</h4>
+                  <p class="text-xs text-slate-600">Lögð er áhersla á metnaðarfullt nám, fjölbreytta kennsluhætti og sjálfstæð vinnubrögð.</p>
+                </div>
+                <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                  <h4 class="font-bold text-emerald-900 text-sm mb-1">😊 Lífsgleði</h4>
+                  <p class="text-xs text-slate-600">Skapandi og skemmtilegt skólastarf þar sem öllum nemendum líður vel.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
       'y1': {
         title: '1. árgangur — Námskrá',
         icon: '🌱',
