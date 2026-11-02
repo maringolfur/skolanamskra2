@@ -42,7 +42,7 @@
         </div>
       </button>
 
-      <!-- FLÍS 2: KENNSLUÁÆTLANIR (ÁRGANGAR UNDIR) -->
+      <!-- FLÍS 2: KENNSLUÁÆTLANIR -->
       <button onclick="showYears()" class="p-8 md:p-10 bg-white border border-slate-200/80 rounded-3xl hover:border-indigo-600 hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 text-center group flex flex-col items-center justify-center space-y-4">
         <div class="w-20 h-20 rounded-3xl bg-indigo-50 flex items-center justify-center text-4xl group-hover:scale-110 transition duration-300">
           📋
@@ -183,6 +183,81 @@
       { id: 'stod', title: 'Stoðkennsla', icon: '🤝' }
     ];
 
+    // HJÁLPARFALL TIL AÐ BÚA TIL KENNARAHNAPPA
+    function createTeacherCard(name, role, email, imgName) {
+      return `
+        <button onclick="openTeacherModal('${name}', '${role}', '${email}', 'images/${imgName}')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm w-full">
+          <img src="images/${imgName}" alt="${name}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition flex-shrink-0" onerror="this.src='https://via.placeholder.com/150?text=${encodeURIComponent(name.split(' ')[0])}';">
+          <div class="overflow-hidden">
+            <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition truncate">${name}</h5>
+            <p class="text-xs text-slate-500 truncate">${role}</p>
+          </div>
+        </button>
+      `;
+    }
+
+    // STJÓRNENDUR YNGRI DEILDAR (1.-6. ÁRGANGUR)
+    const MANAGERS_YNGRI = `
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        ${createTeacherCard('Páll Sveinsson', 'Skólastjóri', 'pall@vallaskoli.is', 'pall.jpg')}
+        ${createTeacherCard('Þorvaldur Halldór Gunnarsson', 'Aðstoðarskólastjóri', 'thorvaldur@vallaskoli.is', 'thorvaldur.jpg')}
+        ${createTeacherCard('Steinunn Húbertína Eggertsdóttir', 'Deildarstjóri yngri deild', 'steinunn@vallaskoli.is', 'steinunn.jpg')}
+        ${createTeacherCard('Hólmfríður Sigrún Gylfadóttir', 'Verkefnisstjóri yngri deild', 'holmfridur@vallaskoli.is', 'holmfridur.jpg')}
+      </div>
+    `;
+
+    // STJÓRNENDUR ELDRI DEILDAR (7.-10. ÁRGANGUR)
+    const MANAGERS_ELDRI = `
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        ${createTeacherCard('Páll Sveinsson', 'Skólastjóri', 'pall@vallaskoli.is', 'pall.jpg')}
+        ${createTeacherCard('Þorvaldur Halldór Gunnarsson', 'Aðstoðarskólastjóri', 'thorvaldur@vallaskoli.is', 'thorvaldur.jpg')}
+        ${createTeacherCard('Guðmundur Sigmarsson', 'Deildarstjóri eldri deild', 'gudmundurs@vallaskoli.is', 'gudmundurs.jpg')}
+        ${createTeacherCard('Már Ingólfur Másson', 'Verkefnisstjóri eldri deild', 'mar@vallaskoli.is', 'mar.jpg')}
+      </div>
+    `;
+
+    // HJÁLPARFALL FYRIR HINN FIMMTIPTA RAMMA FYRIR STARFSFÓLK
+    function renderStaffSection(umsjonHtml, stodHtml, studningHtml, adrirHtml, stjornendurHtml) {
+      return `
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+          <div class="flex items-center justify-between border-b pb-2">
+            <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk</h3>
+            <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
+          </div>
+
+          <!-- 1. UMSJÓNARKENNARAR -->
+          <div class="space-y-3">
+            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarar</h4>
+            ${umsjonHtml}
+          </div>
+
+          <!-- 2. STOÐÞJÓNUSTA -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🤝 Stoðþjónusta</h4>
+            ${stodHtml}
+          </div>
+
+          <!-- 3. STUÐNINGSFULLTRÚAR -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🌱 Stuðningsfulltrúar</h4>
+            ${studningHtml}
+          </div>
+
+          <!-- 4. AÐRIR KENNARAR -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🎨 Aðrir kennarar</h4>
+            ${adrirHtml}
+          </div>
+
+          <!-- 5. STJÓRNENDUR -->
+          <div class="space-y-3 pt-4 border-t border-slate-100">
+            <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🏫 Stjórnendur</h4>
+            ${stjornendurHtml}
+          </div>
+        </div>
+      `;
+    }
+
     const CONTENT_DATA = {
       'almennt': {
         title: 'Almennur hluti skólanámskrár',
@@ -231,58 +306,29 @@
             </div>
 
             <!-- STARFSFÓLK -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
-              <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 1. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
-              </div>
-              
-              <div class="space-y-3">
-                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  <button onclick="openTeacherModal('Bertha María Arnardóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'images/bertha.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/bertha.jpg" alt="Bertha María Arnardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Bertha María Arnardóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Sesselja Sólveig Jóhannesdóttir', 'Umsjónarkennari', 'sesselja@vallaskoli.is', 'images/sesselja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/sesselja.jpg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sesselja Sólveig Jóhannesdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'images/vildis.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vild%C3%ADs';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Vildís Ósk Harðardóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              <div class="space-y-2 pt-2 border-t border-slate-100">
-                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
-                  <p><strong>Aleksandar Petrovic:</strong> Íþróttir og sund</p>
-                  <p><strong>Gylfi Birgir Sigurjónsson:</strong> Íþróttir og sund</p>
-                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
-                  <p><strong>Ingunn Guðjónsdóttir:</strong> Sérkennsla</p>
-                  <p><strong>Jóhanna Margrét Árnadóttir:</strong> Sérkennsla</p>
-                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
-                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
-                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
-                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
-                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
-                </div>
-              </div>
-            </div>
+            ${renderStaffSection(
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Bertha María Arnardóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'bertha.jpg')}
+                ${createTeacherCard('Sesselja Sólveig Jóhannesdóttir', 'Umsjónarkennari', 'sesselja@vallaskoli.is', 'sesselja.jpg')}
+                ${createTeacherCard('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'vildis.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Ingunn Guðjónsdóttir', 'Sérkennari', 'ingunn@vallaskoli.is', 'ingunn.jpg')}
+                ${createTeacherCard('Jóhanna Margrét Árnadóttir', 'Sérkennari', 'johanna@vallaskoli.is', 'johanna.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar í yngri deild sinna árganginum.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Aleksandar Petrovic', 'Íþróttir og sund', 'aleksandar@vallaskoli.is', 'aleksandar.jpg')}
+                ${createTeacherCard('Gylfi Birgir Sigurjónsson', 'Íþróttir og sund', 'gylfi@vallaskoli.is', 'gylfi.jpg')}
+                ${createTeacherCard('Sigríður Baxter', 'Íþróttir og sund', 'sigridur@vallaskoli.is', 'sigridur.jpg')}
+                ${createTeacherCard('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'halldora.jpg')}
+                ${createTeacherCard('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'daniela.jpg')}
+                ${createTeacherCard('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'thorey.jpg')}
+                ${createTeacherCard('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'bylgja.jpg')}
+                ${createTeacherCard('Guðný Guðjónsdóttir', 'Hönnun og smíði', 'gudny@vallaskoli.is', 'gudny.jpg')}
+              </div>`,
+              MANAGERS_YNGRI
+            )}
 
             <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
@@ -367,49 +413,27 @@
             </div>
 
             <!-- STARFSFÓLK -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
-              <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 2. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
-              </div>
-              
-              <div class="space-y-3">
-                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  <button onclick="openTeacherModal('Hrönn Bjarnadóttir', 'Umsjónarkennari', 'hronn@vallaskoli.is', 'images/hronn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/hronn.jpg" alt="Hrönn Bjarnadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Hr%C3%B6nn';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Hrönn Bjarnadóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Kristín Vilhjálmsdóttir', 'Umsjónarkennari', 'kristin@vallaskoli.is', 'images/kristin.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/kristin.jpg" alt="Kristín Vilhjálmsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Krist%C3%ADn';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Kristín Vilhjálmsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              <div class="space-y-2 pt-2 border-t border-slate-100">
-                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
-                  <p><strong>Einar Ottó Antonsson:</strong> Íþróttir og sund</p>
-                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
-                  <p><strong>Ingunn Guðjónsdóttir:</strong> Sérkennsla</p>
-                  <p><strong>Jóhanna Margrét Árnadóttir:</strong> Sérkennsla</p>
-                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
-                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
-                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
-                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
-                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
-                </div>
-              </div>
-            </div>
+            ${renderStaffSection(
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Hrönn Bjarnadóttir', 'Umsjónarkennari', 'hronn@vallaskoli.is', 'hronn.jpg')}
+                ${createTeacherCard('Kristín Vilhjálmsdóttir', 'Umsjónarkennari', 'kristin@vallaskoli.is', 'kristinv.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Ingunn Guðjónsdóttir', 'Sérkennari', 'ingunn@vallaskoli.is', 'ingunn.jpg')}
+                ${createTeacherCard('Jóhanna Margrét Árnadóttir', 'Sérkennari', 'johanna@vallaskoli.is', 'johanna.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar í yngri deild sinna árganginum.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Einar Ottó Antonsson', 'Íþróttir og sund', 'einar@vallaskoli.is', 'einar.jpg')}
+                ${createTeacherCard('Sigríður Baxter', 'Íþróttir og sund', 'sigridur@vallaskoli.is', 'sigridur.jpg')}
+                ${createTeacherCard('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'halldora.jpg')}
+                ${createTeacherCard('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'daniela.jpg')}
+                ${createTeacherCard('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'thorey.jpg')}
+                ${createTeacherCard('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'bylgja.jpg')}
+                ${createTeacherCard('Guðný Guðjónsdóttir', 'Hönnun og smíði', 'gudny@vallaskoli.is', 'gudny.jpg')}
+              </div>`,
+              MANAGERS_YNGRI
+            )}
 
             <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
@@ -485,50 +509,28 @@
             </div>
 
             <!-- STARFSFÓLK -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
-              <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 3. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
-              </div>
-              
-              <div class="space-y-3">
-                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  <button onclick="openTeacherModal('Birna Jóhanna Sævarsdóttir', 'Umsjónarkennari', 'birna@vallaskoli.is', 'images/birna.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/birna.jpg" alt="Birna Jóhanna Sævarsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Birna';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Birna Jóhanna Sævarsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Guðrún María Sæmundsdóttir', 'Umsjónarkennari', 'gudrun@vallaskoli.is', 'images/gudrun.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/gudrun.jpg" alt="Guðrún María Sæmundsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Gu%C3%B0r%C3%BAn';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Guðrún María Sæmundsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              <div class="space-y-2 pt-2 border-t border-slate-100">
-                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
-                  <p><strong>Aleksandar Petrovic:</strong> Íþróttir og sund</p>
-                  <p><strong>Gylfi Birgir Sigurjónsson:</strong> Íþróttir og sund</p>
-                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
-                  <p><strong>Ingunn Guðjónsdóttir:</strong> Sérkennsla</p>
-                  <p><strong>Jóhanna Margrét Árnadóttir:</strong> Sérkennsla</p>
-                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
-                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
-                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
-                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
-                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
-                </div>
-              </div>
-            </div>
+            ${renderStaffSection(
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Birna Jóhanna Sævarsdóttir', 'Umsjónarkennari', 'birna@vallaskoli.is', 'birna.jpg')}
+                ${createTeacherCard('Guðrún María Sæmundsdóttir', 'Umsjónarkennari', 'gudrun@vallaskoli.is', 'gudrun.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Ingunn Guðjónsdóttir', 'Sérkennari', 'ingunn@vallaskoli.is', 'ingunn.jpg')}
+                ${createTeacherCard('Jóhanna Margrét Árnadóttir', 'Sérkennari', 'johanna@vallaskoli.is', 'johanna.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar í yngri deild sinna árganginum.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Aleksandar Petrovic', 'Íþróttir og sund', 'aleksandar@vallaskoli.is', 'aleksandar.jpg')}
+                ${createTeacherCard('Gylfi Birgir Sigurjónsson', 'Íþróttir og sund', 'gylfi@vallaskoli.is', 'gylfi.jpg')}
+                ${createTeacherCard('Sigríður Baxter', 'Íþróttir og sund', 'sigridur@vallaskoli.is', 'sigridur.jpg')}
+                ${createTeacherCard('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'halldora.jpg')}
+                ${createTeacherCard('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'daniela.jpg')}
+                ${createTeacherCard('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'thorey.jpg')}
+                ${createTeacherCard('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'bylgja.jpg')}
+                ${createTeacherCard('Guðný Guðjónsdóttir', 'Hönnun og smíði', 'gudny@vallaskoli.is', 'gudny.jpg')}
+              </div>`,
+              MANAGERS_YNGRI
+            )}
 
             <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
@@ -604,58 +606,29 @@
             </div>
 
             <!-- STARFSFÓLK -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
-              <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 4. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
-              </div>
-              
-              <div class="space-y-3">
-                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  <button onclick="openTeacherModal('Erna Stefnisdóttir', 'Umsjónarkennari', 'erna@vallaskoli.is', 'images/erna.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/erna.jpg" alt="Erna Stefnisdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Erna';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Erna Stefnisdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Lilja Ósk Kristbjörnsdóttir', 'Umsjónarkennari', 'lilja@vallaskoli.is', 'images/lilja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/lilja.jpg" alt="Lilja Ósk Kristbjörnsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Lilja';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Lilja Ósk Kristbjörnsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Anna Hrund Helgadóttir', 'Umsjónarkennari', 'annahrund@vallaskoli.is', 'images/annahrund.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/annahrund.jpg" alt="Anna Hrund Helgadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Anna';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Anna Hrund Helgadóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              <div class="space-y-2 pt-2 border-t border-slate-100">
-                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
-                  <p><strong>Aleksandar Petrovic:</strong> Íþróttir og sund</p>
-                  <p><strong>Gylfi Birgir Sigurjónsson:</strong> Íþróttir og sund</p>
-                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
-                  <p><strong>Rannveig Bjarnfinnsdóttir:</strong> Sérkennsla</p>
-                  <p><strong>Elín Helga:</strong> Sérkennsla</p>
-                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
-                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
-                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
-                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
-                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
-                </div>
-              </div>
-            </div>
+            ${renderStaffSection(
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Erna Stefnisdóttir', 'Umsjónarkennari', 'erna@vallaskoli.is', 'erna.jpg')}
+                ${createTeacherCard('Lilja Ósk Kristbjörnsdóttir', 'Umsjónarkennari', 'lilja@vallaskoli.is', 'lilja.jpg')}
+                ${createTeacherCard('Anna Hrund Helgadóttir', 'Umsjónarkennari', 'annahrund@vallaskoli.is', 'annahrund.jpg')}
+              </div>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Rannveig Bjarnfinnsdóttir', 'Sérkennari', 'rannveig@vallaskoli.is', 'rannveig.jpg')}
+                ${createTeacherCard('Elín Helga', 'Sérkennari', 'elin@vallaskoli.is', 'elin.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar í yngri deild sinna árganginum.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Aleksandar Petrovic', 'Íþróttir og sund', 'aleksandar@vallaskoli.is', 'aleksandar.jpg')}
+                ${createTeacherCard('Gylfi Birgir Sigurjónsson', 'Íþróttir og sund', 'gylfi@vallaskoli.is', 'gylfi.jpg')}
+                ${createTeacherCard('Sigríður Baxter', 'Íþróttir og sund', 'sigridur@vallaskoli.is', 'sigridur.jpg')}
+                ${createTeacherCard('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'halldora.jpg')}
+                ${createTeacherCard('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'daniela.jpg')}
+                ${createTeacherCard('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'thorey.jpg')}
+                ${createTeacherCard('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'bylgja.jpg')}
+                ${createTeacherCard('Guðný Guðjónsdóttir', 'Hönnun og smíði', 'gudny@vallaskoli.is', 'gudny.jpg')}
+              </div>`,
+              MANAGERS_YNGRI
+            )}
 
             <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
@@ -710,8 +683,19 @@
           <div class="space-y-6">
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 5. árgang</h3>
-              <p class="text-xs md:text-sm text-slate-600">Umsjónarkennarar: Astrid Jóhanna Kristjánsdóttir og Sigfús Margrétarson.</p>
+              <p class="text-xs md:text-sm text-slate-600">Kennsluáætlun og námskrá 5. árgangs skólaárið 2026–2027.</p>
             </div>
+
+            ${renderStaffSection(
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Astrid Jóhanna Kristjánsdóttir', 'Umsjónarkennari', 'astrid@vallaskoli.is', 'astrid.jpg')}
+                ${createTeacherCard('Sigfús Margrétarson', 'Umsjónarkennari', 'sigfus@vallaskoli.is', 'sigfus.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Sérkennarar og stoðþjónusta yngri deildar.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
+              `<p class="text-xs text-slate-500 italic">Fagkennarar í list-, verk- og íþróttagreinum.</p>`,
+              MANAGERS_YNGRI
+            )}
           </div>
         `
       },
@@ -733,43 +717,17 @@
             </div>
 
             <!-- STARFSFÓLK Í 6. ÁRGANGI -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
-              <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 6. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
-              </div>
-              
-              <div class="space-y-3">
-                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <span>👩‍🏫 Umsjónarkennarateymi</span>
-                </h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  <button onclick="openTeacherModal('Karitas Nína Viðarsdóttir', 'Umsjónarkennari', 'karitas@vallaskoli.is', 'images/karitas.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/karitas.jpg" alt="Karitas Nína Viðarsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Karitas';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Karitas Nína Viðarsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('Íris Arna Steinarsdóttir', 'Umsjónarkennari', 'iris@vallaskoli.is', 'images/irisa.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/irisa.jpg" alt="Íris Arna Steinarsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Íris';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Íris Arna Steinarsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-
-                  <button onclick="openTeacherModal('María Ágústsdóttir', 'Umsjónarkennari', 'maria@vallaskoli.is', 'images/mariaa.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/mariaa.jpg" alt="María Ágústsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=María';">
-                    <div>
-                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">María Ágústsdóttir</h5>
-                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
+            ${renderStaffSection(
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Karitas Nína Viðarsdóttir', 'Umsjónarkennari', 'karitas@vallaskoli.is', 'karitas.jpg')}
+                ${createTeacherCard('Íris Arna Steinarsdóttir', 'Umsjónarkennari', 'iris@vallaskoli.is', 'irisa.jpg')}
+                ${createTeacherCard('María Ágústsdóttir', 'Umsjónarkennari', 'maria@vallaskoli.is', 'mariaa.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Sérkennarar og stoðþjónusta yngri deildar.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
+              `<p class="text-xs text-slate-500 italic">Fagkennarar í list-, verk-, tungumála- og íþróttagreinum.</p>`,
+              MANAGERS_YNGRI
+            )}
 
             <!-- 📖 ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
@@ -956,12 +914,125 @@
           </div>
         `
       },
-      'y7': { title: '7. árgangur — Námskrá', icon: '🌳', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">7. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Upphaf dönskukennslu og undirbúningur fyrir unglingastig.</p></div>` },
-      'y8': { title: '8. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">8. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Enska (Next Up), Danska (Tak), Íslenska og Stærðfræði.</p></div>` },
-      'y9': { title: '9. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">9. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Aukin dýpt í bókmenntum (Holes), algebru og vísindum.</p></div>` },
-      'y10': { title: '10. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">10. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Lokaárgangur grunnskóla og brautskráning.</p></div>` },
-      'isat': { title: 'ÍSAT — Íslenska sem annað mál', icon: '🌍', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">ÍSAT</h3><p class="text-xs md:text-sm text-slate-600">Málörvun fyrir nemendur með annað móðurmál en íslensku.</p></div>` },
-      'stod': { title: 'Stoðkennsla & Sérkennsla', icon: '🤝', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-3"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">Stoðþjónusta</h3><p class="text-xs md:text-sm text-slate-600">Einstaklingsbundinn stuðningur og sérkennsla.</p></div>` }
+      'y7': { 
+        title: '7. árgangur — Námskrá', 
+        icon: '🌳', 
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">7. árgangur</h3>
+              <p class="text-xs md:text-sm text-slate-600">Upphaf dönskukennslu og undirbúningur fyrir unglingastig.</p>
+            </div>
+            ${renderStaffSection(
+              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 7. árgangs.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
+              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              MANAGERS_ELDRI
+            )}
+          </div>
+        ` 
+      },
+      'y8': { 
+        title: '8. árgangur — Unglingastig', 
+        icon: '🎓', 
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">8. árgangur</h3>
+              <p class="text-xs md:text-sm text-slate-600">Enska (Next Up), Danska (Tak), Íslenska og Stærðfræði.</p>
+            </div>
+            ${renderStaffSection(
+              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 8. árgangs.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
+              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              MANAGERS_ELDRI
+            )}
+          </div>
+        ` 
+      },
+      'y9': { 
+        title: '9. árgangur — Unglingastig', 
+        icon: '🎓', 
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">9. árgangur</h3>
+              <p class="text-xs md:text-sm text-slate-600">Aukin dýpt í bókmenntum (Holes), algebru og vísindum.</p>
+            </div>
+            ${renderStaffSection(
+              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 9. árgangs.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
+              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              MANAGERS_ELDRI
+            )}
+          </div>
+        ` 
+      },
+      'y10': { 
+        title: '10. árgangur — Unglingastig', 
+        icon: '🎓', 
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">10. árgangur</h3>
+              <p class="text-xs md:text-sm text-slate-600">Lokaárgangur grunnskóla og brautskráning.</p>
+            </div>
+            ${renderStaffSection(
+              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar 10. árgangs.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stoðþjónustuteymi eldri deildar.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar árgangsins.</p>`,
+              `<p class="text-xs text-slate-500 italic">Fagkennarar eldri deildar.</p>`,
+              MANAGERS_ELDRI
+            )}
+          </div>
+        ` 
+      },
+      'isat': { 
+        title: 'ÍSAT — Íslenska sem annað mál', 
+        icon: '🌍', 
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-3">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">ÍSAT</h3>
+              <p class="text-xs md:text-sm text-slate-600">Málörvun fyrir nemendur með annað móðurmál en íslensku.</p>
+            </div>
+            ${renderStaffSection(
+              `<p class="text-xs text-slate-500 italic">ÍSAT kennarateymi Vallaskóla.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stoðþjónusta og málörvun sérkennara.</p>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar og tvítyngdir leiðbeinendur.</p>`,
+              `<p class="text-xs text-slate-500 italic">Aðrir kennarar.</p>`,
+              MANAGERS_YNGRI
+            )}
+          </div>
+        ` 
+      },
+      'stod': { 
+        title: 'Stoðkennsla & Sérkennsla', 
+        icon: '🤝', 
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-3">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">Stoðþjónusta</h3>
+              <p class="text-xs md:text-sm text-slate-600">Einstaklingsbundinn stuðningur og sérkennsla.</p>
+            </div>
+            ${renderStaffSection(
+              `<p class="text-xs text-slate-500 italic">Umsjónarkennarar og umsjónarþjónusta.</p>`,
+              `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                ${createTeacherCard('Ingunn Guðjónsdóttir', 'Sérkennari', 'ingunn@vallaskoli.is', 'ingunn.jpg')}
+                ${createTeacherCard('Jóhanna Margrét Árnadóttir', 'Sérkennari', 'johanna@vallaskoli.is', 'johanna.jpg')}
+                ${createTeacherCard('Rannveig Bjarnfinnsdóttir', 'Sérkennari', 'rannveig@vallaskoli.is', 'rannveig.jpg')}
+                ${createTeacherCard('Elín Helga', 'Sérkennari', 'elin@vallaskoli.is', 'elin.jpg')}
+              </div>`,
+              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar Vallaskóla.</p>`,
+              `<p class="text-xs text-slate-500 italic">Aðrir kennarar og ráðgjafar.</p>`,
+              MANAGERS_YNGRI
+            )}
+          </div>
+        ` 
+      }
     };
 
     let currentParentView = 'home';
