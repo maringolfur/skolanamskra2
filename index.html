@@ -12,7 +12,7 @@
   <div id="homeView" class="max-w-4xl mx-auto pt-8 pb-16 space-y-10">
     <header class="text-center space-y-4">
       <div class="flex justify-center mb-2">
-        <img src="logo.jpg" alt="Vallaskóli Lógó" class="h-32 md:h-40 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
+        <img src="images/logo.jpg" alt="Vallaskóli Lógó" class="h-32 md:h-40 object-contain" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='inline-flex';">
         <div id="fallbackLogo" class="hidden items-center justify-center w-28 h-28 rounded-2xl bg-sky-700 text-white font-extrabold text-4xl shadow-md">
           V
         </div>
@@ -111,7 +111,7 @@
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center relative shadow-2xl border border-slate-100 space-y-4">
       <button onclick="closeTeacherModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 font-bold text-lg p-1 transition">✕</button>
       
-      <img id="teacherModalImg" src="" alt="Mynd af kennara" class="w-32 h-32 rounded-full object-cover mx-auto border-4 border-sky-100 shadow-md">
+      <img id="teacherModalImg" src="" alt="Mynd af starfsmanni" class="w-32 h-32 rounded-full object-cover mx-auto border-4 border-sky-100 shadow-md">
       
       <div class="space-y-1">
         <h3 id="teacherModalName" class="text-lg font-bold text-slate-900"></h3>
@@ -177,70 +177,125 @@
               </div>
             </div>
 
-            <!-- KENNARATEYMI 1. ÁRGANGS -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <!-- STARFSFÓLK OG TEYMI 1. ÁRGANGS -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
               <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-lg">👩‍🏫 Teymið í 1. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á kennara til að opna sprettiglugga</span>
+                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 1. árgangi</h3>
+                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
               </div>
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-1">
-                <button onclick="openTeacherModal('Bertha María Árnadóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'images/bertha.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/bertha.jpg" alt="Bertha María Árnadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Bertha María Árnadóttir</h4>
-                    <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                  </div>
-                </button>
+              <!-- 1. UMSJÓNARKENNARATEYMI -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>👩‍🏫 Umsjónarkennarateymi</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Bertha María Árnadóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'images/bertha.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/bertha.jpg" alt="Bertha María Árnadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Bertha María Árnadóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
 
-                <button onclick="openTeacherModal('Sesselja Sólveig Jóhannesdóttir', 'Umsjónarkennari', 'sesselja@vallaskoli.is', 'images/sesselja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/sesselja.jpg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sesselja Sólveig Jóhannesdóttir</h4>
-                    <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                  </div>
-                </button>
+                  <button onclick="openTeacherModal('Sesselja Sólveig Jóhannesdóttir', 'Umsjónarkennari', 'sesselja@vallaskoli.is', 'images/sesselja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/sesselja.jpg" alt="Sesselja Sólveig Jóhannesdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sesselja';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sesselja Sólveig Jóhannesdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
 
-                <button onclick="openTeacherModal('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'images/vildis.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Vildís Ósk Harðardóttir</h4>
-                    <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Einar Ottó Antonsson', 'Íþróttir og Sund', 'einar@vallaskoli.is', 'images/einar.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/einar.jpg" alt="Einar Ottó Antonsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Einar';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Einar Ottó Antonsson</h4>
-                    <p class="text-xs text-slate-500">Íþróttir og Sund</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Sigríður Baxter', 'Íþróttir og Sund', 'sigridur@vallaskoli.is', 'images/sigridurb.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/sigridurb.jpg" alt="Sigríður Baxter" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sigríður';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sigríður Baxter</h4>
-                    <p class="text-xs text-slate-500">Íþróttir og Sund</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Ingunn Guðjónsdóttir', 'Sérkennsla', 'ingunn@vallaskoli.is', 'images/ingunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/ingunn.jpg" alt="Ingunn Guðjónsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Ingunn';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Ingunn Guðjónsdóttir</h4>
-                    <p class="text-xs text-slate-500">Sérkennsla</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Steinunn Húbertína Eggertsdóttir', 'Deildarstjóri Yngri deildar', 'steinunn@vallaskoli.is', 'images/steinunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/steinunn.jpg" alt="Steinunn Húbertína Eggertsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Steinunn';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Steinunn H. Eggertsdóttir</h4>
-                    <p class="text-xs text-slate-500">Deildarstjóri Yngri deildar</p>
-                  </div>
-                </button>
+                  <button onclick="openTeacherModal('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'images/vildis.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Vildís Ósk Harðardóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+                </div>
               </div>
+
+              <!-- 2. AÐRIR KENNARAR -->
+              <div class="space-y-3 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🎨 Aðrir kennarar</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Einar Ottó Antonsson', 'Íþróttir og Sund', 'einar@vallaskoli.is', 'images/einar.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/einar.jpg" alt="Einar Ottó Antonsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Einar';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Einar Ottó Antonsson</h5>
+                      <p class="text-xs text-slate-500">Íþróttir og Sund</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Sigríður Baxter', 'Íþróttir og Sund', 'sigridur@vallaskoli.is', 'images/sigridurb.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/sigridurb.jpg" alt="Sigríður Baxter" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sigríður';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sigríður Baxter</h5>
+                      <p class="text-xs text-slate-500">Íþróttir og Sund</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3. STOÐÞJÓNUSTA -->
+              <div class="space-y-3 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🤝 Stoðþjónusta</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Ingunn Guðjónsdóttir', 'Sérkennsla', 'ingunn@vallaskoli.is', 'images/ingunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/ingunn.jpg" alt="Ingunn Guðjónsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Ingunn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Ingunn Guðjónsdóttir</h5>
+                      <p class="text-xs text-slate-500">Sérkennsla</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4. STJÓRNENDUR -->
+              <div class="space-y-3 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🏛️ Stjórnendur</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Páll Sveinsson', 'Skólastjóri', 'pall@vallaskoli.is', 'images/pall.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/pall.jpg" alt="Páll Sveinsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Páll';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Páll Sveinsson</h5>
+                      <p class="text-xs text-slate-500">Skólastjóri</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Þorvaldur Halldór Gunnarsson', 'Aðstoðarskólastjóri', 'thorvaldur@vallaskoli.is', 'images/thorvaldur.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/thorvaldur.jpg" alt="Þorvaldur Halldór Gunnarsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Þorvaldur';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Þorvaldur H. Gunnarsson</h5>
+                      <p class="text-xs text-slate-500">Aðstoðarskólastjóri</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Steinunn Húbertína Eggertsdóttir', 'Deildarstjóri Yngri deildar', 'steinunn@vallaskoli.is', 'images/steinunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/steinunn.jpg" alt="Steinunn Húbertína Eggertsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Steinunn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Steinunn H. Eggertsdóttir</h5>
+                      <p class="text-xs text-slate-500">Deildarstjóri Yngri deildar</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Hólmfríður Sigrún Gylfadóttir', 'Verkefnisstjóri Yngri deildar', 'holmfridur@vallaskoli.is', 'images/holmfridur.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/holmfridur.jpg" alt="Hólmfríður Sigrún Gylfadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Hólmfríður';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Hólmfríður S. Gylfadóttir</h5>
+                      <p class="text-xs text-slate-500">Verkefnisstjóri Yngri deildar</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
             </div>
 
             <!-- 📖 ÍSLENSKA -->
@@ -340,94 +395,149 @@
               </div>
             </div>
 
-            <!-- KENNARATEYMI 2. ÁRGANGS -->
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <!-- STARFSFÓLK OG TEYMI 2. ÁRGANGS -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
               <div class="flex items-center justify-between border-b pb-2">
-                <h3 class="font-bold text-sky-900 text-lg">👩‍🏫 Teymið í 2. árgangi</h3>
-                <span class="text-xs text-slate-400 italic">Smelltu á kennara til að opna sprettiglugga</span>
+                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 2. árgangi</h3>
+                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
               </div>
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-1">
-                <button onclick="openTeacherModal('Hrönn Bjarnadóttir', 'Umsjónarkennari', 'hronn@vallaskoli.is', 'images/hronn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/hronn.jpg" alt="Hrönn Bjarnadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Hrönn';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Hrönn Bjarnadóttir</h4>
-                    <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                  </div>
-                </button>
+              <!-- 1. UMSJÓNARKENNARATEYMI -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>👩‍🏫 Umsjónarkennarateymi</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Hrönn Bjarnadóttir', 'Umsjónarkennari', 'hronn@vallaskoli.is', 'images/hronn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/hronn.jpg" alt="Hrönn Bjarnadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Hrönn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Hrönn Bjarnadóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
 
-                <button onclick="openTeacherModal('Kristín Vilhjálmsdóttir', 'Umsjónarkennari', 'kristin@vallaskoli.is', 'images/kristin.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/kristin.jpg" alt="Kristín Vilhjálmsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Kristín';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Kristín Vilhjálmsdóttir</h4>
-                    <p class="text-xs text-slate-500">Umsjónarkennari</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Einar Ottó Antonsson', 'Íþróttir og Sund', 'einar@vallaskoli.is', 'images/einar.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/einar.jpg" alt="Einar Ottó Antonsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Einar';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Einar Ottó Antonsson</h4>
-                    <p class="text-xs text-slate-500">Íþróttir og Sund</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Sigríður Baxter', 'Íþróttir og Sund', 'sigridur@vallaskoli.is', 'images/sigridurb.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/sigridurb.jpg" alt="Sigríður Baxter" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sigríður';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sigríður Baxter</h4>
-                    <p class="text-xs text-slate-500">Íþróttir og Sund</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Ingunn Guðjónsdóttir', 'Sérkennsla', 'ingunn@vallaskoli.is', 'images/ingunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/ingunn.jpg" alt="Ingunn Guðjónsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Ingunn';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Ingunn Guðjónsdóttir</h4>
-                    <p class="text-xs text-slate-500">Sérkennsla</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Steinunn Húbertína Eggertsdóttir', 'Deildarstjóri Yngri deildar', 'steinunn@vallaskoli.is', 'images/steinunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/steinunn.jpg" alt="Steinunn Húbertína Eggertsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Steinunn';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Steinunn H. Eggertsdóttir</h4>
-                    <p class="text-xs text-slate-500">Deildarstjóri Yngri deildar</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'images/halldora.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/halldora.jpg" alt="Halldóra Helga Valdimarsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Halldóra';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Halldóra H. Valdimarsdóttir</h4>
-                    <p class="text-xs text-slate-500">Textílmennt</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'images/daniela.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/daniela.jpg" alt="Daniela Nicole Welling" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Daniela';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Daniela Nicole Welling</h4>
-                    <p class="text-xs text-slate-500">Tónlist</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'images/thorey.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/thorey.jpg" alt="Þórey Ólafsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Þórey';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Þórey Ólafsdóttir</h4>
-                    <p class="text-xs text-slate-500">Heimilisfræði</p>
-                  </div>
-                </button>
-
-                <button onclick="openTeacherModal('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'images/bylgja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                  <img src="images/bylgja.jpg" alt="Bylgja Lind Pétursdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bylgja';">
-                  <div>
-                    <h4 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Bylgja Lind Pétursdóttir</h4>
-                    <p class="text-xs text-slate-500">Myndmennt</p>
-                  </div>
-                </button>
+                  <button onclick="openTeacherModal('Kristín Vilhjálmsdóttir', 'Umsjónarkennari', 'kristin@vallaskoli.is', 'images/kristin.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/kristin.jpg" alt="Kristín Vilhjálmsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Kristín';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Kristín Vilhjálmsdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+                </div>
               </div>
+
+              <!-- 2. AÐRIR KENNARAR -->
+              <div class="space-y-3 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🎨 Aðrir kennarar</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Einar Ottó Antonsson', 'Íþróttir og Sund', 'einar@vallaskoli.is', 'images/einar.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/einar.jpg" alt="Einar Ottó Antonsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Einar';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Einar Ottó Antonsson</h5>
+                      <p class="text-xs text-slate-500">Íþróttir og Sund</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Sigríður Baxter', 'Íþróttir og Sund', 'sigridur@vallaskoli.is', 'images/sigridurb.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/sigridurb.jpg" alt="Sigríður Baxter" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Sigríður';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Sigríður Baxter</h5>
+                      <p class="text-xs text-slate-500">Íþróttir og Sund</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Halldóra Helga Valdimarsdóttir', 'Textílmennt', 'halldora@vallaskoli.is', 'images/halldora.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/halldora.jpg" alt="Halldóra Helga Valdimarsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Halldóra';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Halldóra H. Valdimarsdóttir</h5>
+                      <p class="text-xs text-slate-500">Textílmennt</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Daniela Nicole Welling', 'Tónlist', 'daniela@vallaskoli.is', 'images/daniela.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/daniela.jpg" alt="Daniela Nicole Welling" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Daniela';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Daniela Nicole Welling</h5>
+                      <p class="text-xs text-slate-500">Tónlist</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Þórey Ólafsdóttir', 'Heimilisfræði', 'thorey@vallaskoli.is', 'images/thorey.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/thorey.jpg" alt="Þórey Ólafsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Þórey';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Þórey Ólafsdóttir</h5>
+                      <p class="text-xs text-slate-500">Heimilisfræði</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Bylgja Lind Pétursdóttir', 'Myndmennt', 'bylgja@vallaskoli.is', 'images/bylgja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/bylgja.jpg" alt="Bylgja Lind Pétursdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bylgja';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Bylgja Lind Pétursdóttir</h5>
+                      <p class="text-xs text-slate-500">Myndmennt</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3. STOÐÞJÓNUSTA -->
+              <div class="space-y-3 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🤝 Stoðþjónusta</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Ingunn Guðjónsdóttir', 'Sérkennsla', 'ingunn@vallaskoli.is', 'images/ingunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/ingunn.jpg" alt="Ingunn Guðjónsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Ingunn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Ingunn Guðjónsdóttir</h5>
+                      <p class="text-xs text-slate-500">Sérkennsla</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4. STJÓRNENDUR -->
+              <div class="space-y-3 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🏛️ Stjórnendur</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Páll Sveinsson', 'Skólastjóri', 'pall@vallaskoli.is', 'images/pall.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/pall.jpg" alt="Páll Sveinsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Páll';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Páll Sveinsson</h5>
+                      <p class="text-xs text-slate-500">Skólastjóri</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Þorvaldur Halldór Gunnarsson', 'Aðstoðarskólastjóri', 'thorvaldur@vallaskoli.is', 'images/thorvaldur.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/thorvaldur.jpg" alt="Þorvaldur Halldór Gunnarsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Þorvaldur';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Þorvaldur H. Gunnarsson</h5>
+                      <p class="text-xs text-slate-500">Aðstoðarskólastjóri</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Steinunn Húbertína Eggertsdóttir', 'Deildarstjóri Yngri deildar', 'steinunn@vallaskoli.is', 'images/steinunn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/steinunn.jpg" alt="Steinunn Húbertína Eggertsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Steinunn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Steinunn H. Eggertsdóttir</h5>
+                      <p class="text-xs text-slate-500">Deildarstjóri Yngri deildar</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Hólmfríður Sigrún Gylfadóttir', 'Verkefnisstjóri Yngri deildar', 'holmfridur@vallaskoli.is', 'images/holmfridur.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/holmfridur.jpg" alt="Hólmfríður Sigrún Gylfadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Hólmfríður';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Hólmfríður S. Gylfadóttir</h5>
+                      <p class="text-xs text-slate-500">Verkefnisstjóri Yngri deildar</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
             </div>
 
             <!-- 📖 ÍSLENSKA -->
@@ -513,7 +623,59 @@
       'y4': { title: '4. árgangur — Námskrá', icon: '☘️', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">4. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Lesfimi, ítarlegri ritun og samþætting faggreina.</p></div>` },
       'y5': { title: '5. árgangur — Námskrá', icon: '🍀', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">5. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Upphaf enskukennslu og sjálfstæðari vinnubrögð.</p></div>` },
       'y6': { title: '6. árgangur — Námskrá', icon: '🌲', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">6. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Orðspor, bókaklúbbar og náttúrufræðilotur.</p></div>` },
-      'y7': { title: '7. árgangur — Námskrá', icon: '🌳', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">7. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Upphaf dönskukennslu og undirbúningur fyrir unglingastig.</p></div>` },
+      'y7': {
+        title: '7. árgangur — Námskrá',
+        icon: '🌳',
+        content: `
+          <div class="space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+              <div class="flex items-center justify-between border-b pb-2">
+                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 7. árgangi</h3>
+              </div>
+              <div class="space-y-3 pt-2">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">🏛️ Stjórnendur (Eldri deild)</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Páll Sveinsson', 'Skólastjóri', 'pall@vallaskoli.is', 'images/pall.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/pall.jpg" alt="Páll Sveinsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Páll';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Páll Sveinsson</h5>
+                      <p class="text-xs text-slate-500">Skólastjóri</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Þorvaldur Halldór Gunnarsson', 'Aðstoðarskólastjóri', 'thorvaldur@vallaskoli.is', 'images/thorvaldur.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/thorvaldur.jpg" alt="Þorvaldur Halldór Gunnarsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Þorvaldur';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Þorvaldur H. Gunnarsson</h5>
+                      <p class="text-xs text-slate-500">Aðstoðarskólastjóri</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Guðmundur Sigmarsson', 'Deildarstjóri Eldri deildar', 'gudmundur@vallaskoli.is', 'images/gudmundur.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/gudmundur.jpg" alt="Guðmundur Sigmarsson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Guðmundur';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Guðmundur Sigmarsson</h5>
+                      <p class="text-xs text-slate-500">Deildarstjóri Eldri deildar</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Már Ingólfur Másson', 'Verkefnisstjóri Eldri deildar', 'mar@vallaskoli.is', 'images/mar.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/mar.jpg" alt="Már Ingólfur Másson" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Már';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Már Ingólfur Másson</h5>
+                      <p class="text-xs text-slate-500">Verkefnisstjóri Eldri deildar</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">7. árgangur</h3>
+              <p class="text-xs md:text-sm text-slate-600">Upphaf dönskukennslu og undirbúningur fyrir unglingastig.</p>
+            </div>
+          </div>
+        `
+      },
       'y8': { title: '8. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">8. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Enska (Next Up), Danska (Tak), Íslenska og Stærðfræði.</p></div>` },
       'y9': { title: '9. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">9. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Aukin dýpt í bókmenntum (Holes), algebru og vísindum.</p></div>` },
       'y10': { title: '10. árgangur — Unglingastig', icon: '🎓', content: `<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4"><h3 class="font-bold text-sky-900 text-xl border-b pb-2">10. árgangur</h3><p class="text-xs md:text-sm text-slate-600">Lokaárgangur grunnskóla og brautskráning.</p></div>` },
