@@ -217,6 +217,7 @@
         icon: '🌱',
         content: `
           <div class="space-y-6">
+            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 1. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -224,10 +225,12 @@
                 <p><strong>Heimastofur:</strong> Stofur 6, 7 og 8 (vesturgangur, vesturinngangur)</p>
                 <p><strong>Kennslutími:</strong> Hefst kl. 08:10 alla daga (30 stundir/viku)</p>
                 <p><strong>Frímínútur:</strong> Kl. 09:30 – 09:50 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á mínÁrborg)</p>
                 <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
               </div>
             </div>
 
+            <!-- STARFSFÓLK -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
               <div class="flex items-center justify-between border-b pb-2">
                 <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 1. árgangi</h3>
@@ -235,9 +238,7 @@
               </div>
               
               <div class="space-y-3">
-                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <span>👩‍🏫 Umsjónarkennarateymi</span>
-                </h4>
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   <button onclick="openTeacherModal('Bertha María Arnardóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'images/bertha.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
                     <img src="images/bertha.jpg" alt="Bertha María Arnardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Bertha';">
@@ -256,13 +257,92 @@
                   </button>
 
                   <button onclick="openTeacherModal('Vildís Ósk Harðardóttir', 'Umsjónarkennari', 'vildis@vallaskoli.is', 'images/vildis.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
-                    <img src="images/vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vildís';">
+                    <img src="images/vildis.jpg" alt="Vildís Ósk Harðardóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Vild%C3%ADs';">
                     <div>
                       <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Vildís Ósk Harðardóttir</h5>
                       <p class="text-xs text-slate-500">Umsjónarkennari</p>
                     </div>
                   </button>
                 </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
+                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
+                  <p><strong>Aleksandar Petrovic:</strong> Íþróttir og sund</p>
+                  <p><strong>Gylfi Birgir Sigurjónsson:</strong> Íþróttir og sund</p>
+                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
+                  <p><strong>Ingunn Guðjónsdóttir:</strong> Sérkennsla</p>
+                  <p><strong>Jóhanna Margrét Árnadóttir:</strong> Sérkennsla</p>
+                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
+                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
+                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
+                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
+                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Talað mál og hlustun:</strong> Beita skýrum framburði, horfa og hlusta af athygli og greina frá upplifun.</li>
+                  <li><strong>Lestur:</strong> Beita aðferðum við umskráningu hljóða og stafa svo lestur flæði vel.</li>
+                  <li><strong>Bókmenntir:</strong> Vinna með ævintýri, sögur og ljóð ætluð börnum.</li>
+                  <li><strong>Ritun:</strong> Draga rétt til stafs, skrifa skýrt og á lyklaborð, beita einföldum stafsetningarreglum.</li>
+                  <li><strong>Málnotkun:</strong> Þekkja einkenni málsins, ríma og fara í orðaleiki.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <p class="text-xs md:text-sm text-slate-600">Lestrarland 1 & 2, Skrift 1a & 1b og ýmis útprentuð verkefni.</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat, verkefnavinna, lesfimi 3x á ári og lesskimunin „Leið til læsis“.</p>
+              </div>
+            </div>
+
+            <!-- STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag og vísindi. Lögð er áhersla á að nemendur öðlist alhliða hæfni til að nota stærðfræði í daglegu lífi og leik.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li>Nýta verkfæri og hlutbundin gögn við útreikninga og lausnir.</li>
+                  <li>Taka þátt í samræðum um stærðfræðihugtök og lausnaleiðir.</li>
+                  <li>Algebra: Kanna, búa til og tjá sig um reglur í talnarunum og myndrænum mynstrum.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <p class="text-xs md:text-sm text-slate-600">Sproti 1a & 1b (nemendabók og æfingahefti), Skrift tölustafir, Stærðfræðispæjarar (valdir kaflar) og stærðfræðihefti.</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat og verkefnavinna út frá matskvörðunum: Hæfni náð, Á góðri leið, Þarfnast þjálfunar.</p>
               </div>
             </div>
           </div>
@@ -273,6 +353,7 @@
         icon: '🍃',
         content: `
           <div class="space-y-6">
+            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 2. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -280,6 +361,106 @@
                 <p><strong>Heimastofur:</strong> Stofur Ú4 og Ú5 (vesturgangur, vesturinngangur)</p>
                 <p><strong>Kennslutími:</strong> Hefst kl. 08:10 alla daga (30 stundir/viku)</p>
                 <p><strong>Frímínútur:</strong> Kl. 09:30 – 09:50 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á mínÁrborg)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
+              </div>
+            </div>
+
+            <!-- STARFSFÓLK -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+              <div class="flex items-center justify-between border-b pb-2">
+                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 2. árgangi</h3>
+                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
+              </div>
+              
+              <div class="space-y-3">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Hrönn Bjarnadóttir', 'Umsjónarkennari', 'hronn@vallaskoli.is', 'images/hronn.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/hronn.jpg" alt="Hrönn Bjarnadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Hr%C3%B6nn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Hrönn Bjarnadóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Kristín Vilhjálmsdóttir', 'Umsjónarkennari', 'kristin@vallaskoli.is', 'images/kristin.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/kristin.jpg" alt="Kristín Vilhjálmsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Krist%C3%ADn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Kristín Vilhjálmsdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
+                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
+                  <p><strong>Einar Ottó Antonsson:</strong> Íþróttir og sund</p>
+                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
+                  <p><strong>Ingunn Guðjónsdóttir:</strong> Sérkennsla</p>
+                  <p><strong>Jóhanna Margrét Árnadóttir:</strong> Sérkennsla</p>
+                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
+                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
+                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
+                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
+                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið & Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 mb-2">Lestur og heimalestur fer fram daglega allt árið. Unnið er með öll hæfniviðmið í íslensku jafnt og þétt yfir skólaárið:</p>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Tjáning og hlustun:</strong> Skýr framburður, tjáning frammi fyrir hópi og staðið fyrir máli sínu.</li>
+                  <li><strong>Lestur:</strong> Umskráning hljóða/stafa, skilningur á augljósum efnisatriðum og lestur sér til ánægju.</li>
+                  <li><strong>Bókmenntir:</strong> Vinna með ævintýri, sögur, ljóð og beiting einfaldra bókmenntahugtaka.</li>
+                  <li><strong>Ritun:</strong> Læsileg skrift og lyklaborð, málsgreinar og samtengingar, stafsetningar- og greinarmerkjareglur.</li>
+                  <li><strong>Málnotkun:</strong> Einkenni máls, orðaleikir, rím og stafrófsröðun.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <p class="text-xs md:text-sm text-slate-600">Ritrún 1 og 2, Litla Lesrún, Skrift 2a og 2b, Út fyrir bókina, Orð og setningar (Skólavefurinn), iPad öpp og lestrarbækur við hæfi.</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Reglulegt leiðsagnarmat, verkefnavinna og lesfimipróf þrisvar á ári (september, janúar og maí).</p>
+              </div>
+            </div>
+
+            <!-- STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Öðlast alhliða hæfni og skilning til að nota stærðfræði sem verkfæri í daglegu lífi, leik og starfi.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Vinnulag:</strong> Beita verkfærum/hlutbundnum gögnum, þróa eigin reikniaðferðir og nota rétt heiti tákna.</li>
+                  <li><strong>Tölur og reikningur:</strong> Raða náttúrulegum tölum og einföldum brotum, nýta grunnreikniaðgerðirnar fjórar.</li>
+                  <li><strong>Algebra & Tölfræði:</strong> Kanna og búa til mynstur, nota táknmál stærðfræðinnar, skrá og setja upp í einföld myndrit.</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -290,11 +471,115 @@
         icon: '🌿',
         content: `
           <div class="space-y-6">
+            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 3. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
                 <p><strong>Fjöldi nemenda:</strong> 40 nemendur (skólaárið 2026–2027)</p>
                 <p><strong>Heimastofur:</strong> Stofur 2 og 3 (vesturgangur, vesturinngangur)</p>
+                <p><strong>Kennslutími:</strong> Hefst kl. 08:10 alla daga (30 stundir/viku)</p>
+                <p><strong>Frímínútur:</strong> Kl. 09:30 – 09:50 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á mínÁrborg)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
+              </div>
+            </div>
+
+            <!-- STARFSFÓLK -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+              <div class="flex items-center justify-between border-b pb-2">
+                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 3. árgangi</h3>
+                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
+              </div>
+              
+              <div class="space-y-3">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Birna Jóhanna Sævarsdóttir', 'Umsjónarkennari', 'birna@vallaskoli.is', 'images/birna.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/birna.jpg" alt="Birna Jóhanna Sævarsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Birna';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Birna Jóhanna Sævarsdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Guðrún María Sæmundsdóttir', 'Umsjónarkennari', 'gudrun@vallaskoli.is', 'images/gudrun.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/gudrun.jpg" alt="Guðrún María Sæmundsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Gu%C3%B0r%C3%BAn';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Guðrún María Sæmundsdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
+                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
+                  <p><strong>Aleksandar Petrovic:</strong> Íþróttir og sund</p>
+                  <p><strong>Gylfi Birgir Sigurjónsson:</strong> Íþróttir og sund</p>
+                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
+                  <p><strong>Ingunn Guðjónsdóttir:</strong> Sérkennsla</p>
+                  <p><strong>Jóhanna Margrét Árnadóttir:</strong> Sérkennsla</p>
+                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
+                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
+                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
+                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
+                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið & Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 mb-2">Lestur og heimalestur fer fram daglega allt árið. Unnið er með öll hæfniviðmið jafnt og þétt yfir skólaárið:</p>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Talað mál og stafrænt form:</strong> Tjáning frammi fyrir hópi, hlustun og endursögn af stafrænu formi.</li>
+                  <li><strong>Lestur og orðaforði:</strong> Flæðandi lestur, dregnar ályktanir, aukinn orðaforði og ráðið í merkingu ókunnra orða.</li>
+                  <li><strong>Bókmenntir:</strong> Ævintýri, ljóð og textar frá fyrri tímum (setja sig í spor persóna).</li>
+                  <li><strong>Ritun:</strong> Læsileg skrift (Ítalíuskrift), lyklaborð, setningar og málsgreinar, stafsetningar- og greinarmerkjareglur.</li>
+                  <li><strong>Málnotkun:</strong> Einkenni máls, hlutverk nafnorða, lýsingarorða og sagnorða, stafrófsröðun.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <p class="text-xs md:text-sm text-slate-600">Ritrún 3, Lesrún, Skrift 2a og 2b (Ítalíuskrift), Blái blýanturinn, Setningar og málsgreinar, lestrar- og hljóðbækur af bókasafni.</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Lesfimipróf (september, janúar og maí), símat í málfræði, skrift og ritun ásamt stuttum könnunum.</p>
+              </div>
+            </div>
+
+            <!-- STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag og vísindi. Nemendur þróa lausnaaðferðir, ígrunda og leysa þrautir.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Hæfniviðmið</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Vinnulag:</strong> Hlutbundin gögn, stuttar kynningar á eigin vinnu, rökstyðja svör, samvinna og tilgátur.</li>
+                  <li><strong>Tölur og reikningur:</strong> Námundun heiltalna, tugakerfi/sætiskerfi, fjármál og verðgildi peninga.</li>
+                  <li><strong>Algebra:</strong> Kanna og búa til mynstur, reikna með óþekktum stærðum.</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -305,11 +590,114 @@
         icon: '☘️',
         content: `
           <div class="space-y-6">
+            <!-- ALMENNT -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 4. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
                 <p><strong>Fjöldi nemenda:</strong> 50 nemendur (skólaárið 2026–2027)</p>
                 <p><strong>Heimastofur:</strong> Valhöll við vesturenda skólabyggingarinnar</p>
+                <p><strong>Kennslutími:</strong> Hefst kl. 08:10 alla daga (30 stundir/viku)</p>
+                <p><strong>Frímínútur:</strong> Kl. 09:30 – 09:50 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á mínÁrborg)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
+              </div>
+            </div>
+
+            <!-- STARFSFÓLK -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+              <div class="flex items-center justify-between border-b pb-2">
+                <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk í 4. árgangi</h3>
+                <span class="text-xs text-slate-400 italic">Smelltu á starfsmann til að opna sprettiglugga</span>
+              </div>
+              
+              <div class="space-y-3">
+                <h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider">👩‍🏫 Umsjónarkennarateymi</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <button onclick="openTeacherModal('Erna Stefnisdóttir', 'Umsjónarkennari', 'erna@vallaskoli.is', 'images/erna.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/erna.jpg" alt="Erna Stefnisdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Erna';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Erna Stefnisdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Lilja Ósk Kristbjörnsdóttir', 'Umsjónarkennari', 'lilja@vallaskoli.is', 'images/lilja.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/lilja.jpg" alt="Lilja Ósk Kristbjörnsdóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Lilja';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Lilja Ósk Kristbjörnsdóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+
+                  <button onclick="openTeacherModal('Anna Hrund Helgadóttir', 'Umsjónarkennari', 'annahrund@vallaskoli.is', 'images/annahrund.jpg')" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-sky-50/70 hover:border-sky-300 rounded-2xl border border-slate-100 transition duration-200 text-left group shadow-sm">
+                    <img src="images/annahrund.jpg" alt="Anna Hrund Helgadóttir" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=Anna';">
+                    <div>
+                      <h5 class="font-bold text-xs md:text-sm text-slate-900 group-hover:text-sky-700 transition">Anna Hrund Helgadóttir</h5>
+                      <p class="text-xs text-slate-500">Umsjónarkennari</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider">🎨 Aðrir kennarar & Sérgreinar</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
+                  <p><strong>Steinunn Húbertína Eggertsdóttir:</strong> Deildarstjóri Yngri deildar</p>
+                  <p><strong>Aleksandar Petrovic:</strong> Íþróttir og sund</p>
+                  <p><strong>Gylfi Birgir Sigurjónsson:</strong> Íþróttir og sund</p>
+                  <p><strong>Sigríður Baxter:</strong> Íþróttir og sund</p>
+                  <p><strong>Rannveig Bjarnfinnsdóttir:</strong> Sérkennsla</p>
+                  <p><strong>Elín Helga:</strong> Sérkennsla</p>
+                  <p><strong>Halldóra Helga Valdimarsdóttir:</strong> Textílmennt</p>
+                  <p><strong>Daniela Nicole Welling:</strong> Tónlist</p>
+                  <p><strong>Þórey Ólafsdóttir:</strong> Heimilisfræði</p>
+                  <p><strong>Bylgja Lind Pétursdóttir:</strong> Myndmennt</p>
+                  <p><strong>Guðný Guðjónsdóttir:</strong> Hönnun og smíði</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <p class="text-xs md:text-sm text-slate-600">Setningar og málsgreinar 1, 2, 3 og málsgreinar og mas 1, 2, 3; Lesrún 1 og 2; Skinna 1; Könnum kortin 1 og 2; Ítalíuskrift 4A og 4B; ljóð og söngvar; verkefni úr Skólavefnum og MMS og lestrarbækur við hæfi.</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Símat byggt á verkefnum og könnunum allt skólaárið (birt á Mentor). Lesfimipróf þrisvar á ári (september, janúar, maí). Hliðarpróf (sjónrænn orðaforði og orðleysur) beitt ef nemendur ná ekki viðmiði 1. Stöðu- og framvindupróf í mars.
+                </p>
+              </div>
+            </div>
+
+            <!-- STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Stærðfræði er mikilvæg leið til að ígrunda, skapa merkingu og skilja náttúru, samfélag, vísindi og tækni. Lögð er áhersla á skapandi hugsun, röksemdir og tilraunir.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsefni</h4>
+                <p class="text-xs md:text-sm text-slate-600">Sproti 4a og 4b (nemendabók og æfingahefti), Könnum kortin, Stærðfræðispæjarar og önnur fjölbreytt verkefni.</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat og stuttar kannanir eftir hvern kafla ásamt stöðu- og framvinduprófi í mars.</p>
               </div>
             </div>
           </div>
