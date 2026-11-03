@@ -215,6 +215,16 @@
       </div>
     `;
 
+    // STUÐNINGSFULLTRÚAR ELDRI DEILDAR (8.-10. ÁRGANGUR)
+    const STUDNINGSFULLTRUAR_ELDRI = `
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        ${createTeacherCard('Árni Ísleifsson', 'Stuðningsfulltrúi', 'arni@vallaskoli.is', 'arni.jpg')}
+        ${createTeacherCard('Bryndís Sveinsdóttir', 'Stuðningsfulltrúi', 'bryndiss@vallaskoli.is', 'bryndiss.jpg')}
+        ${createTeacherCard('Linda Björg Sigurðardóttir', 'Stuðningsfulltrúi', 'linda@vallaskoli.is', 'linda.jpg')}
+        ${createTeacherCard('Pierre Roger Erikson', 'Stuðningsfulltrúi', 'pierre@vallaskoli.is', 'pierre.jpg')}
+      </div>
+    `;
+
     // AÐRIR KENNARAR & FAGTEYMI ELDRI DEILDAR (8.-10. ÁRGANGUR)
     const ADRIR_ELDRI = `
       <div class="space-y-4">
@@ -341,7 +351,6 @@
         icon: '🌱',
         content: `
           <div class="space-y-6">
-            <!-- ALMENNT UM 1. ÁRGANG -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 1. árgang</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -354,7 +363,6 @@
               </div>
             </div>
 
-            <!-- STARFSFÓLK Í 1. ÁRGANGI -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Bertha María Arnardóttir', 'Umsjónarkennari', 'bertha@vallaskoli.is', 'bertha.jpg')}
@@ -383,7 +391,6 @@
               MANAGERS_YNGRI
             )}
 
-            <!-- ÍSLENSKA -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
               <div>
@@ -421,7 +428,6 @@
               </div>
             </div>
 
-            <!-- STÆRÐFRÆÐI -->
             <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
               <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
               <div>
@@ -944,7 +950,7 @@
                 <p><strong>Heimastofur:</strong> Stofur 18 og 19 á miðgangi skólans (gengið inn um Engjavegsinngang)</p>
                 <p><strong>Kennslutími:</strong> Þriðjudaga, miðvikudaga og föstudaga kl. 8:10; mánudaga og fimmtudaga kl. 8:50 (30 stundir/viku)</p>
                 <p><strong>Frímínútur:</strong> Kl. 10:10 – 10:30 alla daga</p>
-                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á mínÁrborg)</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á <a href="https://ibuagatt.arborg.is/login.aspx?ReturnUrl=%2f" target="_blank" class="text-sky-700 underline font-semibold">mínÁrborg</a>)</p>
                 <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund, list- og verkgreinar og hefja dönskukennslu.</p>
               </div>
             </div>
@@ -1001,59 +1007,230 @@
         ` 
       },
       'y8': { 
-        title: '8. árgangur — Unglingastig', 
+        title: '8. árgangur — Námskrá', 
         icon: '🎓', 
         content: `
           <div class="space-y-6">
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
-              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">8. árgangur</h3>
-              <p class="text-xs md:text-sm text-slate-600">Enska (Next Up), Danska (Tak), Íslenska og Stærðfræði.</p>
+            <!-- ALMENNT UM 8. ÁRGANG -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 8. árgang</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
+                <p><strong>Fjöldi nemenda:</strong> 46 nemendur (skólaárið 2026–2027)</p>
+                <p><strong>Heimastofur:</strong> Stofur 29 og 30 í Austurrými skólans (gengið inn um Engjavegsinngang)</p>
+                <p><strong>Stundatafla:</strong> 36 kennslustundir samkvæmt viðmiðunarstundatöflu</p>
+                <p><strong>Kennslutími:</strong> Þriðjudaga, miðvikudaga og föstudaga kl. 8:10; mánudaga og fimmtudaga kl. 8:50</p>
+                <p><strong>Frímínútur:</strong> Kl. 10:10 – 10:30 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á <a href="https://ibuagatt.arborg.is/login.aspx?ReturnUrl=%2f" target="_blank" class="text-sky-700 underline font-semibold">mínÁrborg</a>)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
+              </div>
             </div>
+
+            <!-- STARFSFÓLK Í 8. ÁRGANGI -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                ${createTeacherCard('Tómas Smári Guðmundsson', 'Umsjónarkennari', 'tomas@vallaskoli.is', 'tomas.jpg')}
                 ${createTeacherCard('Matthías Hlífar Mogensen Pálsson', 'Umsjónarkennari', 'matthias@vallaskoli.is', 'matthias.jpg')}
+                ${createTeacherCard('Tómas Smári Guðmundsson', 'Umsjónarkennari', 'tomas@vallaskoli.is', 'tomas.jpg')}
               </div>`,
               STODTHJONUSTA_ELDRI,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar eldri deildar.</p>`,
+              STUDNINGSFULLTRUAR_ELDRI,
               ADRIR_ELDRI,
               MANAGERS_ELDRI
             )}
+
+            <!-- 📖 ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika í daglegu lífi, leik og starfi. Traust kunnátta í móðurmáli er meginforsenda samskipta, miðlunar og menntunar.
+                </p>
+              </div>
+            </div>
+
+            <!-- 📐 STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Stærðfræði er mikilvægur hluti menningarinnar þar sem verkefni hennar er að finna, skapa, tjá og útskýra regluleika, lögmál, kerfi og mynstur. Megintilgangurinn er að nemendur öðlist alhliða hæfni til að nota stærðfræði sem verkfæri.
+                </p>
+              </div>
+            </div>
+
+            <!-- 🇬🇧 ENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇬🇧 Enska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Enska og danska eru kenndar saman í 2–4 vikna lotum. Kenndar eru 7 kennslustundir á viku í erlendum tungumálum þar af 4 stundir í ensku.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Next Up! 1</strong> (lesbók og vinnubók)</li>
+                  <li>Léttlestrarbækur og bókin <em>Billy Elliot</em></li>
+                  <li>Kvikmyndir, þættir og lesefni af netinu</li>
+                </ul>
+              </div>
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Símat á Mentor í formi rafrænna prófa, kynninga, hlustunaræfinga, hóp- og einstaklingsverkefna. Einkunnir: <strong>A, B+, B, C+, C, D</strong> eða lokið/ólokið.
+                </p>
+              </div>
+            </div>
+
+            <!-- 🇩🇰 DANSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇩🇰 Danska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Kenndar eru 3 kennslustundir á viku í dönsku í samþættum lotum með ensku.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Tak</strong> (lesbók og vinnubók A)</li>
+                  <li>Léttlestrarbókin <em>Alarm</em></li>
+                  <li>Kvikmyndir, þættir og fjölbreytt verkefni</li>
+                </ul>
+              </div>
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat á Mentor með einkunnum: <strong>A, B+, B, C+, C, D</strong>.</p>
+              </div>
+            </div>
           </div>
         ` 
       },
       'y9': { 
-        title: '9. árgangur — Unglingastig', 
+        title: '9. árgangur — Námskrá', 
         icon: '🎓', 
         content: `
           <div class="space-y-6">
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
-              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">9. árgangur</h3>
-              <p class="text-xs md:text-sm text-slate-600">Aukin dýpt í bókmenntum (Holes), algebru og vísindum.</p>
+            <!-- ALMENNT UM 9. ÁRGANG -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 9. árgang</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
+                <p><strong>Fjöldi nemenda:</strong> 58 nemendur (skólaárið 2026–2027)</p>
+                <p><strong>Heimastofur:</strong> Stofur 29 og 30 í Austurrými skólans (gengið inn um Engjavegsinngang)</p>
+                <p><strong>Stundatafla:</strong> 36 kennslustundir samkvæmt viðmiðunarstundatöflu</p>
+                <p><strong>Kennslutími:</strong> Þriðjudaga, miðvikudaga og föstudaga kl. 8:10; mánudaga og fimmtudaga kl. 8:50</p>
+                <p><strong>Frímínútur:</strong> Kl. 10:10 – 10:30 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á <a href="https://ibuagatt.arborg.is/login.aspx?ReturnUrl=%2f" target="_blank" class="text-sky-700 underline font-semibold">mínÁrborg</a>)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
+              </div>
             </div>
+
+            <!-- STARFSFÓLK Í 9. ÁRGANGI -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                ${createTeacherCard('Guðríður Svava Óskarsdóttir', 'Umsjónarkennari', 'gudridur@vallaskoli.is', 'gudridur.jpg')}
                 ${createTeacherCard('Hólmar Höskuldsson', 'Umsjónarkennari', 'holmar@vallaskoli.is', 'holmar.jpg')}
+                ${createTeacherCard('Guðríður Svava Óskarsdóttir', 'Umsjónarkennari', 'gudridur@vallaskoli.is', 'gudridur.jpg')}
                 ${createTeacherCard('Stefán Ármann Þórðarson', 'Umsjónarkennari', 'stefan@vallaskoli.is', 'stefan.jpg')}
               </div>`,
               STODTHJONUSTA_ELDRI,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar eldri deildar.</p>`,
+              STUDNINGSFULLTRUAR_ELDRI,
               ADRIR_ELDRI,
               MANAGERS_ELDRI
             )}
+
+            <!-- 📖 ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli, nota málið og kynnast mætti þess og fjölbreytileika.
+                </p>
+              </div>
+            </div>
+
+            <!-- 📐 STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms í stærðfræði er að nemendur öðlist alhliða hæfni og skilning til að nota stærðfræði sem verkfæri í daglegu lífi, leik og starfi.
+                </p>
+              </div>
+            </div>
+
+            <!-- 🇬🇧 ENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇬🇧 Enska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Enska og danska eru kenndar saman í 2–4 vikna lotum. Kenndar eru 4 kennslustundir í ensku á viku.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Next Up! 2</strong> (lesbók og vinnubók)</li>
+                  <li>Léttlestrarbækur og skáldsagan <em>The Holes</em></li>
+                  <li>Kvikmyndir, þættir og lesefni af netinu</li>
+                </ul>
+              </div>
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat á Mentor í vinnulotum (A, B+, B, C+, C, D).</p>
+              </div>
+            </div>
+
+            <!-- 🇩🇰 DANSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇩🇰 Danska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Kenndar eru 3 kennslustundir á viku í dönsku í lotubundnu skipulagi.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Tak</strong> (lesbók og vinnubók B)</li>
+                  <li>Léttlestrarbókin <em>Scooter</em></li>
+                  <li>Kvikmyndir, þættir og vefefni</li>
+                </ul>
+              </div>
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat á Mentor (A, B+, B, C+, C, D).</p>
+              </div>
+            </div>
           </div>
         ` 
       },
       'y10': { 
-        title: '10. árgangur — Unglingastig', 
+        title: '10. árgangur — Námskrá', 
         icon: '🎓', 
         content: `
           <div class="space-y-6">
-            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 space-y-4">
-              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">10. árgangur</h3>
-              <p class="text-xs md:text-sm text-slate-600">Lokaárgangur grunnskóla og brautskráning.</p>
+            <!-- ALMENNT UM 10. ÁRGANG -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um 10. árgang</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
+                <p><strong>Fjöldi nemenda:</strong> 79 nemendur (skólaárið 2026–2027)</p>
+                <p><strong>Heimastofur:</strong> Stofur 24, 25 og 26 í Austurrými skólans (gengið inn um Engjavegsinngang)</p>
+                <p><strong>Stundatafla:</strong> 36 kennslustundir samkvæmt viðmiðunarstundatöflu</p>
+                <p><strong>Kennslutími:</strong> Þriðjudaga, miðvikudaga og föstudaga kl. 8:10; mánudaga og fimmtudaga kl. 8:50</p>
+                <p><strong>Frímínútur:</strong> Kl. 10:10 – 10:30 alla daga</p>
+                <p><strong>Hádegishlé:</strong> Kl. 11:30 – 12:00 (ókeypis hádegisverður, skráning á <a href="https://ibuagatt.arborg.is/login.aspx?ReturnUrl=%2f" target="_blank" class="text-sky-700 underline font-semibold">mínÁrborg</a>)</p>
+                <p class="sm:col-span-2"><strong>Námsgreinar:</strong> Allir nemendur fara í íþróttir, sund og list- og verkgreinar.</p>
+              </div>
             </div>
+
+            <!-- STARFSFÓLK Í 10. ÁRGANGI -->
             ${renderStaffSection(
               `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 ${createTeacherCard('Elsie Kristinsdóttir', 'Umsjónarkennari', 'elsie@vallaskoli.is', 'elsie.jpg')}
@@ -1061,10 +1238,78 @@
                 ${createTeacherCard('Íris Dröfn Kristjánsdóttir', 'Umsjónarkennari', 'irisdrofn@vallaskoli.is', 'idk.jpg')}
               </div>`,
               STODTHJONUSTA_ELDRI,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar eldri deildar.</p>`,
+              STUDNINGSFULLTRUAR_ELDRI,
               ADRIR_ELDRI,
               MANAGERS_ELDRI
             )}
+
+            <!-- 📖 ÍSLENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Íslenska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Megintilgangur náms og kennslu í íslensku er að nemendur fái tækifæri til að efla málnotkun, tjáningu og sköpun í töluðu og rituðu máli og búi sig undir framhaldsnám.
+                </p>
+              </div>
+            </div>
+
+            <!-- 📐 STÆRÐFRÆÐI -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📐 Stærðfræði</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Markmið</h4>
+                <p class="text-xs md:text-sm text-slate-600 italic bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed">
+                  Stærðfræði er mikilvæg leið til að ígrunda og leysa flókin viðfangsefni og veita nemendum undirbúning fyrir lífið og frekara nám.
+                </p>
+              </div>
+            </div>
+
+            <!-- 🇬🇧 ENSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇬🇧 Enska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  Samþætt kennsla með dönsku í lotum. 4 kennslustundir í ensku á viku.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Next Up! 2</strong> (lesbók og vinnubók)</li>
+                  <li>Léttlestrarbækur og <em>The Holes</em></li>
+                  <li>Kvikmyndir og ritunarverkefni</li>
+                </ul>
+              </div>
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat á Mentor (A, B+, B, C+, C, D).</p>
+              </div>
+            </div>
+
+            <!-- 🇩🇰 DANSKA -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+              <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🇩🇰 Danska</h3>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Kennsluáætlun</h4>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                  3 kennslustundir á viku í dönsku í lotubundnu skipulagi.
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-2">Námsefni</h4>
+                <ul class="list-disc pl-5 text-xs md:text-sm space-y-1 text-slate-600">
+                  <li><strong>Tak</strong> (lesbók og vinnubók B)</li>
+                  <li>Léttlestrarbókin <em>Scooter</em></li>
+                  <li>Fjölbreytt verkefni og netefni</li>
+                </ul>
+              </div>
+              <div class="pt-3 border-t border-slate-100">
+                <h4 class="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-1">Námsmat</h4>
+                <p class="text-xs md:text-sm text-slate-600">Símat á Mentor (A, B+, B, C+, C, D).</p>
+              </div>
+            </div>
           </div>
         ` 
       },
@@ -1080,7 +1325,7 @@
             ${renderStaffSection(
               `<p class="text-xs text-slate-500 italic">ÍSAT kennarateymi Vallaskóla.</p>`,
               STODTHJONUSTA_ELDRI,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar og tvítyngdir leiðbeinendur.</p>`,
+              STUDNINGSFULLTRUAR_ELDRI,
               ADRIR_ELDRI,
               MANAGERS_YNGRI
             )}
@@ -1099,7 +1344,7 @@
             ${renderStaffSection(
               `<p class="text-xs text-slate-500 italic">Umsjónarkennarar og umsjónarþjónusta.</p>`,
               STODTHJONUSTA_ELDRI,
-              `<p class="text-xs text-slate-500 italic">Stuðningsfulltrúar Vallaskóla.</p>`,
+              STUDNINGSFULLTRUAR_ELDRI,
               ADRIR_ELDRI,
               MANAGERS_YNGRI
             )}
