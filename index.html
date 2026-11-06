@@ -172,6 +172,30 @@
       { id: 'stod', title: 'Stoðkennsla', icon: '🤝' }
     ];
 
+    // INNGANGSTEXTAR FYRIR FAGGREINAR
+    const SUBJECT_INTROS = {
+      's_dan': `
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4 mb-6">
+          <h3 class="font-bold text-sky-900 text-lg border-b pb-2">🇩🇰 Um dönskukennslu og Norðurlandamál</h3>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+            Annað erlenda tungumálið sem nemendur læra í grunnskóla er danska eða annað Norðurlandamál. Gert er ráð fyrir að danska sé alla jafna það norræna tungumál sem kennt er í skólum hér á landi en kennsla í norsku eða sænsku stendur til boða nemendum sem hafa sérstök tengsl við Noreg eða Svíþjóð. Kennslan kemur í staðinn fyrir dönskukennslu og hefst á sama tíma og dönskukennsla hefst í grunnskólanum.
+          </p>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+            Nemendur, sem hafa rétt á að velja norsku eða sænsku, þurfa að búa yfir undirstöðukunnáttu í málunum. Þeir hafa því kynnst samfélaginu, þekkja tjáskiptareglur þeirra og siði. Sumir þessara nemenda hafa málfarslegar og menningarlegar rætur bæði á Íslandi og í Noregi eða Svíþjóð. Mikilvægt er að þessir nemendur fái hvatningu til að viðhalda og styrkja tengsl við land og þjóð. Undirstöðukunnátta, sem nemandi þarf að hafa til að geta stundað nám í norsku eða sænsku, er að skilja allvel talaða norsku eða sænsku, geta lesið og skilið einfalda norska eða sænska texta miðað við sinn aldurshóp og geta gert sig skiljanlegan á töluðu norsku eða sænsku máli. Þessi lágmarkskunnátta er nauðsynleg til þess að nemendur geti nýtt sér það norskunám eða sænskunám sem í boði er.
+          </p>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+            Norðurlandamál eru kennd vegna viðvarandi samskipta og menningartengsla við norrænar þjóðir. Saga okkar er samofin sögu þeirra, menningu og menningararfi og tungumálin sprottin af sömu rót. Þau eru skilgreind nánar í gildandi norrænu tungumálayfirlýsingunni.
+          </p>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+            Tilgangur náms og kennslu í norrænum tungumálum á Íslandi er að viðhalda og styrkja tengsl við Norðurlandaþjóðirnar og stuðla að því að Íslendingar eigi greiða leið að sameiginlegum markaði menntunar og atvinnu á Norðurlöndunum. Hæfni og kunnátta í norrænum tungumálum gerir Íslendingum kleift að vera virkir þátttakendur í mikilvægu norrænu samstarfi, námi, starfi og leik.
+          </p>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed font-medium text-slate-700">
+            Góð kunnátta í einu norrænu tungumáli er lykill að hvaða svæði sem er á Norðurlöndunum og greiðir fyrir öllum samskiptum.
+          </p>
+        </div>
+      `
+    };
+
     // HJÁLPARFALL TIL AÐ BÚA TIL KENNARAHNAPPA
     function createTeacherCard(name, role, email, imgName) {
       return `
@@ -275,7 +299,7 @@
       </div>
     `;
 
-    // HJÁLPARFALL FYRIR HINN FIMMTIPTA RAMMA FYRIR STARFSFÓLK
+    // HJÁLPARFALL FYRIR RAMMA FYRIR STARFSFÓLK
     function renderStaffSection(umsjonHtml, stodHtml, studningHtml, adrirHtml, stjornendurHtml) {
       return `
         <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
@@ -1430,8 +1454,11 @@
         `;
       }
 
+      const introHtml = SUBJECT_INTROS[subjectId] || '';
+
       document.getElementById('detailContent').innerHTML = `
         <div class="space-y-4">
+          ${introHtml}
           <p class="text-xs md:text-sm text-slate-500 font-medium">Veldu árgang til að skoða námskrá í ${sub.title}:</p>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             ${tilesHtml}
