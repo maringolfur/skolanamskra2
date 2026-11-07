@@ -1,6 +1,6 @@
 let currentViewHistory = [];
 
-// ==================== NAVIGATION & VIEWS ====================
+// ==================== VISIBILITY & NAVIGATION ====================
 
 function hideAllViews() {
   document.getElementById('homeView').classList.add('hidden');
@@ -81,54 +81,88 @@ function renderSubjectsGrid() {
 
 // ==================== STARFSMANNAKORT ====================
 
-function renderStaffCard(staffKey) {
-  const p = window.STAFF_MEMBERS ? window.STAFF_MEMBERS[staffKey] : null;
+function renderStaffCardByObject(p) {
   if (!p) return '';
+  const safeName = (p.name || '').replace(/'/g, "\\'");
+  const safeRole = (p.role || '').replace(/'/g, "\\'");
+  const safeEmail = (p.email || '').replace(/'/g, "\\'");
+  const safeImg = (p.img || '').replace(/'/g, "\\'");
+
   return `
-    <button onclick="openTeacherModal('${p.name}', '${p.role}', '${p.email}', 'images/${p.img}')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50 rounded-2xl border border-slate-100 text-left w-full transition group shadow-sm">
-      <img src="images/${p.img}" alt="${p.name}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm flex-shrink-0 group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=${encodeURIComponent(p.name ? p.name.split(' ')[0] : 'Starfsmaður')}';">
+    <button onclick="openTeacherModal('${safeName}', '${safeRole}', '${safeEmail}', 'images/${safeImg}')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50 rounded-2xl border border-slate-100 text-left w-full transition group shadow-sm">
+      <img src="images/${safeImg}" alt="${p.name || 'Starfsmaður'}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm flex-shrink-0 group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=${encodeURIComponent(p.name ? p.name.split(' ')[0] : 'Starfsmaður')}';">
       <div class="overflow-hidden">
-        <h5 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 truncate">${p.name}</h5>
-        <p class="text-xs text-slate-500 truncate">${p.role}</p>
+        <h5 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 truncate">${p.name || ''}</h5>
+        <p class="text-xs text-slate-500 truncate">${p.role || ''}</p>
       </div>
     </button>
   `;
+}
+
+function renderStaffCard(staffKey) {
+  const p = window.STAFF_MEMBERS ? window.STAFF_MEMBERS[staffKey] : null;
+  return renderStaffCardByObject(p);
 }
 
 // ==================== GOOGLE DOCS SÆKIR ====================
 
 async function fetchGoogleDocContent(docUrl) {
   if (!docUrl) return '';
-  
-  try {
-    // CORS proxy til að vafrinn leyfi að sækja opinbera skjalið
-    const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(docUrl);
-    const response = await fetch(proxyUrl);
-    if (!response.ok) throw new Error('Netvilla við að sækja skjal');
 
-    const htmlText = await response.text();
+  let cleanUrl = docUrl.trim();
+  if (!cleanUrl.includes('embedded=true')) {
+    cleanUrl += cleanUrl.includes('?') ? '&embedded=true' : '?embedded=true';
+  }
+
+  const proxies = [
+    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+  ];
+
+  let htmlText = '';
+  
+  for (const getProxyUrl of proxies) {
+    try {
+      const response = await fetch(getProxyUrl(cleanUrl));
+      if (response.ok) {
+        const text = await response.text();
+        if (text && text.length > 100) {
+          htmlText = text;
+          break;
+        }
+      }
+    } catch (e) {
+      console.warn('Proxy tilraun mistókst, prófa næsta...', e);
+    }
+  }
+
+  if (!htmlText) {
+    return '<p class="text-amber-700 bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs">Ekki náðist samband við Google Docs. Athugaðu hvort skjalið sé örugglega gefið út á vefnum (Skrá ➔ Deila ➔ Gefa út á vefnum).</p>';
+  }
+
+  try {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
 
-    // Náum í meginmál Google Doc skjalsins
-    const content = doc.querySelector('#contents') || doc.body;
-    if (!content) return '';
+    const content = doc.querySelector('#contents') || doc.querySelector('.doc-content') || doc.body;
 
-    // Fjarlægjum innbyggða stíla og skriftur úr Google
-    const stylesAndScripts = content.querySelectorAll('style, script');
-    stylesAndScripts.forEach(el => el.remove());
+    if (!content) return '<p class="text-slate-500 italic">Enginn texti fannst í skjalinu.</p>';
 
-    // Hreinsum öll inline-style og class eigindi svo Tailwind liti og stýri öllu
+    const badElements = content.querySelectorAll('style, script, head, title, meta');
+    badElements.forEach(el => el.remove());
+
     const allElements = content.querySelectorAll('*');
     allElements.forEach(el => {
       el.removeAttribute('style');
       el.removeAttribute('class');
+      el.removeAttribute('id');
     });
 
     return content.innerHTML;
-  } catch (error) {
-    console.error('Tókst ekki að sækja Google Doc:', error);
-    return '<p class="text-slate-500 italic p-4 bg-slate-50 rounded-xl border border-slate-200/60">Tókst ekki að hlaða texta úr Google Docs. Athugaðu hvort skjalið sé örugglega gefið út á vefnum.</p>';
+  } catch (err) {
+    console.error('Villa við að lesa Google Doc HTML:', err);
+    return '<p class="text-slate-500 italic">Tókst ekki að umbreyta texta úr Google Docs.</p>';
   }
 }
 
@@ -142,11 +176,18 @@ async function openYearDetail(yearId) {
     return;
   }
 
-  // Teiknum upp starfsfólk
-  const teachers = (data.staff && data.staff.teachers || []).map(renderStaffCard).join('');
-  const support = (data.staff && data.staff.support || []).map(renderStaffCard).join('');
-  const assistants = (data.staff && data.staff.assistants || []).map(renderStaffCard).join('');
-  const managers = (data.staff && data.staff.managers || []).map(renderStaffCard).join('');
+  // 1. Sækjum alla starfsmenn úr Google Sheets sem tilheyra þessum árgangi
+  const allStaff = Object.values(window.STAFF_MEMBERS || {});
+  const yearStaff = allStaff.filter(p => {
+    if (!p.grades) return false;
+    return p.grades.toLowerCase().split(',').map(g => g.trim()).includes(yearId.toLowerCase());
+  });
+
+  // 2. Flokkum starfsfólkið sjálfkrafa eftir category dálkinum
+  const teachersHtml = yearStaff.filter(p => p.category === 'kennari').map(p => renderStaffCardByObject(p)).join('');
+  const supportHtml = yearStaff.filter(p => p.category === 'stodthjonusta').map(p => renderStaffCardByObject(p)).join('');
+  const assistantsHtml = yearStaff.filter(p => p.category === 'studningsfulltrui').map(p => renderStaffCardByObject(p)).join('');
+  const managersHtml = yearStaff.filter(p => p.category === 'stjornandi').map(p => renderStaffCardByObject(p)).join('');
 
   const baseHtml = `
     <div class="space-y-6">
@@ -162,17 +203,19 @@ async function openYearDetail(yearId) {
         </div>
       </div>
 
-      <!-- KENNARAR OG STARFSFÓLK -->
+      <!-- STARFSFÓLK -->
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
         <div class="flex items-center justify-between border-b pb-2">
           <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk árgangsins</h3>
           <span class="text-xs text-slate-400 italic">Smelltu til að opna samskiptaupplýsingar</span>
         </div>
 
-        ${teachers ? `<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${teachers}</div></div>` : ''}
-        ${support ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta & Þroskaþjálfar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${support}</div></div>` : ''}
-        ${assistants ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistants}</div></div>` : ''}
-        ${managers ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managers}</div></div>` : ''}
+        ${teachersHtml ? `<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${teachersHtml}</div></div>` : ''}
+        ${supportHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta & Þroskaþjálfar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>` : ''}
+        ${assistantsHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>` : ''}
+        ${managersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>` : ''}
+        
+        ${(!teachersHtml && !supportHtml && !assistantsHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
       </div>
 
       <!-- GOOGLE DOCS NÁMSKRÁRTEXTI -->
@@ -187,7 +230,6 @@ async function openYearDetail(yearId) {
 
   openDetailView(data.title, data.icon, baseHtml);
 
-  // Sækjum megintextann úr Google Doc ef slóð er skráð
   if (data.docUrl) {
     const docHtml = await fetchGoogleDocContent(data.docUrl);
     const holder = document.getElementById('docTextHolder');
