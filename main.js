@@ -161,7 +161,7 @@ async function fetchGoogleDocContent(docUrl) {
   }
 }
 
-// ==================== ÁRGANGASÍÐA (FLOKKUN STARFSFÓLKS) ====================
+// ==================== ÁRGANGASÍÐA (RÖÐUN STARFSFÓLKS) ====================
 
 async function openYearDetail(yearId) {
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
@@ -171,44 +171,63 @@ async function openYearDetail(yearId) {
     return;
   }
 
-  // Sækjum alla starfsmenn úr Google Sheets sem eru skráðir á þennan árgang (t.d. "y1")
+  // 1. Sækjum alla starfsmenn úr Google Sheets sem tilheyra þessum árgangi
   const allStaff = Object.values(window.STAFF_MEMBERS || {});
   const yearStaff = allStaff.filter(p => {
     if (!p.grades) return false;
     return p.grades.toLowerCase().split(',').map(g => g.trim()).includes(yearId.toLowerCase());
   });
 
-  // 1. UMSJÓNARKENNARAR (Flokkaðir ef category er 'umsjonarkennari' eða ef heiti starfs inniheldur 'umsjón')
-  const homeroomTeachers = yearStaff.filter(p => 
-    p.category === 'umsjonarkennari' || 
-    (p.role || '').toLowerCase().includes('umsjónarkennari') ||
-    (p.role || '').toLowerCase().includes('umsjón')
-  );
+  const assignedStaff = new Set();
 
-  // 2. STUÐNINGSFULLTRÚAR OG STOÐÞJÓNUSTA
-  const assistants = yearStaff.filter(p => 
-    p.category === 'studningsfulltrui' || 
-    p.category === 'stodthjonusta' ||
-    (p.role || '').toLowerCase().includes('stuðningsfulltrúi')
-  );
-
-  // 3. AÐRIR KENNARAR Í ÁRGANGINUM (Íþrótta-, list- eða faggreinakennarar sem eru EKKI umsjónarkennarar)
-  const otherTeachers = yearStaff.filter(p => {
-    const isTeacher = p.category === 'kennari' || (p.role || '').toLowerCase().includes('kennari');
-    const isHomeroom = homeroomTeachers.includes(p);
-    return isTeacher && !isHomeroom;
+  // 1. UMSJÓNARKENNARAR
+  const homeroomTeachers = yearStaff.filter(p => {
+    const cat = (p.category || '').toLowerCase();
+    const role = (p.role || '').toLowerCase();
+    return cat === 'umsjonarkennari' || role.includes('umsjónarkennari') || role.includes('umsjón');
   });
+  homeroomTeachers.forEach(p => assignedStaff.add(p));
 
-  // 4. STJÓRNENDUR (Neðst)
-  const managers = yearStaff.filter(p => 
-    p.category === 'stjornandi' || 
-    (p.role || '').toLowerCase().includes('skólastjóri') ||
-    (p.role || '').toLowerCase().includes('deildarstjóri')
-  );
+  // 2. STUÐNINGSFULLTRÚAR
+  const assistants = yearStaff.filter(p => {
+    if (assignedStaff.has(p)) return false;
+    const cat = (p.category || '').toLowerCase();
+    const role = (p.role || '').toLowerCase();
+    return cat === 'studningsfulltrui' || role.includes('stuðningsfulltrúi') || role.includes('skólaliði');
+  });
+  assistants.forEach(p => assignedStaff.add(p));
+
+  // 3. STOÐÞJÓNUSTA
+  const supportService = yearStaff.filter(p => {
+    if (assignedStaff.has(p)) return false;
+    const cat = (p.category || '').toLowerCase();
+    const role = (p.role || '').toLowerCase();
+    return cat === 'stodthjonusta' || role.includes('þroskaþjálfi') || role.includes('sérkennari') || role.includes('námsráðgjafi') || role.includes('stoðþjónusta');
+  });
+  supportService.forEach(p => assignedStaff.add(p));
+
+  // 4. AÐRIR KENNARAR Í ÁRGANGI
+  const otherTeachers = yearStaff.filter(p => {
+    if (assignedStaff.has(p)) return false;
+    const cat = (p.category || '').toLowerCase();
+    const role = (p.role || '').toLowerCase();
+    return cat === 'kennari' || role.includes('kennari');
+  });
+  otherTeachers.forEach(p => assignedStaff.add(p));
+
+  // 5. STJÓRNENDUR (NEÐST)
+  const managers = yearStaff.filter(p => {
+    if (assignedStaff.has(p)) return false;
+    const cat = (p.category || '').toLowerCase();
+    const role = (p.role || '').toLowerCase();
+    return cat === 'stjornandi' || role.includes('skólastjóri') || role.includes('deildarstjóri') || role.includes('aðstoðarskólastjóri');
+  });
+  managers.forEach(p => assignedStaff.add(p));
 
   // Teiknum upp HTML fyrir hvern flokk
   const homeroomHtml = homeroomTeachers.map(p => renderStaffCardByObject(p)).join('');
   const assistantsHtml = assistants.map(p => renderStaffCardByObject(p)).join('');
+  const supportHtml = supportService.map(p => renderStaffCardByObject(p)).join('');
   const otherTeachersHtml = otherTeachers.map(p => renderStaffCardByObject(p)).join('');
   const managersHtml = managers.map(p => renderStaffCardByObject(p)).join('');
 
@@ -237,15 +256,18 @@ async function openYearDetail(yearId) {
         ${homeroomHtml ? `<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>` : ''}
 
         <!-- 2. STUÐNINGSFULLTRÚAR -->
-        ${assistantsHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar & Stoðþjónusta</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>` : ''}
+        ${assistantsHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>` : ''}
 
-        <!-- 3. AÐRIR KENNARAR -->
+        <!-- 3. STOÐÞJÓNUSTA -->
+        ${supportHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta & Þroskaþjálfar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>` : ''}
+
+        <!-- 4. AÐRIR KENNARAR -->
         ${otherTeachersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>` : ''}
 
-        <!-- 4. STJÓRNENDUR (NEÐST) -->
+        <!-- 5. STJÓRNENDUR -->
         ${managersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>` : ''}
         
-        ${(!homeroomHtml && !assistantsHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
+        ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
       </div>
 
       <!-- GOOGLE DOCS NÁMSKRÁRTEXTI -->
