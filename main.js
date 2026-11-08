@@ -161,7 +161,7 @@ async function fetchGoogleDocContent(docUrl) {
   }
 }
 
-// ==================== ÁRGANGASÍÐA (NÁKVÆM RÖÐUN & DE-DUPLICATION) ====================
+// ==================== ÁRGANGASÍÐA (RÖÐUN METNAÐARSAMLEGA UTAN UM DATA.STAFF EF TIL) ====================
 
 async function openYearDetail(yearId) {
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
@@ -171,84 +171,86 @@ async function openYearDetail(yearId) {
     return;
   }
 
-  // 1. Sækjum starfsmenn þessa árgangs
-  const rawStaff = Object.values(window.STAFF_MEMBERS || {});
-  const yearStaff = rawStaff.filter(p => {
-    if (!p.grades) return false;
-    return p.grades.toLowerCase().split(',').map(g => g.trim()).includes(yearId.toLowerCase());
-  });
+  let homeroomTeachers = [];
+  let assistants = [];
+  let supportService = [];
+  let otherTeachers = [];
+  let managers = [];
 
-  // Einangrum einstaka starfsmenn miðað við nafn til að koma í veg fyrir tvítekningu
-  const uniqueYearStaff = [];
-  const seenNames = new Set();
-  for (const p of yearStaff) {
-    const key = (p.name || '').toLowerCase().trim();
-    if (key && !seenNames.has(key)) {
-      seenNames.add(key);
-      uniqueYearStaff.push(p);
-    }
-  }
+  // Ef árgangaskráin inniheldur handvirkt skráða ID lista (eins og y1.js):
+  if (data.staff) {
+    const getStaffObjs = (ids) => (ids || []).map(id => window.STAFF_MEMBERS ? window.STAFF_MEMBERS[id] : null).filter(Boolean);
+    
+    homeroomTeachers = getStaffObjs(data.staff.teachers);
+    assistants = getStaffObjs(data.staff.assistants);
+    supportService = getStaffObjs(data.staff.support);
+    otherTeachers = getStaffObjs(data.staff.otherTeachers);
+    managers = getStaffObjs(data.staff.managers);
+  } else {
+    // Sjálfvirk síun úr Google Sheets ef data.staff er ekki í skránni:
+    const rawStaff = Object.values(window.STAFF_MEMBERS || {});
+    const numId = yearId.replace(/\D/g, '');
 
-  const assignedNames = new Set();
-
-  function isUnassigned(p) {
-    const key = (p.name || '').toLowerCase().trim();
-    return !assignedNames.has(key);
-  }
-
-  function markAssigned(list) {
-    list.forEach(p => {
-      const key = (p.name || '').toLowerCase().trim();
-      if (key) assignedNames.add(key);
+    const yearStaff = rawStaff.filter(p => {
+      if (!p.grades) return false;
+      const gList = p.grades.toLowerCase().split(/[,;/]+/).map(g => g.trim());
+      return gList.some(g => 
+        g === yearId.toLowerCase() || 
+        (numId && g === numId) || 
+        (numId && g === `${numId}.`) ||
+        (numId && g.startsWith(`${numId}.`)) ||
+        (numId && g.includes(`${numId}. árg`)) ||
+        (numId && g.includes(`${numId}. bekk`))
+      );
     });
+
+    const assignedNames = new Set();
+    function isUnassigned(p) {
+      const key = (p.name || '').toLowerCase().trim();
+      return !assignedNames.has(key);
+    }
+    function markAssigned(list) {
+      list.forEach(p => {
+        const key = (p.name || '').toLowerCase().trim();
+        if (key) assignedNames.add(key);
+      });
+    }
+
+    homeroomTeachers = yearStaff.filter(p => {
+      const cat = (p.category || '').toLowerCase().trim();
+      const role = (p.role || '').toLowerCase().trim();
+      return cat.includes('umsjon') || cat.includes('umsjón') || role.includes('umsjónarkennari') || role.includes('umsjonarkennari') || role.includes('umsjón');
+    });
+    markAssigned(homeroomTeachers);
+
+    assistants = yearStaff.filter(p => {
+      if (!isUnassigned(p)) return false;
+      const cat = (p.category || '').toLowerCase().trim();
+      const role = (p.role || '').toLowerCase().trim();
+      return cat.includes('studning') || cat.includes('stuðning') || cat.includes('skolalidi') || role.includes('stuðningsfulltrúi') || role.includes('skólaliði');
+    });
+    markAssigned(assistants);
+
+    supportService = yearStaff.filter(p => {
+      if (!isUnassigned(p)) return false;
+      const cat = (p.category || '').toLowerCase().trim();
+      const role = (p.role || '').toLowerCase().trim();
+      return cat.includes('stod') || cat.includes('stoð') || role.includes('sérkennari') || role.includes('þroskaþjálfi') || role.includes('námsráðgjafi') || role.includes('talmeina');
+    });
+    markAssigned(supportService);
+
+    managers = yearStaff.filter(p => {
+      if (!isUnassigned(p)) return false;
+      const cat = (p.category || '').toLowerCase().trim();
+      const role = (p.role || '').toLowerCase().trim();
+      return cat.includes('stjorn') || cat.includes('stjórn') || role.includes('skólastjóri') || role.includes('deildarstjóri') || role.includes('aðstoðarskólastjóri');
+    });
+    markAssigned(managers);
+
+    otherTeachers = yearStaff.filter(p => isUnassigned(p));
   }
 
-  // FLOKKUR 1: UMSJÓNARKENNARAR
-  const homeroomTeachers = uniqueYearStaff.filter(p => {
-    if (!isUnassigned(p)) return false;
-    const cat = (p.category || '').toLowerCase();
-    const role = (p.role || '').toLowerCase();
-    return cat === 'umsjonarkennari' || role.includes('umsjónarkennari') || role.includes('umsjón');
-  });
-  markAssigned(homeroomTeachers);
-
-  // FLOKKUR 2: STUÐNINGSFULLTRÚAR
-  const assistants = uniqueYearStaff.filter(p => {
-    if (!isUnassigned(p)) return false;
-    const cat = (p.category || '').toLowerCase();
-    const role = (p.role || '').toLowerCase();
-    return cat === 'studningsfulltrui' || role.includes('stuðningsfulltrúi') || role.includes('skólaliði');
-  });
-  markAssigned(assistants);
-
-  // FLOKKUR 3: STOÐÞJÓNUSTA (Sérkennarar, þroskaþjálfar, námsráðgjafar o.fl.)
-  const supportService = uniqueYearStaff.filter(p => {
-    if (!isUnassigned(p)) return false;
-    const cat = (p.category || '').toLowerCase();
-    const role = (p.role || '').toLowerCase();
-    return cat === 'stodthjonusta' || role.includes('sérkennari') || role.includes('þroskaþjálfi') || role.includes('námsráðgjafi') || role.includes('talmeina') || role.includes('stoðþjónusta');
-  });
-  markAssigned(supportService);
-
-  // FLOKKUR 4: AÐRIR KENNARAR Í ÁRGANGI (Íþrótta-, list- og faggreinakennarar)
-  const otherTeachers = uniqueYearStaff.filter(p => {
-    if (!isUnassigned(p)) return false;
-    const cat = (p.category || '').toLowerCase();
-    const role = (p.role || '').toLowerCase();
-    return cat === 'kennari' || role.includes('kennari') || role.includes('þjálfari');
-  });
-  markAssigned(otherTeachers);
-
-  // FLOKKUR 5: STJÓRNENDUR (Neðst)
-  const managers = uniqueYearStaff.filter(p => {
-    if (!isUnassigned(p)) return false;
-    const cat = (p.category || '').toLowerCase();
-    const role = (p.role || '').toLowerCase();
-    return cat === 'stjornandi' || role.includes('skólastjóri') || role.includes('deildarstjóri') || role.includes('aðstoðarskólastjóri');
-  });
-  markAssigned(managers);
-
-  // Teiknum upp HTML fyrir hvern flokk
+  // Teiknum upp HTML fyrir alla 5 flokkana í réttri röð
   const homeroomHtml = homeroomTeachers.map(p => renderStaffCardByObject(p)).join('');
   const assistantsHtml = assistants.map(p => renderStaffCardByObject(p)).join('');
   const supportHtml = supportService.map(p => renderStaffCardByObject(p)).join('');
@@ -291,7 +293,7 @@ async function openYearDetail(yearId) {
         <!-- 5. STJÓRNENDUR (NEÐST) -->
         ${managersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>` : ''}
         
-        ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
+        ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang.</p>' : ''}
       </div>
 
       <!-- GOOGLE DOCS NÁMSKRÁRTEXTI -->
