@@ -111,7 +111,6 @@ function isStaffInYear(p, yearId) {
   }
 
   if (targetNum !== null) {
-    // Athugum árganganúmer á borð við "1-4", "y1-y4" eða "1 - 4"
     const rangeMatches = rawGrades.matchAll(/(\d+)\s*-\s*(\d+)/g);
     for (const match of rangeMatches) {
       const start = parseInt(match[1], 10);
@@ -121,7 +120,6 @@ function isStaffInYear(p, yearId) {
       }
     }
 
-    // Athugum tölulista (t.d. "1, 2, 3, 4" eða "1. bekkur, 2. bekkur")
     const numbers = rawGrades.split(/[^\d]+/).map(n => parseInt(n, 10)).filter(n => !isNaN(n));
     if (numbers.includes(targetNum)) {
       return true;
@@ -156,69 +154,25 @@ function renderStaffCardByObject(p) {
   `;
 }
 
-// ==================== GOOGLE DOCS SÆKIR ====================
+// ==================== GOOGLE DOCS EMBED ====================
 
-async function fetchGoogleDocContent(docUrl) {
+function renderGoogleDocEmbed(docUrl) {
   if (!docUrl) return '';
 
   let cleanUrl = docUrl.trim();
-  if (!cleanUrl.includes('embedded=true')) {
+  
+  if (cleanUrl.includes('/pub') && !cleanUrl.includes('embedded=true')) {
     cleanUrl += cleanUrl.includes('?') ? '&embedded=true' : '?embedded=true';
   }
 
-  const proxies = [
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
-  ];
-
-  let htmlText = '';
-  
-  for (const getProxyUrl of proxies) {
-    try {
-      const response = await fetch(getProxyUrl(cleanUrl));
-      if (response.ok) {
-        const text = await response.text();
-        if (text && text.length > 100) {
-          htmlText = text;
-          break;
-        }
-      }
-    } catch (e) {
-      console.warn('Proxy tilraun mistókst, prófa næsta...', e);
-    }
-  }
-
-  if (!htmlText) {
-    return '<p class="text-amber-700 bg-amber-50 p-4 rounded-xl border border-amber-200 text-xs">Ekki náðist samband við Google Docs. Athugaðu hvort skjalið sé örugglega gefið út á vefnum (Skrá ➔ Deila ➔ Gefa út á vefnum).</p>';
-  }
-
-  try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlText, 'text/html');
-
-    const content = doc.querySelector('#contents') || doc.querySelector('.doc-content') || doc.body;
-
-    if (!content) return '<p class="text-slate-500 italic">Enginn texti fannst í skjalinu.</p>';
-
-    const badElements = content.querySelectorAll('style, script, head, title, meta');
-    badElements.forEach(el => el.remove());
-
-    const allElements = content.querySelectorAll('*');
-    allElements.forEach(el => {
-      el.removeAttribute('style');
-      el.removeAttribute('class');
-      el.removeAttribute('id');
-    });
-
-    return content.innerHTML;
-  } catch (err) {
-    console.error('Villa við að lesa Google Doc HTML:', err);
-    return '<p class="text-slate-500 italic">Tókst ekki að umbreyta texta úr Google Docs.</p>';
-  }
+  return `
+    <div class="w-full bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm" style="height: 750px;">
+      <iframe src="${cleanUrl}" class="w-full h-full border-0" title="Námskrá Google Doc" loading="lazy"></iframe>
+    </div>
+  `;
 }
 
-// ==================== ÁRGANGASÍÐA (SÆKIR SJÁLFKRAFA ÚR STAFF.JS) ====================
+// ==================== ÁRGANGASÍÐA ====================
 
 async function openYearDetail(yearId) {
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
@@ -251,10 +205,8 @@ async function openYearDetail(yearId) {
     otherTeachers = getStaffObjs(data.staff.otherTeachers);
     managers = getStaffObjs(data.staff.managers);
   } else {
-    // SÆKJUM SJÁLFKRAFA ÚR STAFF.JS
+    // SÆKJUM SJÁLFKRAFA ÚR STAFF.JS (GOOGLE SHEETS)
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
-    
-    // Nákvæm og sveigjanleg síun á árgangi
     const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
     const assignedNames = new Set();
@@ -304,7 +256,7 @@ async function openYearDetail(yearId) {
     });
     markAssigned(managers);
 
-    // 5. Aðrir kennarar í árgangi (Allir aðrir sem tilheyra árganginum)
+    // 5. Aðrir kennarar í árgangi (Allir sem eftir eru í árganginum)
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
   }
 
@@ -314,6 +266,8 @@ async function openYearDetail(yearId) {
   const supportHtml = supportService.map(p => renderStaffCardByObject(p)).join('');
   const otherTeachersHtml = otherTeachers.map(p => renderStaffCardByObject(p)).join('');
   const managersHtml = managers.map(p => renderStaffCardByObject(p)).join('');
+
+  const docEmbedHtml = data.docUrl ? renderGoogleDocEmbed(data.docUrl) : '';
 
   const baseHtml = `
     <div class="space-y-6">
@@ -355,27 +309,16 @@ async function openYearDetail(yearId) {
       </div>
 
       <!-- GOOGLE DOCS NÁMSKRÁRTEXTI -->
+      ${docEmbedHtml ? `
       <div id="docContainer" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
         <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Námskrá og Kennsluáætlun</h3>
-        <div id="docTextHolder" class="text-slate-700 text-sm leading-relaxed space-y-3 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:text-sky-900 [&_h1]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-slate-800 [&_h2]:mt-4 [&_h2]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-800 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mb-3 [&_a]:text-sky-600 [&_a]:underline">
-          <p class="text-slate-400 animate-pulse text-xs">Sæki námskrá úr Google Docs...</p>
-        </div>
+        ${docEmbedHtml}
       </div>
+      ` : ''}
     </div>
   `;
 
   openDetailView(data.title, data.icon, baseHtml);
-
-  if (data.docUrl) {
-    const docHtml = await fetchGoogleDocContent(data.docUrl);
-    const holder = document.getElementById('docTextHolder');
-    if (holder) {
-      holder.innerHTML = docHtml || '<p class="text-slate-500 italic">Enginn texti fannst í skjalinu.</p>';
-    }
-  } else {
-    const docContainer = document.getElementById('docContainer');
-    if (docContainer) docContainer.remove();
-  }
 }
 
 // ==================== FAGGREINAR LOGIC ====================
