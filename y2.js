@@ -3,7 +3,7 @@ if (!window.YEARS_DATA) window.YEARS_DATA = {};
 window.YEARS_DATA['y2'] = {
   title: '2. árgangur',
   icon: '🍃',
-  docUrl: '', // Google Docs pub slóð
+  docUrl: 'https://docs.google.com/document/u/1/d/e/2PACX-1vSnvB45K0HMU2lDjubHwjhFZohz-5DSj5ooFzJI3PeOExU20VYfAAK1ZdwPiUfMkW-clRvPmh8xUVFB/pub', // Google Docs pub slóð
   info: {
     students: 'Nemendur (skólaárið 2026–2027)',
     rooms: 'Heimastofur 2. árgangs',
