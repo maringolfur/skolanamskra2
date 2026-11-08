@@ -161,7 +161,7 @@ async function fetchGoogleDocContent(docUrl) {
   }
 }
 
-// ==================== ÁRGANGASÍÐA (RÖÐUN METNAÐARSAMLEGA UTAN UM DATA.STAFF EF TIL) ====================
+// ==================== ÁRGANGASÍÐA (SÆKIR SJÁLFKRAFA ÚR STAFF.JS) ====================
 
 async function openYearDetail(yearId) {
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
@@ -177,8 +177,16 @@ async function openYearDetail(yearId) {
   let otherTeachers = [];
   let managers = [];
 
-  // Ef árgangaskráin inniheldur handvirkt skráða ID lista (eins og y1.js):
-  if (data.staff) {
+  // Athugum hvort það séu handvirk ID í skránni og hvort einhver þeirra innihaldi gögn
+  const hasManualStaff = data.staff && (
+    (data.staff.teachers && data.staff.teachers.length > 0) ||
+    (data.staff.assistants && data.staff.assistants.length > 0) ||
+    (data.staff.support && data.staff.support.length > 0) ||
+    (data.staff.otherTeachers && data.staff.otherTeachers.length > 0) ||
+    (data.staff.managers && data.staff.managers.length > 0)
+  );
+
+  if (hasManualStaff) {
     const getStaffObjs = (ids) => (ids || []).map(id => window.STAFF_MEMBERS ? window.STAFF_MEMBERS[id] : null).filter(Boolean);
     
     homeroomTeachers = getStaffObjs(data.staff.teachers);
@@ -187,9 +195,9 @@ async function openYearDetail(yearId) {
     otherTeachers = getStaffObjs(data.staff.otherTeachers);
     managers = getStaffObjs(data.staff.managers);
   } else {
-    // Sjálfvirk síun úr Google Sheets ef data.staff er ekki í skránni:
+    // SÆKJUM SJÁLFKRAFA ÚR STAFF.JS (GOOGLE SHEETS)
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
-    const numId = yearId.replace(/\D/g, '');
+    const numId = yearId.replace(/\D/g, ''); // Nær í töluna, t.d. "2" úr "y2"
 
     const yearStaff = rawStaff.filter(p => {
       if (!p.grades) return false;
@@ -216,6 +224,7 @@ async function openYearDetail(yearId) {
       });
     }
 
+    // 1. Umsjónarkennarar
     homeroomTeachers = yearStaff.filter(p => {
       const cat = (p.category || '').toLowerCase().trim();
       const role = (p.role || '').toLowerCase().trim();
@@ -223,6 +232,7 @@ async function openYearDetail(yearId) {
     });
     markAssigned(homeroomTeachers);
 
+    // 2. Stuðningsfulltrúar
     assistants = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = (p.category || '').toLowerCase().trim();
@@ -231,6 +241,7 @@ async function openYearDetail(yearId) {
     });
     markAssigned(assistants);
 
+    // 3. Stoðþjónusta
     supportService = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = (p.category || '').toLowerCase().trim();
@@ -239,6 +250,7 @@ async function openYearDetail(yearId) {
     });
     markAssigned(supportService);
 
+    // 4. Stjórnendur (Neðst)
     managers = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = (p.category || '').toLowerCase().trim();
@@ -247,10 +259,11 @@ async function openYearDetail(yearId) {
     });
     markAssigned(managers);
 
+    // 5. Aðrir kennarar í árgangi
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
   }
 
-  // Teiknum upp HTML fyrir alla 5 flokkana í réttri röð
+  // Teiknum upp HTML fyrir flokkana í réttri röð
   const homeroomHtml = homeroomTeachers.map(p => renderStaffCardByObject(p)).join('');
   const assistantsHtml = assistants.map(p => renderStaffCardByObject(p)).join('');
   const supportHtml = supportService.map(p => renderStaffCardByObject(p)).join('');
@@ -287,13 +300,13 @@ async function openYearDetail(yearId) {
         <!-- 3. STOÐÞJÓNUSTA -->
         ${supportHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>` : ''}
 
-        <!-- 4. AÐRIR KENNARAR -->
+        <!-- 4. AÐRIR KENNARAR Í ÁRGANGI -->
         ${otherTeachersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>` : ''}
 
-        <!-- 5. STJÓRNENDUR (NEÐST) -->
+        <!-- 5. STJÓRNENDUR -->
         ${managersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>` : ''}
         
-        ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang.</p>' : ''}
+        ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
       </div>
 
       <!-- GOOGLE DOCS NÁMSKRÁRTEXTI -->
