@@ -327,4 +327,192 @@ async function openYearDetail(yearId) {
     });
     markAssigned(supportService);
 
-    // 4. Stjórnendur (Röðun:
+    // 4. Stjórnendur (Röðun: Skólastjóri -> Aðstoðarskólastjóri -> Deildarstjóri -> Verkefnastjóri)
+    managers = yearStaff.filter(p => {
+      if (!isUnassigned(p)) return false;
+      const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
+      const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
+      return cat.includes('stjorn') || cat.includes('stjórn') || 
+             role.includes('skólastjóri') || role.includes('skolastjori') ||
+             role.includes('deildarstjóri') || role.includes('deildarstjori') ||
+             role.includes('verkefnastjóri') || role.includes('verkefnisstjóri');
+    });
+    managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
+    markAssigned(managers);
+
+    // 5. Aðrir kennarar í árgangi
+    otherTeachers = yearStaff.filter(p => isUnassigned(p));
+  }
+
+  const homeroomHtml = homeroomTeachers.map(p => renderStaffCardByObject(p)).join('');
+  const assistantsHtml = assistants.map(p => renderStaffCardByObject(p)).join('');
+  const supportHtml = supportService.map(p => renderStaffCardByObject(p)).join('');
+  const otherTeachersHtml = otherTeachers.map(p => renderStaffCardByObject(p)).join('');
+  const managersHtml = managers.map(p => renderStaffCardByObject(p)).join('');
+
+  const baseHtml = `
+    <div class="space-y-6">
+      <!-- ALMENNAR UPPLÝSINGAR -->
+      <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+        <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um ${data.title}</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
+          <p><strong>Fjöldi nemenda:</strong> ${data.info && data.info.students ? data.info.students : '-'}</p>
+          <p><strong>Heimastofur:</strong> ${data.info && data.info.rooms ? data.info.rooms : '-'}</p>
+          <p><strong>Kennslutími:</strong> ${data.info && data.info.hours ? data.info.hours : '-'}</p>
+          <p><strong>Frímínútur:</strong> ${data.info && data.info.recess ? data.info.recess : '-'}</p>
+          ${data.info && data.info.lunch ? `<p><strong>Hádegishlé:</strong> ${data.info.lunch}</p>` : ''}
+        </div>
+      </div>
+
+      <!-- STARFSFÓLK ÁRGANGSINS -->
+      <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+        <div class="flex items-center justify-between border-b pb-2">
+          <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk árgangsins</h3>
+          <span class="text-xs text-slate-400 italic">Smelltu til að opna samskiptaupplýsingar</span>
+        </div>
+
+        ${homeroomHtml ? `<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>` : ''}
+        ${assistantsHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>` : ''}
+        ${supportHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>` : ''}
+        ${otherTeachersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>` : ''}
+        ${managersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>` : ''}
+        
+        ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
+      </div>
+
+      <!-- GOOGLE DOCS NÁMSKRÁRTEXTI (ALLTAF SÝNILEGT) -->
+      <div id="docContainer" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+        <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Námskrá og Kennsluáætlun</h3>
+        <div id="docTextHolder">
+          <p class="text-slate-400 animate-pulse text-xs">Sæki texta úr Google Docs...</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  openDetailView(data.title, data.icon, baseHtml);
+
+  const holder = document.getElementById('docTextHolder');
+  if (data.docUrl && data.docUrl.trim() !== '') {
+    const formattedHtml = await fetchGoogleDocCleanHtml(data.docUrl);
+    if (holder) {
+      holder.innerHTML = formattedHtml || '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu.</div>';
+    }
+  } else {
+    if (holder) {
+      holder.innerHTML = '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu fyrir þennan árgang.</div>';
+    }
+  }
+}
+
+// ==================== FAGGREINAR LOGIC ====================
+
+function handleSubjectClick(subjectId) {
+  const subject = window.SUBJECTS_TREE ? window.SUBJECTS_TREE.find(s => s.id === subjectId) : null;
+  if (!subject) return;
+
+  if (subject.type === 'parent') {
+    renderSubSubjects(subject);
+  } else if (subject.type === 'standalone') {
+    openDetailView(subject.title, subject.icon, `<div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm"><p class="text-slate-600 text-sm">Upplýsingar um ${subject.title}.</p></div>`);
+  } else {
+    renderGradeSelection(subject.title, subject.icon, subject.startGrade, subject.endGrade);
+  }
+}
+
+function renderSubSubjects(parentSubject) {
+  hideAllViews();
+  currentViewHistory.push('sub_subjects');
+  document.getElementById('detailIcon').innerText = parentSubject.icon;
+  document.getElementById('detailTitle').innerText = parentSubject.title;
+
+  const tilesHtml = parentSubject.subSubjects.map(sub => `
+    <button onclick="renderGradeSelection('${sub.title}', '${sub.icon}', ${sub.startGrade}, ${sub.endGrade})" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-500 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
+      <span class="text-3xl group-hover:scale-110 transition duration-200">${sub.icon}</span>
+      <span class="text-sm font-bold text-slate-800 group-hover:text-amber-700">${sub.title}</span>
+    </button>
+  `).join('');
+
+  document.getElementById('detailContent').innerHTML = `
+    <div class="space-y-4">
+      <p class="text-xs md:text-sm text-slate-500 font-medium">Veldu undirgrein innan ${parentSubject.title}:</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        ${tilesHtml}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('backNavBtn').innerText = '← Til baka í Faggreinar';
+  document.getElementById('detailView').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function renderGradeSelection(title, icon, startGrade, endGrade) {
+  hideAllViews();
+  currentViewHistory.push('grade_selection');
+  document.getElementById('detailIcon').innerText = icon;
+  document.getElementById('detailTitle').innerText = title;
+
+  let tilesHtml = '';
+  for (let i = startGrade; i <= endGrade; i++) {
+    tilesHtml += `
+      <button onclick="openSubjectGradeDetail('${title}', ${i})" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-500 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
+        <span class="text-3xl group-hover:scale-110 transition duration-200">📘</span>
+        <span class="text-sm font-bold text-slate-800 group-hover:text-amber-700">${i}. árgangur</span>
+      </button>
+    `;
+  }
+
+  document.getElementById('detailContent').innerHTML = `
+    <div class="space-y-4">
+      <p class="text-xs md:text-sm text-slate-500 font-medium">Veldu árgang til að skoða námskrá í ${title}:</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        ${tilesHtml}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('backNavBtn').innerText = '← Til baka';
+  document.getElementById('detailView').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function openSubjectGradeDetail(subjectTitle, gradeNum) {
+  openDetailView(`${subjectTitle} — ${gradeNum}. árgangur`, '📚', `
+    <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+      <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Námskrá og kennsluáætlun</h3>
+      <p class="text-xs md:text-sm text-slate-600">Hér birtast námsmarkmið, námsefni og námsmat fyrir ${gradeNum}. bekk í ${subjectTitle}.</p>
+    </div>
+  `);
+}
+
+// ==================== STARFSMANNA SPRETTIGLUGGI (MODAL) ====================
+
+function openTeacherModal(name, role, email, imgSrc) {
+  document.getElementById('teacherModalName').innerText = name || '';
+  document.getElementById('teacherModalRole').innerText = role || '';
+  document.getElementById('teacherModalEmailText').innerText = email || '';
+  document.getElementById('teacherModalEmail').href = "mailto:" + (email || '');
+  
+  const imgElem = document.getElementById('teacherModalImg');
+  imgElem.src = imgSrc;
+  imgElem.onerror = function() {
+    this.src = 'https://via.placeholder.com/150?text=' + encodeURIComponent((name || 'Starfsmaður').split(' ')[0]);
+  };
+
+  document.getElementById('teacherModal').style.display = 'flex';
+}
+
+function closeTeacherModal() {
+  document.getElementById('teacherModal').style.display = 'none';
+}
+
+function closeTeacherModalOnBg(e) {
+  if (e.target.id === 'teacherModal') closeTeacherModal();
+}
+
+// ==================== FRUMSTILLING ====================
+
+window.addEventListener('DOMContentLoaded', () => {
+  showHome();
+});
