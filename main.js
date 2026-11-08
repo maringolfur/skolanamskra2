@@ -164,96 +164,9 @@ function renderStaffCardByObject(p) {
   `;
 }
 
-// ==================== GOOGLE DOCS TEXTAHREINSUN (ENGER IFRAME RAMMAR) ====================
-
-async function fetchGoogleDocCleanHtml(docUrl) {
-  if (!docUrl || docUrl.trim() === '') return '';
-
-  let cleanUrl = docUrl.trim();
-  if (cleanUrl.includes('/pub') && !cleanUrl.includes('embedded=true')) {
-    cleanUrl += cleanUrl.includes('?') ? '&embedded=true' : '?embedded=true';
-  }
-
-  const proxies = [
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
-  ];
-
-  let rawHtml = '';
-  for (const getProxyUrl of proxies) {
-    try {
-      const response = await fetch(getProxyUrl(cleanUrl));
-      if (response.ok) {
-        const text = await response.text();
-        if (text && text.length > 200 && !text.includes('Access Denied')) {
-          rawHtml = text;
-          break;
-        }
-      }
-    } catch (e) {
-      console.warn('Proxy tilraun mistókst, prófa næsta...', e);
-    }
-  }
-
-  if (!rawHtml) {
-    return `
-      <div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs space-y-2">
-        <p class="font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu.</p>
-        <p class="text-[11px] text-amber-700">Ekki náðist bein tenging við skjalið í augnablikinu. <a href="${docUrl}" target="_blank" class="underline hover:text-amber-900 font-bold">Smelltu hér til að opna námskrána í Google Docs</a>.</p>
-      </div>
-    `;
-  }
-
-  try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(rawHtml, 'text/html');
-    const contentHolder = doc.querySelector('#contents') || doc.querySelector('.doc-content') || doc.body;
-
-    if (!contentHolder) {
-      return '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu.</div>';
-    }
-
-    contentHolder.querySelectorAll('style, script, head, title, meta, link').forEach(el => el.remove());
-    contentHolder.querySelectorAll('*').forEach(el => {
-      el.removeAttribute('style');
-      el.removeAttribute('class');
-      el.removeAttribute('id');
-      el.removeAttribute('dir');
-      el.removeAttribute('color');
-      el.removeAttribute('face');
-    });
-
-    return applyTailwindStylesToDocHtml(contentHolder.innerHTML);
-  } catch (err) {
-    console.error('Villa við þáttun á Google Doc HTML:', err);
-    return '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu.</div>';
-  }
-}
-
-function applyTailwindStylesToDocHtml(html) {
-  return `
-    <div class="space-y-4 text-slate-700 text-sm leading-relaxed
-      [&_h1]:text-2xl [&_h1]:font-extrabold [&_h1]:text-sky-900 [&_h1]:pt-4 [&_h1]:pb-2 [&_h1]:border-b [&_h1]:border-slate-100
-      [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-slate-800 [&_h2]:pt-3 [&_h2]:pb-1
-      [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-sky-800 [&_h3]:pt-2
-      [&_p]:leading-relaxed [&_p]:text-slate-600 [&_p]:mb-3
-      [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:my-3
-      [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:my-3
-      [&_li]:text-slate-700
-      [&_strong]:font-bold [&_strong]:text-slate-900
-      [&_a]:text-sky-600 [&_a]:underline hover:[&_a]:text-sky-800
-      [&_table]:w-full [&_table]:border-collapse [&_table]:my-4
-      [&_td]:border [&_td]:border-slate-200 [&_td]:p-3 [&_td]:text-xs
-      [&_th]:border [&_th]:border-slate-200 [&_th]:p-3 [&_th]:bg-slate-50 [&_th]:font-bold [&_th]:text-xs">
-      ${html}
-    </div>
-  `;
-}
-
 // ==================== ÁRGANGASÍÐA ====================
 
-async function openYearDetail(yearId) {
+function openYearDetail(yearId) {
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
   
   if (!data) {
@@ -350,6 +263,11 @@ async function openYearDetail(yearId) {
   const otherTeachersHtml = otherTeachers.map(p => renderStaffCardByObject(p)).join('');
   const managersHtml = managers.map(p => renderStaffCardByObject(p)).join('');
 
+  // BIRTA HARÐKÓÐAÐA TEXTANN EÐA TÓM SKILABOÐ
+  const docContent = (data.docHtml && data.docHtml.trim() !== '') 
+    ? data.docHtml 
+    : '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu fyrir þennan árgang.</div>';
+
   const baseHtml = `
     <div class="space-y-6">
       <!-- ALMENNAR UPPLÝSINGAR -->
@@ -380,29 +298,29 @@ async function openYearDetail(yearId) {
         ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
       </div>
 
-      <!-- GOOGLE DOCS NÁMSKRÁRTEXTI (ALLTAF SÝNILEGT) -->
+      <!-- HARÐKÓÐAÐUR NÁMSKRÁRTEXTI -->
       <div id="docContainer" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
         <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Námskrá og Kennsluáætlun</h3>
-        <div id="docTextHolder">
-          <p class="text-slate-400 animate-pulse text-xs">Sæki texta úr Google Docs...</p>
+        <div id="docTextHolder" class="space-y-4 text-slate-700 text-sm leading-relaxed
+          [&_h1]:text-2xl [&_h1]:font-extrabold [&_h1]:text-sky-900 [&_h1]:pt-4 [&_h1]:pb-2 [&_h1]:border-b [&_h1]:border-slate-100
+          [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-slate-800 [&_h2]:pt-3 [&_h2]:pb-1
+          [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-sky-800 [&_h3]:pt-2
+          [&_p]:leading-relaxed [&_p]:text-slate-600 [&_p]:mb-3
+          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:my-3
+          [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:my-3
+          [&_li]:text-slate-700
+          [&_strong]:font-bold [&_strong]:text-slate-900
+          [&_a]:text-sky-600 [&_a]:underline hover:[&_a]:text-sky-800
+          [&_table]:w-full [&_table]:border-collapse [&_table]:my-4
+          [&_td]:border [&_td]:border-slate-200 [&_td]:p-3 [&_td]:text-xs
+          [&_th]:border [&_th]:border-slate-200 [&_th]:p-3 [&_th]:bg-slate-50 [&_th]:font-bold [&_th]:text-xs">
+          ${docContent}
         </div>
       </div>
     </div>
   `;
 
   openDetailView(data.title, data.icon, baseHtml);
-
-  const holder = document.getElementById('docTextHolder');
-  if (data.docUrl && data.docUrl.trim() !== '') {
-    const formattedHtml = await fetchGoogleDocCleanHtml(data.docUrl);
-    if (holder) {
-      holder.innerHTML = formattedHtml || '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu.</div>';
-    }
-  } else {
-    if (holder) {
-      holder.innerHTML = '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu fyrir þennan árgang.</div>';
-    }
-  }
 }
 
 // ==================== FAGGREINAR LOGIC ====================
