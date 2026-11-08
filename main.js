@@ -129,6 +129,16 @@ function isStaffInYear(p, yearId) {
   return false;
 }
 
+// Stjórnendaröðun: 1. Skólastjóri -> 2. Aðstoðarskólastjóri -> 3. Deildarstjóri -> 4. Verkefnastjóri
+function getManagerRank(p) {
+  const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
+  if (role.includes('aðstoðarskólastjóri') || role.includes('adstodarskolastjori')) return 2;
+  if (role.includes('skólastjóri') || role.includes('skolastjori')) return 1;
+  if (role.includes('deildarstjóri') || role.includes('deildarstjori')) return 3;
+  if (role.includes('verkefnastjóri') || role.includes('verkefnisstjóri') || role.includes('verkefnastjori')) return 4;
+  return 5;
+}
+
 // ==================== STARFSMANNAKORT ====================
 
 function renderStaffCardByObject(p) {
@@ -154,7 +164,7 @@ function renderStaffCardByObject(p) {
   `;
 }
 
-// ==================== GOOGLE DOCS TEXTAHREINSUN (SÖMU STÍLAR OG SÍÐAN) ====================
+// ==================== GOOGLE DOCS TEXTAHREINSUN ====================
 
 async function fetchGoogleDocCleanHtml(docUrl) {
   if (!docUrl) return '';
@@ -199,10 +209,7 @@ async function fetchGoogleDocCleanHtml(docUrl) {
       return '<p class="text-slate-400 italic text-xs">Enginn texti fannst í skjalinu.</p>';
     }
 
-    // Eyðum öllum lýsigögnum, style- og script-tögum úr Google Docs
     contentHolder.querySelectorAll('style, script, head, title, meta, link').forEach(el => el.remove());
-    
-    // Hreinsum öll innbyggð stílsnið Google svo Tailwind ráði öllu útliti
     contentHolder.querySelectorAll('*').forEach(el => {
       el.removeAttribute('style');
       el.removeAttribute('class');
@@ -270,6 +277,9 @@ async function openYearDetail(yearId) {
     supportService = getStaffObjs(data.staff.support);
     otherTeachers = getStaffObjs(data.staff.otherTeachers);
     managers = getStaffObjs(data.staff.managers);
+
+    // Raða einnig handvirkum stjórnendum eftir metnaðarstigi
+    managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
   } else {
     // SÆKJUM SJÁLFKRAFA ÚR GOOGLE SHEETS (STAFF.JS)
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
@@ -313,13 +323,17 @@ async function openYearDetail(yearId) {
     });
     markAssigned(supportService);
 
-    // 4. Stjórnendur
+    // 4. Stjórnendur (Síaðir og raðaðir: Skólastjóri -> Aðstoðarskólastjóri -> Deildarstjóri -> Verkefnastjóri)
     managers = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
       const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
-      return cat.includes('stjorn') || cat.includes('stjórn') || role.includes('skólastjóri') || role.includes('deildarstjóri') || role.includes('aðstoðarskólastjóri');
+      return cat.includes('stjorn') || cat.includes('stjórn') || 
+             role.includes('skólastjóri') || role.includes('skolastjori') ||
+             role.includes('deildarstjóri') || role.includes('deildarstjori') ||
+             role.includes('verkefnastjóri') || role.includes('verkefnisstjóri');
     });
+    managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
     markAssigned(managers);
 
     // 5. Aðrir kennarar í árgangi
