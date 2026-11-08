@@ -154,7 +154,7 @@ function renderStaffCardByObject(p) {
   `;
 }
 
-// ==================== GOOGLE DOCS TEXTAHREINSIR & SÆKIR ====================
+// ==================== GOOGLE DOCS TEXTAHREINSIR MEÐ SÖMU HÖNNUN & VARALAUSN ====================
 
 async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
   if (!docUrl) return '';
@@ -166,7 +166,7 @@ async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
 
   const proxies = [
     url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    url => `https://corsproxy.org/?${encodeURIComponent(url)}`,
     url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
   ];
 
@@ -176,7 +176,7 @@ async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
       const response = await fetch(getProxyUrl(cleanUrl));
       if (response.ok) {
         const text = await response.text();
-        if (text && text.length > 100) {
+        if (text && text.length > 200 && !text.includes('Access Denied')) {
           rawHtml = text;
           break;
         }
@@ -186,10 +186,11 @@ async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
     }
   }
 
+  // Ef allir milliþjónar bregðast birtist skjalið sjálfkrafa í mýkri ramma án þess að sýna villa-skilaboð
   if (!rawHtml) {
     return `
-      <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-amber-800 text-xs">
-        Ekki náðist að sækja texta úr Google Docs. Athugaðu hvort skjalið sé gefið út á vefnum (Skrá ➔ Deila ➔ Gefa út á vefnum).
+      <div class="w-full bg-white rounded-2xl overflow-hidden border border-slate-100" style="min-height: 600px;">
+        <iframe src="${cleanUrl}" class="w-full h-[650px] border-0" title="Námskrá Google Doc"></iframe>
       </div>
     `;
   }
@@ -199,12 +200,11 @@ async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
     const doc = parser.parseFromString(rawHtml, 'text/html');
     const contentHolder = doc.querySelector('#contents') || doc.querySelector('.doc-content') || doc.body;
 
-    if (!contentHolder) return '<p class="text-slate-400 italic text-xs">Enginn texti fannst í skjalinu.</p>';
+    if (!contentHolder) {
+      return `<iframe src="${cleanUrl}" class="w-full h-[650px] border-0"></iframe>`;
+    }
 
-    // 1. Fjarlægjum lýsigögn, scriptu- og stílblokk Google Docs
     contentHolder.querySelectorAll('style, script, head, title, meta').forEach(el => el.remove());
-
-    // 2. Fjarlægjum öll innbyggð stílsnið Google Docs (fonta, liti o.fl.)
     contentHolder.querySelectorAll('*').forEach(el => {
       el.removeAttribute('style');
       el.removeAttribute('class');
@@ -212,7 +212,6 @@ async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
       el.removeAttribute('dir');
     });
 
-    // 3. Ef óskað er eftir sérstökum kafla
     if (targetSectionTitle) {
       const headings = Array.from(contentHolder.querySelectorAll('h1, h2, h3, h4'));
       const targetHead = headings.find(h => h.innerText.toLowerCase().includes(targetSectionTitle.toLowerCase()));
@@ -231,8 +230,7 @@ async function fetchGoogleDocCleanHtml(docUrl, targetSectionTitle = null) {
 
     return applyTailwindStylesToDocHtml(contentHolder.innerHTML);
   } catch (err) {
-    console.error('Villa við þáttun á Google Doc HTML:', err);
-    return '<p class="text-slate-400 italic text-xs">Villa við vinnslu á texta úr Google Docs.</p>';
+    return `<iframe src="${cleanUrl}" class="w-full h-[650px] border-0"></iframe>`;
   }
 }
 
@@ -289,7 +287,6 @@ async function openYearDetail(yearId) {
     otherTeachers = getStaffObjs(data.staff.otherTeachers);
     managers = getStaffObjs(data.staff.managers);
   } else {
-    // SÆKJUM SJÁLFKRAFA ÚR STAFF.JS (GOOGLE SHEETS)
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
     const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
@@ -305,7 +302,6 @@ async function openYearDetail(yearId) {
       });
     }
 
-    // 1. Umsjónarkennarar
     homeroomTeachers = yearStaff.filter(p => {
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
       const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
@@ -313,7 +309,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(homeroomTeachers);
 
-    // 2. Stuðningsfulltrúar
     assistants = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
@@ -322,7 +317,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(assistants);
 
-    // 3. Stoðþjónusta
     supportService = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
@@ -331,7 +325,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(supportService);
 
-    // 4. Stjórnendur (Neðst)
     managers = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
@@ -340,7 +333,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(managers);
 
-    // 5. Aðrir kennarar í árgangi
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
   }
 
