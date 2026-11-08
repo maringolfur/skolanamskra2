@@ -79,21 +79,78 @@ function renderSubjectsGrid() {
   `).join('');
 }
 
+// ==================== DÁLKA- OG HELPER FALL ====================
+
+function getStaffProp(p, ...keys) {
+  if (!p) return '';
+  for (const key of keys) {
+    if (p[key] !== undefined && p[key] !== null && String(p[key]).trim() !== '') {
+      return String(p[key]).trim();
+    }
+    const foundKey = Object.keys(p).find(k => k.toLowerCase().trim() === key.toLowerCase().trim());
+    if (foundKey && p[foundKey] !== undefined && p[foundKey] !== null && String(p[foundKey]).trim() !== '') {
+      return String(p[foundKey]).trim();
+    }
+  }
+  return '';
+}
+
+function isStaffInYear(p, yearId) {
+  const rawGrades = getStaffProp(p, 'grades', 'argangar', 'árgangar', 'bekkir', 'bekkur', 'years').toLowerCase();
+  if (!rawGrades) return false;
+
+  const numMatch = yearId.match(/\d+/);
+  const targetNum = numMatch ? parseInt(numMatch[0], 10) : null;
+
+  if (rawGrades.includes('allir') || rawGrades.includes('1-10') || rawGrades.includes('y1-y10')) {
+    return true;
+  }
+
+  if (rawGrades.includes(yearId.toLowerCase())) {
+    return true;
+  }
+
+  if (targetNum !== null) {
+    // Athugum árganganúmer á borð við "1-4", "y1-y4" eða "1 - 4"
+    const rangeMatches = rawGrades.matchAll(/(\d+)\s*-\s*(\d+)/g);
+    for (const match of rangeMatches) {
+      const start = parseInt(match[1], 10);
+      const end = parseInt(match[2], 10);
+      if (targetNum >= start && targetNum <= end) {
+        return true;
+      }
+    }
+
+    // Athugum tölulista (t.d. "1, 2, 3, 4" eða "1. bekkur, 2. bekkur")
+    const numbers = rawGrades.split(/[^\d]+/).map(n => parseInt(n, 10)).filter(n => !isNaN(n));
+    if (numbers.includes(targetNum)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 // ==================== STARFSMANNAKORT ====================
 
 function renderStaffCardByObject(p) {
   if (!p) return '';
-  const safeName = (p.name || '').replace(/'/g, "\\'");
-  const safeRole = (p.role || '').replace(/'/g, "\\'");
-  const safeEmail = (p.email || '').replace(/'/g, "\\'");
-  const safeImg = (p.img || '').replace(/'/g, "\\'");
+  const name = getStaffProp(p, 'name', 'full_name', 'nafn');
+  const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill');
+  const email = getStaffProp(p, 'email', 'netfang');
+  const img = getStaffProp(p, 'img', 'mynd', 'image', 'photo');
+
+  const safeName = name.replace(/'/g, "\\'");
+  const safeRole = role.replace(/'/g, "\\'");
+  const safeEmail = email.replace(/'/g, "\\'");
+  const safeImg = img.replace(/'/g, "\\'");
 
   return `
     <button onclick="openTeacherModal('${safeName}', '${safeRole}', '${safeEmail}', 'images/${safeImg}')" class="flex items-center gap-3 p-3 bg-slate-50 hover:bg-sky-50 rounded-2xl border border-slate-100 text-left w-full transition group shadow-sm">
-      <img src="images/${safeImg}" alt="${p.name || 'Starfsmaður'}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm flex-shrink-0 group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=${encodeURIComponent(p.name ? p.name.split(' ')[0] : 'Starfsmaður')}';">
+      <img src="images/${safeImg}" alt="${name || 'Starfsmaður'}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm flex-shrink-0 group-hover:scale-105 transition" onerror="this.src='https://via.placeholder.com/150?text=${encodeURIComponent(name ? name.split(' ')[0] : 'Starfsmaður')}';">
       <div class="overflow-hidden">
-        <h5 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 truncate">${p.name || ''}</h5>
-        <p class="text-xs text-slate-500 truncate">${p.role || ''}</p>
+        <h5 class="font-bold text-xs text-slate-900 group-hover:text-sky-700 truncate">${name}</h5>
+        <p class="text-xs text-slate-500 truncate">${role}</p>
       </div>
     </button>
   `;
@@ -177,7 +234,6 @@ async function openYearDetail(yearId) {
   let otherTeachers = [];
   let managers = [];
 
-  // Athugum hvort það séu handvirk ID í skránni og hvort einhver þeirra innihaldi gögn
   const hasManualStaff = data.staff && (
     (data.staff.teachers && data.staff.teachers.length > 0) ||
     (data.staff.assistants && data.staff.assistants.length > 0) ||
@@ -195,39 +251,28 @@ async function openYearDetail(yearId) {
     otherTeachers = getStaffObjs(data.staff.otherTeachers);
     managers = getStaffObjs(data.staff.managers);
   } else {
-    // SÆKJUM SJÁLFKRAFA ÚR STAFF.JS (GOOGLE SHEETS)
+    // SÆKJUM SJÁLFKRAFA ÚR STAFF.JS
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
-    const numId = yearId.replace(/\D/g, ''); // Nær í töluna, t.d. "2" úr "y2"
-
-    const yearStaff = rawStaff.filter(p => {
-      if (!p.grades) return false;
-      const gList = p.grades.toLowerCase().split(/[,;/]+/).map(g => g.trim());
-      return gList.some(g => 
-        g === yearId.toLowerCase() || 
-        (numId && g === numId) || 
-        (numId && g === `${numId}.`) ||
-        (numId && g.startsWith(`${numId}.`)) ||
-        (numId && g.includes(`${numId}. árg`)) ||
-        (numId && g.includes(`${numId}. bekk`))
-      );
-    });
+    
+    // Nákvæm og sveigjanleg síun á árgangi
+    const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
     const assignedNames = new Set();
     function isUnassigned(p) {
-      const key = (p.name || '').toLowerCase().trim();
-      return !assignedNames.has(key);
+      const name = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase().trim();
+      return name && !assignedNames.has(name);
     }
     function markAssigned(list) {
       list.forEach(p => {
-        const key = (p.name || '').toLowerCase().trim();
-        if (key) assignedNames.add(key);
+        const name = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase().trim();
+        if (name) assignedNames.add(name);
       });
     }
 
     // 1. Umsjónarkennarar
     homeroomTeachers = yearStaff.filter(p => {
-      const cat = (p.category || '').toLowerCase().trim();
-      const role = (p.role || '').toLowerCase().trim();
+      const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
+      const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
       return cat.includes('umsjon') || cat.includes('umsjón') || role.includes('umsjónarkennari') || role.includes('umsjonarkennari') || role.includes('umsjón');
     });
     markAssigned(homeroomTeachers);
@@ -235,8 +280,8 @@ async function openYearDetail(yearId) {
     // 2. Stuðningsfulltrúar
     assistants = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
-      const cat = (p.category || '').toLowerCase().trim();
-      const role = (p.role || '').toLowerCase().trim();
+      const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
+      const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
       return cat.includes('studning') || cat.includes('stuðning') || cat.includes('skolalidi') || role.includes('stuðningsfulltrúi') || role.includes('skólaliði');
     });
     markAssigned(assistants);
@@ -244,22 +289,22 @@ async function openYearDetail(yearId) {
     // 3. Stoðþjónusta
     supportService = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
-      const cat = (p.category || '').toLowerCase().trim();
-      const role = (p.role || '').toLowerCase().trim();
+      const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
+      const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
       return cat.includes('stod') || cat.includes('stoð') || role.includes('sérkennari') || role.includes('þroskaþjálfi') || role.includes('námsráðgjafi') || role.includes('talmeina');
     });
     markAssigned(supportService);
 
-    // 4. Stjórnendur (Neðst)
+    // 4. Stjórnendur
     managers = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
-      const cat = (p.category || '').toLowerCase().trim();
-      const role = (p.role || '').toLowerCase().trim();
+      const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
+      const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
       return cat.includes('stjorn') || cat.includes('stjórn') || role.includes('skólastjóri') || role.includes('deildarstjóri') || role.includes('aðstoðarskólastjóri');
     });
     markAssigned(managers);
 
-    // 5. Aðrir kennarar í árgangi
+    // 5. Aðrir kennarar í árgangi (Allir aðrir sem tilheyra árganginum)
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
   }
 
@@ -303,7 +348,7 @@ async function openYearDetail(yearId) {
         <!-- 4. AÐRIR KENNARAR Í ÁRGANGI -->
         ${otherTeachersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>` : ''}
 
-        <!-- 5. STJÓRNENDUR -->
+        <!-- 5. STJÓRNENDUR (NEÐST) -->
         ${managersHtml ? `<div class="pt-3 border-t border-slate-100"><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>` : ''}
         
         ${(!homeroomHtml && !assistantsHtml && !supportHtml && !otherTeachersHtml && !managersHtml) ? '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>' : ''}
