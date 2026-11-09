@@ -1,4 +1,4 @@
-let currentViewHistory = [];
+var currentViewHistory = currentViewHistory || [];
 
 // ==================== VISIBILITY & NAVIGATION ====================
 
