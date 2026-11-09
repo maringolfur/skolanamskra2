@@ -4,7 +4,7 @@ window.YEARS_DATA['y3'] = {
   title: '3. árgangur',
   icon: '☘️',
   info: {
-    students: 'Nemendur (skólaárið 2026–2027)',
+    students: 'Nemendur 3. árgangs eru 40 og skiptast í tvær bekkjardeildir.  (skólaárið 2026–2027)',
     rooms: 'Stofur 3. árgangs eru stofur 2 og 3 á vesturgangi. Gengið er inn um Vesturinngang (vesturgangur)',
     hours: 'Hefst alla daga kl. 08:10 (30 stundir/viku)',
     recess: 'Kl. 09:30 – 09:50 alla daga',
