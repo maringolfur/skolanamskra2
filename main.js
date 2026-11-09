@@ -6,7 +6,7 @@ if (!window.YEARS_DATA) window.YEARS_DATA = {};
 if (!window.STAFF_DATA) window.STAFF_DATA = [];
 var currentViewHistory = currentViewHistory || [];
 
-// 1. Sækja starfsmannalista hvort sem hann er Array eða Object
+// 1. Sækja starfsmannalista óháð því hvort gögnin eru fylki (Array) eða hlutur (Object)
 function getStaffList() {
   if (!window.STAFF_DATA) return [];
   if (Array.isArray(window.STAFF_DATA)) return window.STAFF_DATA;
@@ -14,55 +14,80 @@ function getStaffList() {
   return [];
 }
 
-// 2. Staðla dálkaheiti starfsmanna
+// 2. Staðla dálkaheiti starfsmanna úr Google Sheets / CSV
 function normalizePerson(person) {
   if (!person) return { name: '', role: '', team: '' };
   return {
-    name: person.Name || person.name || person.Nafn || person.nafn || '',
-    role: person.Role || person.role || person.Hlutverk || person.hlutverk || person.Starf || person.starf || 'Starfsmaður',
+    name: person.Name || person.name || person.Nafn || person.nafn || person.FulltNafn || '',
+    role: person.Role || person.role || person.Hlutverk || person.hlutverk || person.Starf || person.starf || person.Titill || 'Starfsmaður',
     team: person.Team || person.team || person.Teams || person.teams || person.Teymi || person.teymi || ''
   };
 }
 
-// 3. Athuga hvort starfsmaður tilheyri árgangi
+// 3. Athuga hvort starfsmaður kenni / starfi í viðkomandi árgangi
 function isPersonInGrade(person, gradeId) {
   if (!person) return false;
-  const cleanGrade = gradeId.replace('y', '').trim();
-  const rawGrades = person.Grades || person.grades || person.grade || person.Bekkir || person.bekkir || person.Árgangar || person.árgangar;
 
-  if (!rawGrades) return false;
+  const gradeNumMatch = gradeId.match(/\d+/);
+  const targetGradeNum = gradeNumMatch ? gradeNumMatch[0] : null;
 
-  let gradeList = [];
-  if (Array.isArray(rawGrades)) {
-    gradeList = rawGrades.map(g => g.toString().trim());
-  } else {
-    gradeList = rawGrades.toString().split(/[\s,]+/).map(g => g.trim());
+  let gradeValues = [];
+  for (const [key, val] of Object.entries(person)) {
+    if (val && typeof val !== 'function') {
+      if (Array.isArray(val)) {
+        gradeValues.push(...val);
+      } else {
+        gradeValues.push(val.toString());
+      }
+    }
   }
 
-  return gradeList.some(g => {
-    const num = g.replace(/\D/g, '');
-    return num === cleanGrade || g.toLowerCase() === gradeId.toLowerCase();
-  });
+  const combinedStr = gradeValues.join(' ').toLowerCase();
+
+  if (targetGradeNum) {
+    // Athuga hvort tölustafur árgangs sé til staðar stakur eða í bili (t.d. 1, 1-10, 1. bekkur)
+    const regex = new RegExp(`(?:^|\\D)${targetGradeNum}(?:\\D\vert{}$)`);
+    if (regex.test(combinedStr)) return true;
+
+    // Athuga árangursbil eins og 1-10 eða 1-4
+    const rangeMatches = combinedStr.match(/(\d+)\s*[-–—]\s*(\d+)/g);
+    if (rangeMatches) {
+      for (const r of rangeMatches) {
+        const parts = r.split(/[-–—]/).map(n => parseInt(n.trim(), 10));
+        const target = parseInt(targetGradeNum, 10);
+        if (parts.length === 2 && target >= parts[0] && target <= parts[1]) {
+          return true;
+        }
+      }
+    }
+  } else {
+    // Fyrir sérstakar síður eins og 'stod' eða 'isat'
+    if (combinedStr.includes(gradeId.toLowerCase())) return true;
+    if (gradeId === 'stod' && (combinedStr.includes('stoð') || combinedStr.includes('sérkenn') || combinedStr.includes('þroska'))) return true;
+    if (gradeId === 'isat' && (combinedStr.includes('ísat') || combinedStr.includes('ísam'))) return true;
+  }
+
+  return false;
 }
 
-// 4. Teikna starfsmenn sem hreinan lista (án kassa)
+// 4. Teikna starfsfólk sem hreinan lista (án kassa)
 function createStaffListHtml(staffList) {
   if (!staffList || staffList.length === 0) return '';
 
   return staffList.map(p => {
     const person = normalizePerson(p);
-    const teamText = person.team ? ` (${person.team})` : '';
+    const teamText = person.team ? ` <span class="text-slate-400 font-normal">(${person.team})</span>` : '';
 
     return `
-      <li class="py-1 flex items-center justify-between text-slate-800 text-sm border-b border-slate-100 last:border-none">
-        <span class="font-bold">${person.name}</span>
-        <span class="text-slate-500 text-xs">${person.role}${teamText}</span>
-      </li>
+      <div class="py-1.5 flex items-baseline justify-between border-b border-slate-100 text-sm">
+        <span class="font-semibold text-slate-800">${person.name}${teamText}</span>
+        <span class="text-slate-500 text-xs font-medium ml-2">${person.role}</span>
+      </div>
     `;
   }).join('');
 }
 
-// 5. Flokka og birta starfsfólk árgangsins (Kemur á undan námskrá)
+// 5. Flokka og birta starfsfólk árgangsins
 function generateStaffSectionHtml(gradeId) {
   const allStaff = getStaffList();
   if (allStaff.length === 0) return '';
@@ -72,7 +97,7 @@ function generateStaffSectionHtml(gradeId) {
 
   const supervisors = gradeStaff.filter(s => normalizePerson(s).role.toLowerCase().includes('umsjón'));
   const support = gradeStaff.filter(s => normalizePerson(s).role.toLowerCase().includes('stuðning'));
-  
+
   const isamTeam = gradeStaff.filter(s => normalizePerson(s).team.toLowerCase().includes('ísam'));
   const staeNatTeam = gradeStaff.filter(s => {
     const t = normalizePerson(s).team.toLowerCase();
@@ -98,11 +123,11 @@ function generateStaffSectionHtml(gradeId) {
     return `
       <div class="mb-4">
         <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-          <span>${icon}</span> ${title}
+          <span>${icon}</span>${title}
         </h3>
-        <ul class="space-y-0.5">
+        <div class="space-y-0.5">
           ${createStaffListHtml(list)}
-        </ul>
+        </div>
       </div>
     `;
   };
@@ -126,7 +151,33 @@ function generateStaffSectionHtml(gradeId) {
   `;
 }
 
-// 6. Forsíðuyfirlit
+// 6. Upplýsingakassi efst (stofur, viðvera o.fl. ef til staðar)
+function generateInfoBoxHtml(info) {
+  if (!info || typeof info !== 'object') return '';
+
+  const labels = {
+    students: '👥 Nemendur',
+    rooms: '🏫 Stofur',
+    hours: '⏰ Skólatími',
+    recess: '🛝 Frímínútur',
+    lunch: '🍎 Hádegisverður'
+  };
+
+  const items = Object.entries(info).map(([key, value]) => {
+    if (!value) return '';
+    const label = labels[key] || key;
+    return `
+      <div class="py-1 text-sm">
+        <span class="font-bold text-slate-700 text-xs uppercase block">${label}</span>
+        <span class="text-slate-800">${value}</span>
+      </div>
+    `;
+  }).filter(Boolean).join('');
+
+  return items ? `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6 pb-4 border-b border-slate-100">${items}</div>` : '';
+}
+
+// 7. Forsíða (showYears)
 window.showYears = function() {
   const container = document.getElementById('content-area') || document.getElementById('app') || document.body;
 
@@ -168,7 +219,7 @@ window.showYears = function() {
   `;
 };
 
-// 7. Birta árgangssíðu
+// 8. Birta árgangssíðu (Starfsfólk FANTANEFNT EFST, síðan námskrá)
 function renderYearView(yearId) {
   const container = document.getElementById('content-area') || document.getElementById('app') || document.body;
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
@@ -194,45 +245,11 @@ function renderYearView(yearId) {
     return;
   }
 
+  const infoBox = generateInfoBoxHtml(data.info);
   const mainContent = data.docHtml || '';
   const staffSection = generateStaffSectionHtml(yearId);
 
   container.innerHTML = `
     <div class="max-w-5xl mx-auto p-4 md:p-6">
       <div class="flex justify-between items-center mb-4">
-        <button onclick="showYears()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer">
-          ← Til baka
-        </button>
-        <button onclick="showYears()" class="text-sm font-semibold text-sky-600 hover:text-sky-800 cursor-pointer">Forsíða</button>
-      </div>
-      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
-        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-          <span class="text-3xl">${data.icon || '📚'}</span>
-          <div>
-            <h1 class="text-2xl font-extrabold text-slate-900">${data.title || yearId}</h1>
-            <p class="text-xs font-semibold text-sky-800 tracking-wider uppercase">Vallaskóli • Skólanámskrá</p>
-          </div>
-        </div>
-        ${staffSection}
-        ${mainContent}
-      </div>
-    </div>
-  `;
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// 8. Ræsing
-document.addEventListener('DOMContentLoaded', () => {
-  window.loadYearView = function(yearId) {
-    if (typeof currentViewHistory !== 'undefined') {
-      currentViewHistory.push(yearId);
-    }
-    renderYearView(yearId);
-  };
-
-  const container = document.getElementById('content-area') || document.getElementById('app');
-  if (container && (!container.innerHTML || container.innerHTML.trim() === '')) {
-    window.showYears();
-  }
-});
+        <button onclick="show
