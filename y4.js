@@ -4,7 +4,7 @@ window.YEARS_DATA['y4'] = {
   title: '4. árgangur',
   icon: '🌿',
   info: {
-    students: 'Nemendur (skólaárið 2026–2027)',
+    students: 'Nemendur 4. árgangs eru 52 og skiptast í 3 bekkjardeildir. (skólaárið 2026–2027)',
     rooms: 'Stofur 4. árgangs eru í Valhöll. nr. 37, 38 og 39',
     hours: 'Hefst alla daga kl. 08:10 (30 stundir/viku)',
     recess: 'Kl. 09:30 – 09:50 alla daga',
