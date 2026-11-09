@@ -16,12 +16,11 @@ window.YEARS_DATA['y5'] = {
 
     <h2 class="text-xl font-bold text-slate-800 pt-4">Helstu áherslur og námsmarkmið</h2>
     <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-      <li><strong>Læsi og málrækt:</strong> Lestrarskilningur, gagnrýnin hugsun, ritun fjölbreyttra textagerða og málfræði.</li>
+      <li><strong>Íslenska:</strong> Lestrarskilningur, gagnrýnin hugsun, ritun fjölbreyttra textagerða og málfræði.</li>
       <li><strong>Enska:</strong> Aukin orðaforði, málfræðigrunnur og æfingar í samræðum og lestrarskilningi.</li>
       <li><strong>Stærðfræði:</strong> Brot, tugabrot, prósentur, flatarmál, rúmmál og lausn flóknari dæmissagna.</li>
       <li><strong>Samfélags- og náttúrugreinar:</strong> Íslandssaga, landafræði, dýra- og gróðurríkið ásamt vísindalegum tilraunum.</li>
-    </ul>
-    <li><strong>List- og verkgreinar:</strong> Hönnun og smíði, textílmennt, meikarasmiðja, tónlist, myndlist og heimilsfræði.</li>
+      <li><strong>List- og verkgreinar:</strong> Hönnun og smíði, textílmennt, meikarasmiðja, tónlist, myndlist og heimilsfræði.</li>
     </ul>
 
     <h2 class="text-xl font-bold text-slate-800 pt-4">Námsmat og endurgjöf</h2>
