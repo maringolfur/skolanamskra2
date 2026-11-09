@@ -4,7 +4,7 @@ window.YEARS_DATA['y2'] = {
   title: '2. árgangur',
   icon: '🍃',
   info: {
-    students: 'Nemendur (skólaárið 2026–2027)',
+    students: 'Nemendur 2. árgangs eru 31 og eru í tveimur bekkjardeildum. (skólaárið 2026–2027)',
     rooms: 'Stofur 2. árgangs (austurgangur)',
     hours: 'Hefst alla daga kl. 08:10 (30 stundir/viku)',
     recess: 'Kl. 09:30 – 09:50 alla daga',
