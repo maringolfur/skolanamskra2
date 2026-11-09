@@ -101,18 +101,24 @@ function isStaffInYear(p, yearId) {
   const rawRole = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
   const rawName = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
 
-  // Sérstaklega fyrir Stoðþjónustu
-  if (yearId === 'stod') {
+  // Sérstaklega fyrir Stoðþjónustu og ÍSAT
+  if (yearId === 'stod' || yearId === 'isat') {
     if (rawName.includes('páll') || rawName.includes('pall') || 
         rawName.includes('þorvaldur') || rawName.includes('thorvaldur') || 
         rawName.includes('sigurborg')) {
       return true;
     }
-    return rawCat.includes('stod') || rawCat.includes('stoð') || 
-           rawRole.includes('stoð') || rawRole.includes('sérkenn') || 
-           rawRole.includes('þroskaþjálf') || rawRole.includes('námsráðgjaf') || 
-           rawRole.includes('talmeina') || rawRole.includes('sálfræð') ||
-           rawGrades.includes('stod') || rawGrades.includes('stoð');
+    if (yearId === 'stod') {
+      return rawCat.includes('stod') || rawCat.includes('stoð') || 
+             rawRole.includes('stoð') || rawRole.includes('sérkenn') || 
+             rawRole.includes('þroskaþjálf') || rawRole.includes('námsráðgjaf') || 
+             rawRole.includes('talmeina') || rawRole.includes('sálfræð') ||
+             rawGrades.includes('stod') || rawGrades.includes('stoð');
+    } else if (yearId === 'isat') {
+      return rawCat.includes('isat') || rawCat.includes('ísat') || 
+             rawRole.includes('isat') || rawRole.includes('ísat') || 
+             rawGrades.includes('isat') || rawGrades.includes('ísat');
+    }
   }
 
   if (!rawGrades) return false;
@@ -182,7 +188,7 @@ function renderStaffCardByObject(p) {
   `;
 }
 
-// ==================== ÁRGANGASÍÐA / STOÐÞJÓNUSTA ====================
+// ==================== ÁRGANGASÍÐA / STOÐÞJÓNUSTA / ÍSAT ====================
 
 function openYearDetail(yearId) {
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
@@ -232,8 +238,8 @@ function openYearDetail(yearId) {
       });
     }
 
-    if (yearId === 'stod') {
-      // Stoðþjónustu flokkun: Stjórnendur (Páll, Þorvaldur, Sigurborg)
+    if (yearId === 'stod' || yearId === 'isat') {
+      // Stoðþjónusta og ÍSAT: Stjórnendur (Páll, Þorvaldur, Sigurborg) neðst
       managers = yearStaff.filter(p => {
         const name = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
         return name.includes('páll') || name.includes('pall') ||
@@ -243,7 +249,7 @@ function openYearDetail(yearId) {
       managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
       markAssigned(managers);
 
-      // Starfsfólk í stoðþjónustu
+      // Starfsfólk stoðþjónustu eða ÍSAT efst
       supportService = yearStaff.filter(p => isUnassigned(p));
       markAssigned(supportService);
     } else {
@@ -301,16 +307,18 @@ function openYearDetail(yearId) {
   // BIRTING RÖÐUNAR EINANGRUÐ FRÁ EINUM ÁRGANGI TIL ANNARS
   let renderedStaffContent = '';
 
-  if (yearId === 'stod') {
-    // Fyrir stoðþjónustusíðuna: Starfsfólk stoðþjónustu efst, Stjórnendur neðst
-    const stodSections = [];
+  if (yearId === 'stod' || yearId === 'isat') {
+    // Fyrir stoðþjónustu og ÍSAT: Starfsfólk efst, Stjórnendur neðst
+    const customSections = [];
+    const sectionTitle = yearId === 'isat' ? '💬 Starfsfólk ÍSAT' : '🤝 Starfsfólk stoðþjónustu';
+
     if (supportHtml) {
-      stodSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Starfsfólk stoðþjónustu</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>`);
+      customSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">${sectionTitle}</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>`);
     }
     if (managersHtml) {
-      stodSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
+      customSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
     }
-    renderedStaffContent = stodSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
+    renderedStaffContent = customSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
   } else {
     // Fyrir alla almenna árganga (1.-10. bekk): Umsjónarkennarar ➔ Stuðningsfulltrúar ➔ Stoðþjónusta ➔ Aðrir ➔ Stjórnendur
     const stdSections = [];
@@ -341,6 +349,8 @@ function openYearDetail(yearId) {
     ? data.docHtml 
     : '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu fyrir þennan árgang.</div>';
 
+  const staffHeaderTitle = yearId === 'stod' ? 'stoðþjónustu' : (yearId === 'isat' ? 'ÍSAT' : 'árgangsins');
+
   const baseHtml = `
     <div class="space-y-6">
       <!-- ALMENNAR UPPLÝSINGAR -->
@@ -355,10 +365,10 @@ function openYearDetail(yearId) {
         </div>
       </div>
 
-      <!-- STARFSFÓLK ÁRGANGSINS / STOÐÞJÓNUSTU -->
+      <!-- STARFSFÓLK ÁRGANGSINS / STOÐÞJÓNUSTU / ÍSAT -->
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
         <div class="flex items-center justify-between border-b pb-2">
-          <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk ${yearId === 'stod' ? 'stoðþjónustu' : 'árgangsins'}</h3>
+          <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk ${staffHeaderTitle}</h3>
           <span class="text-xs text-slate-400 italic">Smelltu til að opna samskiptaupplýsingar</span>
         </div>
 
