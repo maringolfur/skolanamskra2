@@ -1,207 +1,13 @@
 // ==========================================
-// main.js - Skólanámskrá Vallaskóla
+// main.js - Skólanámskrá Vallaskóla (1.–7. árgangur)
 // ==========================================
 
-// 1. Örugg frumstilling á víðværum breytum
+// 1. Frumstilling á víðværum breytum
 if (!window.YEARS_DATA) window.YEARS_DATA = {};
 if (!window.STAFF_DATA) window.STAFF_DATA = [];
 var currentViewHistory = currentViewHistory || [];
 
-// 2. CSV Parser (ef starfsmannagögn eru sótt úr Google Sheets / CSV skrá)
-function parseStaffCSV(csvText) {
-  const lines = csvText.trim().split('\n');
-  if (lines.length < 2) return [];
-
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
-  
-  const nameIdx = headers.findIndex(h => h.includes('nafn') || h.includes('name'));
-  const roleIdx = headers.findIndex(h => h.includes('hlutverk') || h.includes('role') || h.includes('starf'));
-  const gradesIdx = headers.findIndex(h => h.includes('árgang') || h.includes('bekk') || h.includes('grade'));
-  const teamIdx = headers.findIndex(h => h.includes('team') || h.includes('teymi'));
-
-  return lines.slice(1).map(line => {
-    const cols = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || line.split(',');
-    const cleanCols = cols.map(c => c.trim().replace(/^"|"$/g, ''));
-
-    return {
-      name: nameIdx !== -1 ? cleanCols[nameIdx] : (cleanCols[0] || ''),
-      role: roleIdx !== -1 ? cleanCols[roleIdx] : (cleanCols[1] || ''),
-      grades: (gradesIdx !== -1 ? cleanCols[gradesIdx] : (cleanCols[2] || '')).split(',').map(g => g.trim()),
-      team: teamIdx !== -1 ? cleanCols[teamIdx] : (cleanCols[3] || '')
-    };
-  }).filter(person => person.name);
-}
-
-// 3. Hjálparfall til að búa til starfsmannaspjöld (Cards)
-function createStaffCardsHtml(staffList, badgeBg = 'bg-sky-100', badgeText = 'text-sky-800') {
-  if (!staffList || staffList.length === 0) return '';
-  
-  return staffList.map(person => {
-    const initials = person.name
-      .split(' ')
-      .filter(n => n.length > 0)
-      .map(n => n[0])
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-
-    const teamTag = person.team ? `<span class="text-xs opacity-75"> • ${person.team}</span>` : '';
-
-    return `
-      <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-10 h-10 rounded-full ${badgeBg} ${badgeText} flex items-center justify-center font-bold text-sm shrink-0">
-          ${initials}
-        </div>
-        <div class="min-w-0">
-          <div class="font-bold text-slate-800 text-sm truncate">${person.name}</div>
-          <div class="text-xs text-slate-500 truncate">${person.role}${teamTag}</div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-// 4. Sjálfvirk flokkun og birting á starfsfólki í réttri röð
-function generateStaffSectionHtml(gradeId) {
-  if (!window.STAFF_DATA || window.STAFF_DATA.length === 0) return '';
-
-  const cleanGradeNum = gradeId.replace('y', '').trim();
-
-  // Filtera starfsfólk sem tilheyrir þessum árgangi
-  const gradeStaff = window.STAFF_DATA.filter(person => {
-    if (!person.grades) return false;
-    return person.grades.some(g => g.toString().trim() === cleanGradeNum);
-  });
-
-  if (gradeStaff.length === 0) return '';
-
-  // --- RÖÐUN OG FLOKKUN ---
-
-  // 1. Umsjónarkennarar
-  const supervisors = gradeStaff.filter(s => (s.role || '').toLowerCase().includes('umsjón'));
-
-  // 2. Stuðningsfulltrúar
-  const support = gradeStaff.filter(s => (s.role || '').toLowerCase().includes('stuðning'));
-
-  // 3. Ísam (Íslenska & Samfélagsfræði)
-  const isamTeam = gradeStaff.filter(s => (s.team || '').toLowerCase().includes('ísam'));
-
-  // 4. Stæ / Nát (Stærðfræði & Náttúrufræði)
-  const staeNatTeam = gradeStaff.filter(s => 
-    (s.team || '').toLowerCase().includes('stæ') || 
-    (s.team || '').toLowerCase().includes('nát')
-  );
-
-  // 5. Tungumálateymi
-  const langTeam = gradeStaff.filter(s => (s.team || '').toLowerCase().includes('tungumál'));
-
-  // 6. Stoðþjónusta (Sérkennarar, Þroskaþjálfar, ÍSAT)
-  const stod = gradeStaff.filter(s => {
-    const r = (s.role || '').toLowerCase();
-    return r.includes('sérkenn') || r.includes('þroskaþjálf') || r.includes('ísa');
-  });
-
-  // 7. Aðrir kennarar (Kennarar sem eru ekki í teymunum fyrir ofan)
-  const excludeSet = new Set([...supervisors, ...support, ...isamTeam, ...staeNatTeam, ...langTeam, ...stod]);
-  const otherTeachers = gradeStaff.filter(s => 
-    ((s.role || '').toLowerCase().includes('kennari') || (s.role || '').toLowerCase().includes('faggrein')) && 
-    !excludeSet.has(s)
-  );
-
-  // 8. Stjórnendur
-  const management = gradeStaff.filter(s => {
-    const r = (s.role || '').toLowerCase();
-    return r.includes('stjórn') || r.includes('skólastj') || r.includes('deildarstj');
-  });
-
-  // Hjálparfall til að teikna hvern hóp
-  const renderGroup = (title, icon, list, badgeBg, badgeText) => {
-    if (!list || list.length === 0) return '';
-    return `
-      <div class="mb-6">
-        <h3 class="text-md font-bold text-slate-800 mb-3 flex items-center gap-2 border-b border-slate-100 pb-1.5">
-          <span>${icon}</span> ${title}
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          ${createStaffCardsHtml(list, badgeBg, badgeText)}
-        </div>
-      </div>
-    `;
-  };
-
-  return `
-    <div class="mt-10 pt-8 border-t border-slate-200">
-      <h2 class="text-xl font-extrabold text-sky-950 mb-6 flex items-center gap-2">
-        <span>👥</span> Starfsfólk árgangsins
-      </h2>
-      ${renderGroup('Umsjónarkennarar', '🏫', supervisors, 'bg-sky-600', 'text-white')}
-      ${renderGroup('Stuðningsfulltrúar', '🤝', support, 'bg-amber-100', 'text-amber-800')}
-      ${renderGroup('Ísam (Íslenska & Samfélagsfræði)', '📖', isamTeam, 'bg-orange-100', 'text-orange-800')}
-      ${renderGroup('Stæ / Nát (Stærðfræði & Náttúrufræði)', '📐', staeNatTeam, 'bg-emerald-100', 'text-emerald-800')}
-      ${renderGroup('Tungumálateymi', '🌍', langTeam, 'bg-purple-100', 'text-purple-800')}
-      ${renderGroup('Stoðþjónusta', '🧩', stod, 'bg-indigo-100', 'text-indigo-800')}
-      ${renderGroup('Aðrir kennarar', '🎨', otherTeachers, 'bg-slate-100', 'text-slate-700')}
-      ${renderGroup('Stjórnendur', '👔', management, 'bg-slate-800', 'text-white')}
-    </div>
-  `;
-}
-
-// 5. Birta árgang / síðu í viðmótinu
-function renderYearView(yearId) {
-  const container = document.getElementById('content-area') || document.getElementById('app') || document.body;
-
-  const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
-
-  if (!data) {
-    container.innerHTML = `
-      <div class="max-w-5xl mx-auto p-4 md:p-6">
-        <div class="flex justify-between items-center mb-4">
-          <button onclick="showYears()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer">
-            ← Til baka
-          </button>
-          <button onclick="showYears()" class="text-sm font-semibold text-sky-600 hover:text-sky-800 cursor-pointer">Forsíða</button>
-        </div>
-        <div class="p-8 text-center bg-white rounded-2xl shadow-sm border border-slate-100">
-          <h1 class="text-3xl font-extrabold text-slate-800 mb-2">Árgangur</h1>
-          <p class="text-xs font-semibold text-sky-800 tracking-wider uppercase">Vallaskóli • Skólanámskrá</p>
-          <div class="mt-8 p-6 bg-slate-50 rounded-xl text-slate-600">
-            Upplýsingar í vinnslu.
-          </div>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  const mainContent = data.docHtml || '';
-  const staffSection = generateStaffSectionHtml(yearId);
-
-  container.innerHTML = `
-    <div class="max-w-5xl mx-auto p-4 md:p-6">
-      <div class="flex justify-between items-center mb-4">
-        <button onclick="showYears()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer">
-          ← Til baka
-        </button>
-        <button onclick="showYears()" class="text-sm font-semibold text-sky-600 hover:text-sky-800 cursor-pointer">Forsíða</button>
-      </div>
-      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
-        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-          <span class="text-3xl">${data.icon || '📚'}</span>
-          <div>
-            <h1 class="text-2xl font-extrabold text-slate-900">${data.title || yearId}</h1>
-            <p class="text-xs font-semibold text-sky-800 tracking-wider uppercase">Vallaskóli • Skólanámskrá</p>
-          </div>
-        </div>
-        ${mainContent}
-        ${staffSection}
-      </div>
-    </div>
-  `;
-  
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// 6. Sýna yfirlit yfir alla árganga (Forsíða / hnappur "showYears")
+// 2. Birta yfirlit yfir alla árganga (Forsíða)
 window.showYears = function() {
   const container = document.getElementById('content-area') || document.getElementById('app') || document.body;
 
@@ -234,7 +40,7 @@ window.showYears = function() {
     <div class="max-w-5xl mx-auto p-4 md:p-6">
       <div class="mb-6">
         <h1 class="text-2xl font-extrabold text-sky-950">Skólanámskrá Vallaskóla</h1>
-        <p class="text-sm text-slate-500 mt-1">Veldu árgang eða þjónustu til að skoða námskrá, teymi og starfsfólk</p>
+        <p class="text-sm text-slate-500 mt-1">Veldu árgang eða þjónustu til að skoða námskrá og starfsfólk</p>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         ${cardsHtml}
@@ -243,18 +49,24 @@ window.showYears = function() {
   `;
 };
 
-// 7. Ræsing og víðværar tengingar
-document.addEventListener('DOMContentLoaded', () => {
-  window.loadYearView = function(yearId) {
-    if (typeof currentViewHistory !== 'undefined') {
-      currentViewHistory.push(yearId);
-    }
-    renderYearView(yearId);
-  };
+// 3. Hjálparfall til að búa til starfsmannakort
+function createStaffCardsHtml(staffList) {
+  if (!staffList || staffList.length === 0) return '';
 
-  // Ef engin árgangssíða er opin í upphafi birtist forsíðan sjálfkrafa
-  const container = document.getElementById('content-area') || document.getElementById('app');
-  if (container && (!container.innerHTML || container.innerHTML.trim() === '')) {
-    window.showYears();
-  }
-});
+  return staffList.map(person => {
+    const initials = person.name
+      .split(' ')
+      .filter(n => n.length > 0)
+      .map(n => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+
+    return `
+      <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+        <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-sm shrink-0">
+          ${initials}
+        </div>
+        <div class="min-w-0">
+          <div class="font-bold text-slate-800 text-sm truncate">${person.name}</div>
+          <div class="text-xs text-slate-500 truncate
