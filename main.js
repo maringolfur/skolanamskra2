@@ -46,7 +46,7 @@ function isPersonInGrade(person, gradeId) {
 
   if (targetGradeNum) {
     // Athuga hvort tölustafur árgangs sé til staðar stakur eða í bili (t.d. 1, 1-10, 1. bekkur)
-    const regex = new RegExp(`(?:^|\\D)${targetGradeNum}(?:\\D\vert{}$)`);
+    const regex = new RegExp(`(?:^|\\D)${targetGradeNum}(?:\\D|$)`);
     if (regex.test(combinedStr)) return true;
 
     // Athuga árangursbil eins og 1-10 eða 1-4
@@ -123,7 +123,7 @@ function generateStaffSectionHtml(gradeId) {
     return `
       <div class="mb-4">
         <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-          <span>${icon}</span>${title}
+          <span>${icon}</span> ${title}
         </h3>
         <div class="space-y-0.5">
           ${createStaffListHtml(list)}
@@ -252,4 +252,40 @@ function renderYearView(yearId) {
   container.innerHTML = `
     <div class="max-w-5xl mx-auto p-4 md:p-6">
       <div class="flex justify-between items-center mb-4">
-        <button onclick="show
+        <button onclick="showYears()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer">
+          ← Til baka
+        </button>
+        <button onclick="showYears()" class="text-sm font-semibold text-sky-600 hover:text-sky-800 cursor-pointer">Forsíða</button>
+      </div>
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <span class="text-3xl">${data.icon || '📚'}</span>
+          <div>
+            <h1 class="text-2xl font-extrabold text-slate-900">${data.title || yearId}</h1>
+            <p class="text-xs font-semibold text-sky-800 tracking-wider uppercase">Vallaskóli • Skólanámskrá</p>
+          </div>
+        </div>
+        ${infoBox}
+        ${staffSection}
+        ${mainContent}
+      </div>
+    </div>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 9. Ræsing
+document.addEventListener('DOMContentLoaded', () => {
+  window.loadYearView = function(yearId) {
+    if (typeof currentViewHistory !== 'undefined') {
+      currentViewHistory.push(yearId);
+    }
+    renderYearView(yearId);
+  };
+
+  const container = document.getElementById('content-area') || document.getElementById('app');
+  if (container && (!container.innerHTML || container.innerHTML.trim() === '')) {
+    window.showYears();
+  }
+});
