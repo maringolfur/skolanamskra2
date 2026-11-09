@@ -14,14 +14,20 @@ window.YEARS_LIST = [
 ];
 
 window.SUBJECTS_TREE = [
-  { id: 'islenska', title: 'Íslenska', icon: '📖', type: 'parent', subSubjects: [
-    { title: 'Lestur og ylhljóð', icon: '📚', startGrade: 1, endGrade: 10 },
-    { title: 'Málfræði', icon: '✏️', startGrade: 1, endGrade: 10 },
-    { title: 'Ritun', icon: '📝', startGrade: 1, endGrade: 10 }
-  ]},
+  { 
+    id: 'islenska', 
+    title: 'Íslenska', 
+    icon: '📖', 
+    type: 'parent', 
+    subSubjects: [
+      { title: 'Lestur og ylhljóð', icon: '📚', startGrade: 1, endGrade: 10 },
+      { title: 'Málfræði', icon: '✏️', startGrade: 1, endGrade: 10 },
+      { title: 'Ritun', icon: '📝', startGrade: 1, endGrade: 10 }
+    ]
+  },
   { id: 'staerdfraedi', title: 'Stærðfræði', icon: '📐', type: 'grade_select', startGrade: 1, endGrade: 10 },
   { id: 'natturuvisi', title: 'Náttúrufræði', icon: '🔬', type: 'grade_select', startGrade: 1, endGrade: 10 },
-  { id: 'samfélagsfræði', title: 'Samfélagsfræði', icon: '🗺️', type: 'grade_select', startGrade: 1, endGrade: 10 },
+  { id: 'samfelagsfraedi', title: 'Samfélagsfræði', icon: '🗺️', type: 'grade_select', startGrade: 1, endGrade: 10 },
   { id: 'enska', title: 'Enska', icon: '🇬🇧', type: 'grade_select', startGrade: 4, endGrade: 10 },
   { id: 'danska', title: 'Danska', icon: '🇩🇰', type: 'grade_select', startGrade: 7, endGrade: 10 },
   { id: 'ithrottir', title: 'Skólaíþróttir', icon: '⚽', type: 'grade_select', startGrade: 1, endGrade: 10 },
