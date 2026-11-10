@@ -209,6 +209,8 @@ function openYearDetail(yearId) {
   let isamTeam = [];
   let staeNatTeam = [];
   let langTeam = [];
+  let sportsTeam = [];
+  let logvTeam = [];
 
   const isYouthGrade = ['y8', 'y9', 'y10'].includes(yearId);
 
@@ -261,7 +263,7 @@ function openYearDetail(yearId) {
       markAssigned(supportService);
 
     } else if (isYouthGrade) {
-      // ==================== FLOKKUN FYRIR UNGLINGASTIG (8., 9. OG 10. ÁRGANG) ====================
+      // ==================== FLOKKUN UNGLINGASTIGS (8., 9. OG 10. ÁRGANGUR) ====================
       
       // 1. Umsjónarkennarar
       homeroomTeachers = yearStaff.filter(p => {
@@ -271,49 +273,47 @@ function openYearDetail(yearId) {
       });
       markAssigned(homeroomTeachers);
 
-      // 2. Stuðningsfulltrúar
-      assistants = yearStaff.filter(p => {
-        if (!isUnassigned(p)) return false;
-        const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
-        const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
-        return cat.includes('studning') || cat.includes('stuðning') || cat.includes('skolalidi') || role.includes('stuðningsfulltrúi') || role.includes('skólaliði');
-      });
-      markAssigned(assistants);
-
-      // 3. Stoðþjónusta
-      supportService = yearStaff.filter(p => {
-        if (!isUnassigned(p)) return false;
-        const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
-        const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
-        return cat.includes('stod') || cat.includes('stoð') || role.includes('sérkennari') || role.includes('þroskaþjálfi') || role.includes('námsráðgjafi') || role.includes('talmeina');
-      });
-      markAssigned(supportService);
-
-      // 4. ÍSAM teymi
+      // 2. ÍSAM teymi
       isamTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const text = (getStaffProp(p, 'team', 'teams', 'teymi', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
-        return text.includes('ísam') || text.includes('isam');
+        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
+        return team === 'isam' || team.includes('isam') || team.includes('ísam');
       });
       markAssigned(isamTeam);
 
-      // 5. STÆ/Nát teymi
+      // 3. STÆ/Nát teymi
       staeNatTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const text = (getStaffProp(p, 'team', 'teams', 'teymi', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
-        return text.includes('stæ') || text.includes('nát') || text.includes('stærðfræði') || text.includes('náttúrufræði');
+        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
+        return team === 'stae' || team.includes('stæ') || team.includes('stae') || team.includes('nát');
       });
       markAssigned(staeNatTeam);
 
-      // 6. Tungumálateymi
+      // 4. Tungumálateymi
       langTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const text = (getStaffProp(p, 'team', 'teams', 'teymi', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
-        return text.includes('tungumál') || text.includes('mál') || text.includes('enska') || text.includes('danska');
+        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
+        return team === 'tungumal' || team.includes('tungumál') || team.includes('tungumal') || team.includes('mál');
       });
       markAssigned(langTeam);
 
-      // 7. Stjórnendur (bætt við verkefnisstjóri með 'i')
+      // 5. Skólaíþróttir (sports)
+      sportsTeam = yearStaff.filter(p => {
+        if (!isUnassigned(p)) return false;
+        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
+        return team === 'sports' || team.includes('sports') || team.includes('íþrótt') || team.includes('ithrott');
+      });
+      markAssigned(sportsTeam);
+
+      // 6. List og verkgreinakennarar (logv)
+      logvTeam = yearStaff.filter(p => {
+        if (!isUnassigned(p)) return false;
+        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
+        return team === 'logv' || team.includes('logv') || team.includes('list') || team.includes('verk');
+      });
+      markAssigned(logvTeam);
+
+      // 7. Stjórnendur
       managers = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
         const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
@@ -325,9 +325,6 @@ function openYearDetail(yearId) {
       });
       managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
       markAssigned(managers);
-
-      // 8. Aðrir kennarar í árgangi
-      otherTeachers = yearStaff.filter(p => isUnassigned(p));
 
     } else {
       // ==================== ALMENNIR ÁRGANGAR (1.-7. BEKKUR) ====================
@@ -380,6 +377,8 @@ function openYearDetail(yearId) {
   const isamHtml = isamTeam.map(p => renderStaffCardByObject(p)).join('');
   const staeNatHtml = staeNatTeam.map(p => renderStaffCardByObject(p)).join('');
   const langHtml = langTeam.map(p => renderStaffCardByObject(p)).join('');
+  const sportsHtml = sportsTeam.map(p => renderStaffCardByObject(p)).join('');
+  const logvHtml = logvTeam.map(p => renderStaffCardByObject(p)).join('');
 
   let renderedStaffContent = '';
 
@@ -396,17 +395,11 @@ function openYearDetail(yearId) {
     renderedStaffContent = customSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
 
   } else if (isYouthGrade) {
-    // BIRTING FYRIR UNGLINGASTIG (8., 9., 10. BEKKUR)
+    // BIRTING UNGLINGASTIGS (8., 9., 10. BEKKUR): UMSJÓN ➔ ÍSAM ➔ STÆ/NÁT ➔ TUNGUMÁL ➔ ÍÞRÓTTIR ➔ LIST OG VERKGREINAR ➔ STJÓRNENDUR
     const youthSections = [];
 
     if (homeroomHtml) {
       youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>`);
-    }
-    if (assistantsHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>`);
-    }
-    if (supportHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>`);
     }
     if (isamHtml) {
       youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">📖 ÍSAM</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${isamHtml}</div></div>`);
@@ -417,8 +410,11 @@ function openYearDetail(yearId) {
     if (langHtml) {
       youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌍 Tungumál</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${langHtml}</div></div>`);
     }
-    if (otherTeachersHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>`);
+    if (sportsHtml) {
+      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏀 Skólaíþróttir</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${sportsHtml}</div></div>`);
+    }
+    if (logvHtml) {
+      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 List og verkgreinakennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${logvHtml}</div></div>`);
     }
     if (managersHtml) {
       youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
