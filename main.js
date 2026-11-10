@@ -97,11 +97,20 @@ function getStaffProp(p, ...keys) {
 
 function isStaffInYear(p, yearId) {
   const rawGrades = getStaffProp(p, 'grades', 'argangar', 'árgangar', 'argangur', 'árgangur', 'bekkir', 'bekkur', 'years').toLowerCase();
-  const rawCat = getStaffProp(p, 'category', 'flokkur', 'teymi', 'team', 'teams').toLowerCase();
+  const rawTeam = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
+  const rawCat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
   const rawRole = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
   const rawName = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
 
-  // Ef bekkjadálkur er tómur birtist starfsmaður alls staðar svo hann hverfi ekki
+  // Unglingastig (8., 9., 10. bekkur): Öll 5 fagteymin hlaðast sjálfkrafa
+  if (['y8', 'y9', 'y10'].includes(yearId)) {
+    if (rawTeam.includes('isam') || rawTeam.includes('stae') || rawTeam.includes('tungumal') || 
+        rawTeam.includes('sports') || rawTeam.includes('sport') || rawTeam.includes('logv')) {
+      return true;
+    }
+  }
+
+  // Ef bekkjadálkur er tómur birtist starfsmaður alls staðar
   if (!rawGrades) return true;
 
   // Stoðþjónusta og ÍSAT
@@ -127,7 +136,7 @@ function isStaffInYear(p, yearId) {
   const numMatch = yearId.match(/\d+/);
   const targetNum = numMatch ? parseInt(numMatch[0], 10) : null;
 
-  if (rawGrades.includes('allir') || rawGrades.includes('1-10') || rawGrades.includes('y1-y10') || rawGrades.includes('8-10') || rawGrades.includes('8–10')) {
+  if (rawGrades.includes('allir') || rawGrades.includes('1-10') || rawGrades.includes('y1-y10') || rawGrades.includes('8-10') || rawGrades.includes('8–10') || rawGrades.includes('unglingastig')) {
     return true;
   }
 
@@ -218,7 +227,6 @@ async function openYearDetail(yearId) {
 
   const isYouthGrade = ['y8', 'y9', 'y10'].includes(yearId);
 
-  // Sækjum alla starfsmenn úr CSV
   const rawStaff = Object.values(window.STAFF_MEMBERS || {});
   const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
@@ -309,7 +317,7 @@ async function openYearDetail(yearId) {
     managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
     markAssigned(managers);
 
-    // 8. Aðrir kennarar / starfsmenn
+    // 8. Aðrir kennarar / starfsmenn í árgangi (Öryggisnet)
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
 
   } else {
