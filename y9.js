@@ -1,27 +1,31 @@
 if (!window.YEARS_DATA) window.YEARS_DATA = {};
 
 window.YEARS_DATA['y9'] = {
+  id: 'y9',
   title: '9. árgangur',
-  icon: '🧪',
+  icon: '🚀',
   info: {
     students: 'Nemendur (skólaárið 2026–2027)',
-    rooms: 'Heimastofur 9. árgangs (unglingastig)',
-    hours: 'Hefst alla daga kl. 08:10',
-    recess: 'Kl. 09:30 – 09:50 alla daga',
-    lunch: 'Kl. 11:30 – 12:00'
+    rooms: 'Umsjónarstofur 9. árgangs eru stofur 22,23 og 24 í Austurrými Vallaskóla (unglingastig). Gengið er inn um suðurinntang við Engjaveg.',
+    hours: 'Hefst þriðjudaga, miðvikudaga og föstudaga kl. 08:10 en mánudaga og fimmtudaga klukkan 8:50 (36 stundir/viku)',
+    recess: 'Kl. 10:10 – 10:30 alla daga',
+    lunch: 'Kl. 12:30 – 13:00'
   },
   docHtml: `
-    <h1 class="text-2xl font-extrabold text-sky-900 border-b pb-2">Námskrá og kennsluáætlun 9. árgangs</h1>
-    <p class="text-slate-600 leading-relaxed pt-2">Velkomin í 9. bekk Vallaskóla! Hér birtast helstu markmið, áherslur og námsmat fyrir skólaárið.</p>
+    <h2>Námskrá og kennsluáætlun 9. árgangs</h2>
+    <p>Velkomin í 9. bekk Vallaskóla! Hér birtast helstu upplýsingar um námskrá og kennsluáætlanir árgangsins.</p>
 
-    <h2 class="text-xl font-bold text-slate-800 pt-4">Helstu áherslur og námsmarkmið</h2>
-    <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-      <li><strong>Dýpt í námsgreinum:</strong> Aukin áhersla á vísindalega nálgun, greiningu og sjálfstæða upplýsingaöflun.</li>
-      <li><strong>Tungumál og samfélag:</strong> Aukin leikni í rituðu og töluðu máli ásamt samfélagslegri virkni.</li>
-      <li><strong>Framtíðarsýn:</strong> Nemendur móta eigin námsferil með auknum samþættum verkefnum.</li>
+    <h3>Námsgreinar og fagteymi</h3>
+    <p>Í 9. bekk er kennslu skipt upp í fagteymi sem tryggja samfellu og dýpt í náminu, ásamt því að efla sjálfstæð vinnubrögð nemenda:</p>
+
+    <ul>
+      <li><strong>ÍSAM (Íslenska og Samfélagsgreinar):</strong> Lögð er áhersla á dýpri málskilning, ritun, sögu, landafræði og samfélagsfræði.</li>
+      <li><strong>STÆ/NÁT (Stærðfræði og Náttúrufræði):</strong> Unnið er með algebru, geometríu, efnafræði, líffræði og verklega tilraunavinnu.</li>
+      <li><strong>Tungumál:</strong> Enska og danska með áherslu á munnlega tjáningu, textaskilning og skriflega leikni.</li>
+      <li><strong>Verk- og listgreinar & Íþróttir:</strong> Myndmennt, hönnun og smíði, textíl, heimilisfræði, tónmennt og líkamleg hreyfing.</li>
     </ul>
 
-    <h2 class="text-xl font-bold text-slate-800 pt-4">Námsmat og endurgjöf</h2>
-    <p class="text-slate-600 leading-relaxed">Símat allan veturinn ásamt jafningjamati og sjálfsmati nemenda í stærri verkefnum.</p>
+    <h3>Námsmat og endurgjöf</h3>
+    <p>Námsmat í 9. bekk er fjölbreytt og byggir á símati, leiðsagnarmati, verkefnavinnu, prófum og sjálfsmati nemenda. Niðurstöður og umsagnir eru skráðar reglulega í Mentor.</p>
   `
 };
