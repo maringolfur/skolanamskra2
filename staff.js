@@ -5,16 +5,7 @@ window.STAFF_LOADED_PROMISE = new Promise((resolve) => {
   resolveStaffLoaded = resolve;
 });
 
-// Slóð á CSV skrá (staðbundin skrá eða útgefin CSV slóð úr Google Sheets)
 const CSV_URL = 'staff.csv'; 
-
-// VARAVALKOSTUR (Fallback): Virkar strax þótt vafrinn loki á CSV fetch
-const FALLBACK_STAFF = [
-  { full_name: "Aleksandar Petrovic", role: "Íþróttakennari", category: "kennari", email: "aleksandar@vallaskoli.is", img: "aleksandar.jpg", grades: "1-10", teymi: "sport" },
-  { full_name: "Agnes Ásta Ragnarsdóttir", role: "Stuðningsfulltrúi", category: "studningsfulltrui", email: "agnesar@vallaskoli.is", img: "agnes.jpg", grades: "8-10", teymi: "" },
-  { full_name: "Agnieszka Ilona Slomska", role: "Sérkennari", category: "stodthjonusta", email: "agnieszkais@vallaskoli.is", img: "agnieszka.jpg", grades: "8-10", teymi: "" },
-  { full_name: "Anna Hrund Helgadóttir", role: "Umsjónarkennari 8. árgangs", category: "kennari", email: "annahrund@vallaskoli.is", img: "anna.jpg", grades: "8", teymi: "isam" }
-];
 
 function parseCSVLine(line, delimiter = ',') {
   const result = [];
@@ -117,10 +108,9 @@ async function loadStaffData() {
     if (!response.ok) throw new Error(`HTTP villa: ${response.status}`);
     const csvText = await response.text();
     window.STAFF_MEMBERS = parseStaffCSV(csvText);
-    console.log('Starfsmannalisti hlaðinn úr CSVskrá.');
+    console.log('Starfsmannalisti hlaðinn úr CSV skrá.');
   } catch (err) {
-    console.warn('Náðist ekki að hlaða CSV (mögulega file:// vafrabann). Nota varavalkost:', err);
-    window.STAFF_MEMBERS = processStaffArray(FALLBACK_STAFF);
+    console.warn('CSV fetch tókst ekki (file:// aðgangur). Nota skráðan lista:', err);
   } finally {
     if (resolveStaffLoaded) resolveStaffLoaded(window.STAFF_MEMBERS);
   }
