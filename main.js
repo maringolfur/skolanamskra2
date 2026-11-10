@@ -96,10 +96,13 @@ function getStaffProp(p, ...keys) {
 }
 
 function isStaffInYear(p, yearId) {
-  const rawGrades = getStaffProp(p, 'grades', 'argangar', 'árgangar', 'bekkir', 'bekkur', 'years').toLowerCase();
+  const rawGrades = getStaffProp(p, 'grades', 'argangar', 'árgangar', 'argangur', 'árgangur', 'bekkir', 'bekkur', 'years').toLowerCase();
   const rawCat = getStaffProp(p, 'category', 'flokkur', 'teymi', 'team', 'teams').toLowerCase();
   const rawRole = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
   const rawName = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
+
+  // Ef bekkjadálkur er tómur í CSV hleypum við starfsmanni í gegn svo hann hverfi ekki
+  if (!rawGrades) return true;
 
   // Stoðþjónusta og ÍSAT
   if (yearId === 'stod' || yearId === 'isat') {
@@ -120,8 +123,6 @@ function isStaffInYear(p, yearId) {
              rawGrades.includes('isat') || rawGrades.includes('ísat');
     }
   }
-
-  if (!rawGrades) return false;
 
   const numMatch = yearId.match(/\d+/);
   const targetNum = numMatch ? parseInt(numMatch[0], 10) : null;
@@ -205,7 +206,6 @@ function openYearDetail(yearId) {
   let otherTeachers = [];
   let managers = [];
 
-  // Faggreinateymi fyrir unglingastig (8., 9., 10. bekkur)
   let isamTeam = [];
   let staeNatTeam = [];
   let langTeam = [];
@@ -232,7 +232,6 @@ function openYearDetail(yearId) {
 
     managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
   } else {
-    // SÆKJUM SJÁLFKRAFA ÚR GOOGLE SHEETS / STAFF.JS
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
     const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
@@ -249,7 +248,6 @@ function openYearDetail(yearId) {
     }
 
     if (yearId === 'stod' || yearId === 'isat') {
-      // Stoðþjónusta & ÍSAT
       managers = yearStaff.filter(p => {
         const name = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
         return name.includes('páll') || name.includes('pall') ||
@@ -263,8 +261,6 @@ function openYearDetail(yearId) {
       markAssigned(supportService);
 
     } else if (isYouthGrade) {
-      // ==================== FLOKKUN UNGLINGASTIGS (8., 9. OG 10. ÁRGANGUR) ====================
-      
       // 1. Umsjónarkennarar
       homeroomTeachers = yearStaff.filter(p => {
         const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
@@ -297,11 +293,11 @@ function openYearDetail(yearId) {
       });
       markAssigned(langTeam);
 
-      // 5. Skólaíþróttir (sports)
+      // 5. Skólaíþróttir (sports eða sport)
       sportsTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
         const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
-        return team.includes('sports') || team.includes('íþrótt') || team.includes('ithrott');
+        return team.includes('sport') || team.includes('íþrótt') || team.includes('ithrott');
       });
       markAssigned(sportsTeam);
 
@@ -326,11 +322,11 @@ function openYearDetail(yearId) {
       managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
       markAssigned(managers);
 
-      // 8. Aðrir kennarar (ÖRYGGISNET: þeir sem náðust ekki í teymin)
+      // 8. Aðrir kennarar (Öryggisnet)
       otherTeachers = yearStaff.filter(p => isUnassigned(p));
 
     } else {
-      // ==================== ALMENNIR ÁRGANGAR (1.-7. BEKKUR) ====================
+      // 1.-7. BEKKUR
       homeroomTeachers = yearStaff.filter(p => {
         const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
         const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
@@ -370,7 +366,6 @@ function openYearDetail(yearId) {
     }
   }
 
-  // Teikna starfsmannakort með myndum úr staff.js
   const homeroomHtml = homeroomTeachers.map(p => renderStaffCardByObject(p)).join('');
   const assistantsHtml = assistants.map(p => renderStaffCardByObject(p)).join('');
   const supportHtml = supportService.map(p => renderStaffCardByObject(p)).join('');
@@ -398,7 +393,6 @@ function openYearDetail(yearId) {
     renderedStaffContent = customSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
 
   } else if (isYouthGrade) {
-    // BIRTING UNGLINGASTIGS (8., 9., 10. BEKKUR)
     const youthSections = [];
 
     if (homeroomHtml) {
@@ -429,7 +423,6 @@ function openYearDetail(yearId) {
     renderedStaffContent = youthSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
 
   } else {
-    // ALMENNIR ÁRGANGAR (1.-7. BEKKUR)
     const stdSections = [];
     if (homeroomHtml) {
       stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>`);
@@ -453,7 +446,6 @@ function openYearDetail(yearId) {
     renderedStaffContent = '<p class="text-xs text-slate-400 italic">Engir starfsmenn finnast skráðir á þennan árgang í Google Sheets.</p>';
   }
 
-  // NÁMSKRÁRTEXTI - HREINSAR ÚT ELDRI TVÍTEKNA STARFSMANNAKASSA ÚR DOCHTML FYRIR UNGLINGASTIG
   let docContent = (data.docHtml && data.docHtml.trim() !== '') 
     ? data.docHtml 
     : '<div class="p-4 bg-amber-50 border border-amber-200/80 rounded-2xl text-amber-900 text-xs font-semibold">📖 Námskrá og kennsluáætlun er í vinnslu fyrir þennan árgang.</div>';
@@ -486,7 +478,6 @@ function openYearDetail(yearId) {
 
   const baseHtml = `
     <div class="space-y-6">
-      <!-- ALMENNAR UPPLÝSINGAR -->
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
         <h3 class="font-bold text-sky-900 text-xl border-b pb-2">🏫 Almennt um ${data.title}</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 pt-1">
@@ -498,7 +489,6 @@ function openYearDetail(yearId) {
         </div>
       </div>
 
-      <!-- STARFSFÓLK ÁRGANGSINS / STOÐÞJÓNUSTU / ÍSAT -->
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
         <div class="flex items-center justify-between border-b pb-2">
           <h3 class="font-bold text-sky-900 text-xl">👥 Starfsfólk ${staffHeaderTitle}</h3>
@@ -508,7 +498,6 @@ function openYearDetail(yearId) {
         ${renderedStaffContent}
       </div>
 
-      <!-- HARÐKÓÐAÐUR NÁMSKRÁRTEXTI -->
       <div id="docContainer" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
         <h3 class="font-bold text-sky-900 text-xl border-b pb-2">📖 Námskrá og Kennsluáætlun</h3>
         <div id="docTextHolder" class="space-y-4 text-slate-700 text-sm leading-relaxed
