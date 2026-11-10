@@ -1,14 +1,21 @@
 window.STAFF_MEMBERS = window.STAFF_MEMBERS || {};
 
-// Búum til biðvísun svo main.js viti hvenær gögnin eru tilbúin
 let resolveStaffLoaded;
 window.STAFF_LOADED_PROMISE = new Promise((resolve) => {
   resolveStaffLoaded = resolve;
 });
 
+// Slóð á CSV skrá (staðbundin skrá eða útgefin CSV slóð úr Google Sheets)
 const CSV_URL = 'staff.csv'; 
 
-// Fall sem greinir og skiptir línum óháð því hvort notað er komma, semíkomma eða tab
+// VARAVALKOSTUR (Fallback): Virkar strax þótt vafrinn loki á CSV fetch
+const FALLBACK_STAFF = [
+  { full_name: "Aleksandar Petrovic", role: "Íþróttakennari", category: "kennari", email: "aleksandar@vallaskoli.is", img: "aleksandar.jpg", grades: "1-10", teymi: "sport" },
+  { full_name: "Agnes Ásta Ragnarsdóttir", role: "Stuðningsfulltrúi", category: "studningsfulltrui", email: "agnesar@vallaskoli.is", img: "agnes.jpg", grades: "8-10", teymi: "" },
+  { full_name: "Agnieszka Ilona Slomska", role: "Sérkennari", category: "stodthjonusta", email: "agnieszkais@vallaskoli.is", img: "agnieszka.jpg", grades: "8-10", teymi: "" },
+  { full_name: "Anna Hrund Helgadóttir", role: "Umsjónarkennari 8. árgangs", category: "kennari", email: "annahrund@vallaskoli.is", img: "anna.jpg", grades: "8", teymi: "isam" }
+];
+
 function parseCSVLine(line, delimiter = ',') {
   const result = [];
   let cur = '';
@@ -28,26 +35,10 @@ function parseCSVLine(line, delimiter = ',') {
   return result;
 }
 
-function parseStaffCSV(csvText) {
-  // Skiptum línunum og hreinsum
-  const lines = csvText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-  if (lines.length < 2) return {};
-
-  // Sjálfvirk greining á aðskilnaðartákni (semíkomma, komma eða tab)
-  let delimiter = ',';
-  if (lines[0].includes(';')) delimiter = ';';
-  else if (lines[0].includes('\t')) delimiter = '\t';
-
-  const headers = parseCSVLine(lines[0], delimiter).map(h => h.toLowerCase().replace(/^\uFEFF/, ''));
+function processStaffArray(rawArray) {
   const staffMap = {};
 
-  for (let i = 1; i < lines.length; i++) {
-    const cleanRow = parseCSVLine(lines[i], delimiter);
-    const rowData = {};
-    headers.forEach((header, idx) => {
-      rowData[header] = cleanRow[idx] || '';
-    });
-
+  rawArray.forEach(rowData => {
     const getVal = (...keys) => {
       for (const k of keys) {
         if (rowData[k] !== undefined && rowData[k] !== null && String(rowData[k]).trim() !== '') {
@@ -58,7 +49,7 @@ function parseStaffCSV(csvText) {
     };
 
     const name = getVal('full_name', 'nafn', 'name');
-    if (!name) continue;
+    if (!name) return;
 
     const id = name.toLowerCase()
       .replace(/á/g, 'a').replace(/ð/g, 'd').replace(/é/g, 'e')
@@ -68,7 +59,6 @@ function parseStaffCSV(csvText) {
 
     const rawTeam = getVal('teymi', 'team', 'flokkur', 'category').toLowerCase();
     
-    // Staðling á teymum (taka við öllum afbrigðum eins og 'sport', 'sports', 'stae', 'isam' o.s.frv.)
     let teamNormalized = '';
     if (rawTeam.includes('sport') || rawTeam.includes('íþrótt') || rawTeam.includes('ithrott')) {
       teamNormalized = 'sports';
@@ -93,9 +83,32 @@ function parseStaffCSV(csvText) {
       team: teamNormalized,
       category: getVal('category', 'flokkur')
     };
-  }
+  });
 
   return staffMap;
+}
+
+function parseStaffCSV(csvText) {
+  const lines = csvText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  if (lines.length < 2) return {};
+
+  let delimiter = ',';
+  if (lines[0].includes(';')) delimiter = ';';
+  else if (lines[0].includes('\t')) delimiter = '\t';
+
+  const headers = parseCSVLine(lines[0], delimiter).map(h => h.toLowerCase().replace(/^\uFEFF/, ''));
+  const rawArray = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const cleanRow = parseCSVLine(lines[i], delimiter);
+    const rowData = {};
+    headers.forEach((header, idx) => {
+      rowData[header] = cleanRow[idx] || '';
+    });
+    rawArray.push(rowData);
+  }
+
+  return processStaffArray(rawArray);
 }
 
 async function loadStaffData() {
@@ -104,9 +117,10 @@ async function loadStaffData() {
     if (!response.ok) throw new Error(`HTTP villa: ${response.status}`);
     const csvText = await response.text();
     window.STAFF_MEMBERS = parseStaffCSV(csvText);
-    console.log('Starfsmannalisti hlaðinn úr CSV:', window.STAFF_MEMBERS);
+    console.log('Starfsmannalisti hlaðinn úr CSVskrá.');
   } catch (err) {
-    console.error('Tókst ekki að hlaða staff.csv:', err);
+    console.warn('Náðist ekki að hlaða CSV (mögulega file:// vafrabann). Nota varavalkost:', err);
+    window.STAFF_MEMBERS = processStaffArray(FALLBACK_STAFF);
   } finally {
     if (resolveStaffLoaded) resolveStaffLoaded(window.STAFF_MEMBERS);
   }
