@@ -101,7 +101,7 @@ function isStaffInYear(p, yearId) {
   const rawRole = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
   const rawName = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
 
-  // Ef bekkjadálkur er tómur í CSV hleypum við starfsmanni í gegn svo hann hverfi ekki
+  // Ef bekkjadálkur er tómur í CSV hleypum við starfsmanni í gegn
   if (!rawGrades) return true;
 
   // Stoðþjónusta og ÍSAT
@@ -127,7 +127,7 @@ function isStaffInYear(p, yearId) {
   const numMatch = yearId.match(/\d+/);
   const targetNum = numMatch ? parseInt(numMatch[0], 10) : null;
 
-  if (rawGrades.includes('allir') || rawGrades.includes('1-10') || rawGrades.includes('y1-y10')) {
+  if (rawGrades.includes('allir') || rawGrades.includes('1-10') || rawGrades.includes('y1-y10') || rawGrades.includes('8-10') || rawGrades.includes('8–10')) {
     return true;
   }
 
@@ -136,7 +136,7 @@ function isStaffInYear(p, yearId) {
   }
 
   if (targetNum !== null) {
-    const rangeMatches = rawGrades.matchAll(/(\d+)\s*-\s*(\d+)/g);
+    const rangeMatches = rawGrades.matchAll(/(\d+)\s*[-–]\s*(\d+)/g);
     for (const match of rangeMatches) {
       const start = parseInt(match[1], 10);
       const end = parseInt(match[2], 10);
@@ -192,7 +192,12 @@ function renderStaffCardByObject(p) {
 
 // ==================== ÁRGANGASÍÐA / STOÐÞJÓNUSTA / ÍSAT / UNGLINGASTIG (8.-10.) ====================
 
-function openYearDetail(yearId) {
+async function openYearDetail(yearId) {
+  // Bíðum þar til staff.csv er klárlega hlaðið úr staff.js
+  if (window.STAFF_LOADED_PROMISE) {
+    await window.STAFF_LOADED_PROMISE;
+  }
+
   const data = window.YEARS_DATA ? window.YEARS_DATA[yearId] : null;
 
   if (!data) {
