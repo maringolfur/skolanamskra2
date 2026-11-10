@@ -5,7 +5,7 @@ window.YEARS_DATA['y9'] = {
   title: '9. árgangur',
   icon: '🚀',
   info: {
-    students: 'Nemendur (skólaárið 2026–2027)',
+    students: 'Nemendur eru 58 og skiptast í 3 bekkjardeildir.(skólaárið 2026–2027)',
     rooms: 'Umsjónarstofur 9. árgangs eru stofur 22,23 og 24 í Austurrými Vallaskóla (unglingastig). Gengið er inn um suðurinntang við Engjaveg.',
     hours: 'Hefst þriðjudaga, miðvikudaga og föstudaga kl. 08:10 en mánudaga og fimmtudaga klukkan 8:50 (36 stundir/viku)',
     recess: 'Kl. 10:10 – 10:30 alla daga',
