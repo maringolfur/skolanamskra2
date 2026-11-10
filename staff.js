@@ -7,12 +7,10 @@ function parseStaffCSV(csvText) {
   const lines = csvText.split('\n').map(l => l.trim()).filter(Boolean);
   if (lines.length < 2) return {};
 
-  // Greinum yfirskriftir (headers) úr fyrstu línu
   const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
   const staffMap = {};
 
   for (let i = 1; i < lines.length; i++) {
-    // Skiptum línu í dálka (tekur tillit til kommu innan gæsalappa)
     const row = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
     const cleanRow = row.map(cell => cell ? cell.replace(/^"|"$/g, '').trim() : '');
 
@@ -24,17 +22,15 @@ function parseStaffCSV(csvText) {
     const name = rowData['nafn'] || rowData['name'] || rowData['full_name'] || '';
     if (!name) continue;
 
-    // Búum til lykil fyrir starfsmann
     const id = name.toLowerCase()
       .replace(/á/g, 'a').replace(/ð/g, 'd').replace(/é/g, 'e')
       .replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')
       .replace(/ý/g, 'y').replace(/þ/g, 'th').replace(/æ/g, 'ae').replace(/ö/g, 'o')
       .replace(/[^a-z0-9]/g, '_');
 
-    // Lesum gildin úr CSV dálkunum
     const rawTeam = (rowData['teymi'] || rowData['team'] || rowData['flokkur'] || '').toLowerCase();
     
-    // Staðling á teymum fyrir 8.–10. bekk: stae, isam, tungumal
+    // Staðling á öllum 5 teymunum
     let teamNormalized = '';
     if (rawTeam.includes('stae') || rawTeam.includes('stæ') || rawTeam.includes('nat') || rawTeam.includes('nát')) {
       teamNormalized = 'stae';
@@ -42,6 +38,10 @@ function parseStaffCSV(csvText) {
       teamNormalized = 'isam';
     } else if (rawTeam.includes('tungumal') || rawTeam.includes('mál') || rawTeam.includes('tungumál')) {
       teamNormalized = 'tungumal';
+    } else if (rawTeam.includes('sports') || rawTeam.includes('íþrótt') || rawTeam.includes('ithrott')) {
+      teamNormalized = 'sports';
+    } else if (rawTeam.includes('logv') || rawTeam.includes('list') || rawTeam.includes('verk')) {
+      teamNormalized = 'logv';
     } else {
       teamNormalized = rawTeam;
     }
@@ -60,7 +60,6 @@ function parseStaffCSV(csvText) {
   return staffMap;
 }
 
-// Sækir og vinnur CSV skrána
 async function loadStaffData() {
   try {
     const response = await fetch(CSV_URL);
