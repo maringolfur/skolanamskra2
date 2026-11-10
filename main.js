@@ -232,7 +232,7 @@ function openYearDetail(yearId) {
 
     managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
   } else {
-    // SÆKJUM SJÁLFKRAFA ÚR GOOGLE SHEETS (STAFF.JS)
+    // SÆKJUM SJÁLFKRAFA ÚR GOOGLE SHEETS / STAFF.JS
     const rawStaff = Object.values(window.STAFF_MEMBERS || {});
     const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
@@ -276,40 +276,40 @@ function openYearDetail(yearId) {
       // 2. ÍSAM teymi
       isamTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
-        return team === 'isam' || team.includes('isam') || team.includes('ísam');
+        const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
+        return team.includes('isam') || team.includes('ísam');
       });
       markAssigned(isamTeam);
 
       // 3. STÆ/Nát teymi
       staeNatTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
-        return team === 'stae' || team.includes('stæ') || team.includes('stae') || team.includes('nát');
+        const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
+        return team.includes('stæ') || team.includes('stae') || team.includes('nát') || team.includes('nat') || team.includes('stærðfræði') || team.includes('náttúrufræði');
       });
       markAssigned(staeNatTeam);
 
       // 4. Tungumálateymi
       langTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
-        return team === 'tungumal' || team.includes('tungumál') || team.includes('tungumal') || team.includes('mál');
+        const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
+        return team.includes('tungumal') || team.includes('tungumál') || team.includes('mál') || team.includes('enska') || team.includes('danska');
       });
       markAssigned(langTeam);
 
       // 5. Skólaíþróttir (sports)
       sportsTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
-        return team === 'sports' || team.includes('sports') || team.includes('íþrótt') || team.includes('ithrott');
+        const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
+        return team.includes('sports') || team.includes('íþrótt') || team.includes('ithrott');
       });
       markAssigned(sportsTeam);
 
       // 6. List og verkgreinakennarar (logv)
       logvTeam = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const team = getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur').toLowerCase();
-        return team === 'logv' || team.includes('logv') || team.includes('list') || team.includes('verk');
+        const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
+        return team.includes('logv') || team.includes('list') || team.includes('smíði') || team.includes('smidi') || team.includes('textíl') || team.includes('heimilis');
       });
       markAssigned(logvTeam);
 
@@ -325,6 +325,9 @@ function openYearDetail(yearId) {
       });
       managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
       markAssigned(managers);
+
+      // 8. Aðrir kennarar (ÖRYGGISNET: þeir sem náðust ekki í teymin)
+      otherTeachers = yearStaff.filter(p => isUnassigned(p));
 
     } else {
       // ==================== ALMENNIR ÁRGANGAR (1.-7. BEKKUR) ====================
@@ -395,7 +398,7 @@ function openYearDetail(yearId) {
     renderedStaffContent = customSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
 
   } else if (isYouthGrade) {
-    // BIRTING UNGLINGASTIGS (8., 9., 10. BEKKUR): UMSJÓN ➔ ÍSAM ➔ STÆ/NÁT ➔ TUNGUMÁL ➔ ÍÞRÓTTIR ➔ LIST OG VERKGREINAR ➔ STJÓRNENDUR
+    // BIRTING UNGLINGASTIGS (8., 9., 10. BEKKUR)
     const youthSections = [];
 
     if (homeroomHtml) {
@@ -415,6 +418,9 @@ function openYearDetail(yearId) {
     }
     if (logvHtml) {
       youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 List og verkgreinakennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${logvHtml}</div></div>`);
+    }
+    if (otherTeachersHtml) {
+      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>`);
     }
     if (managersHtml) {
       youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
