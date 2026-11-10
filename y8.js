@@ -5,10 +5,10 @@ window.YEARS_DATA['y8'] = {
   icon: '🌋',
   info: {
     students: 'Nemendur (skólaárið 2026–2027)',
-    rooms: 'Stofur 8. árgangs (unglingastig)',
-    hours: 'Hefst alla daga kl. 08:10 (30 stundir/viku)',
-    recess: 'Kl. 09:30 – 09:50 alla daga',
-    lunch: 'Kl. 11:30 – 12:00'
+    rooms: 'Umsjónarstofur 8. árgangs eru stofur 29 og 30 í Austurrými Vallaskóla. Gengið er inn um suðurinngang við Engjaveg. (unglingastig)',
+    hours: 'Hefst þriðjudaga, miðvikudaga og föstudaga kl. 08:10 en mánudaga og fimmtudaga klukkan 8:50 (36 stundir/viku)',
+    recess: 'Kl. 10:10 – 10:30 alla daga',
+    lunch: 'Kl. 12:30 – 13:00'
   },
   docHtml: `
     <h1 class="text-2xl font-extrabold text-sky-900 border-b pb-2">Námskrá og kennsluáætlun 8. árgangs</h1>
@@ -151,10 +151,10 @@ window.YEARS_DATA['y8'] = {
     <!-- NÁMSKRÁ & ÁHERSLUR -->
     <h2 class="text-xl font-bold text-slate-800 pt-4 border-t">Helstu áherslur og námsmarkmið</h2>
     <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-      <li><strong>Ísam:</strong> Textagreining, rökstudd ritun, bókmenntir, samfélagsmál og saga.</li>
+      <li><strong>Ísam:</strong> Textagreining, heimildaritun, bókmenntir, Íslendingasögur, samfélagsmál og saga.</li>
       <li><strong>Stæ/Nát:</strong> Algebra, jöfnur, eðlis- og efnafræði, vísindaleg vinnubrögð og tilraunir.</li>
       <li><strong>Tungumál:</strong> Dýpri skilningur og samræður í ensku og dönsku ásamt málfræði og ritun.</li>
-      <li><strong>Valgreinar:</strong> Nemendur taka þátt í valgreinum unglingastigs skv. valgreinabæklingi.</li>
+      <li><strong>Áhugasviðsval:</strong> Nemendur vinna að sjálfstæðum verkefnum undir leiðsögn kennara.</li>
     </ul>
   `
 };
