@@ -101,7 +101,7 @@ function isStaffInYear(p, yearId) {
   const rawRole = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
   const rawName = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
 
-  // Ef bekkjadálkur er alveg tómur hleypum við honum í gegn
+  // Ef bekkjadálkur er tómur birtist starfsmaður alls staðar svo hann hverfi ekki
   if (!rawGrades) return true;
 
   // Stoðþjónusta og ÍSAT
@@ -163,7 +163,7 @@ function getManagerRank(p) {
   return 5;
 }
 
-// ==================== STARFSMANNAKORT MEÐ MYND ÚR STAFF.JS ====================
+// ==================== STARFSMANNAKORT MEÐ MYND ====================
 
 function renderStaffCardByObject(p) {
   if (!p) return '';
@@ -190,7 +190,7 @@ function renderStaffCardByObject(p) {
   `;
 }
 
-// ==================== ÁRGANGASÍÐA / STOÐÞJÓNUSTA / ÍSAT / UNGLINGASTIG (8.-10.) ====================
+// ==================== ÁRGANGASÍÐA ====================
 
 async function openYearDetail(yearId) {
   if (window.STAFF_LOADED_PROMISE) {
@@ -218,6 +218,7 @@ async function openYearDetail(yearId) {
 
   const isYouthGrade = ['y8', 'y9', 'y10'].includes(yearId);
 
+  // Sækjum alla starfsmenn úr CSV
   const rawStaff = Object.values(window.STAFF_MEMBERS || {});
   const yearStaff = rawStaff.filter(p => isStaffInYear(p, yearId));
 
@@ -279,7 +280,7 @@ async function openYearDetail(yearId) {
     });
     markAssigned(langTeam);
 
-    // 5. Skólaíþróttir (sports eða sport)
+    // 5. Skólaíþróttir
     sportsTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -287,7 +288,7 @@ async function openYearDetail(yearId) {
     });
     markAssigned(sportsTeam);
 
-    // 6. List og verkgreinakennarar (logv)
+    // 6. List og verkgreinakennarar
     logvTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -308,7 +309,7 @@ async function openYearDetail(yearId) {
     managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
     markAssigned(managers);
 
-    // 8. Aðrir kennarar (Öryggisnet)
+    // 8. Aðrir kennarar / starfsmenn
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
 
   } else {
