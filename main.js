@@ -313,11 +313,15 @@ function openYearDetail(yearId) {
       });
       markAssigned(langTeam);
 
-      // 7. Stjórnendur
+      // 7. Stjórnendur (bætt við verkefnisstjóri með 'i')
       managers = yearStaff.filter(p => {
         if (!isUnassigned(p)) return false;
-        const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'category', 'flokkur').toLowerCase();
-        return role.includes('skólastjóri') || role.includes('deildarstjóri') || role.includes('verkefnastjóri');
+        const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
+        const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
+        return cat.includes('stjorn') || cat.includes('stjórn') || 
+               role.includes('skólastjóri') || role.includes('skolastjori') ||
+               role.includes('deildarstjóri') || role.includes('deildarstjori') ||
+               role.includes('verkefnastjóri') || role.includes('verkefnisstjóri') || role.includes('verkefnastjori');
       });
       managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
       markAssigned(managers);
@@ -357,7 +361,7 @@ function openYearDetail(yearId) {
         return cat.includes('stjorn') || cat.includes('stjórn') || 
                role.includes('skólastjóri') || role.includes('skolastjori') ||
                role.includes('deildarstjóri') || role.includes('deildarstjori') ||
-               role.includes('verkefnastjóri') || role.includes('verkefnisstjóri');
+               role.includes('verkefnastjóri') || role.includes('verkefnisstjóri') || role.includes('verkefnastjori');
       });
       managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
       markAssigned(managers);
