@@ -5,7 +5,7 @@ window.YEARS_DATA['y10'] = {
   title: '10. árgangur',
   icon: '🎓',
   info: {
-    students: 'Nemendur (skólaárið 2026–2027)',
+    students: 'Nemendur 10 árgangs eru 79 og skiptast upp í 3 bekkjardeildir. (skólaárið 2026–2027)',
     rooms: 'Umsjónarstofur 10. árgangs eru stofur 25, 26 og 28 í Austurrými Vallaskóla (unglingastig). Gengið er inn um suðurinntang við Engjaveg.',
     hours: 'Hefst þriðjudaga, miðvikudaga og föstudaga kl. 08:10 en mánudaga og fimmtudaga klukkan 8:50 (36 stundir/viku)',
     recess: 'Kl. 10:10 – 10:30 alla daga',
