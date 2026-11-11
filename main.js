@@ -635,12 +635,50 @@ function renderGradeSelection(subject, icon, startGrade, endGrade, description) 
 }
 
 function openSubjectGradeDetail(subjectTitle, gradeNum) {
-  openDetailView(`${subjectTitle} — ${gradeNum}. árgangur`, '📚', `
-    <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
-      <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Námskrá og kennsluáætlun</h3>
-      <p class="text-xs md:text-sm text-slate-600">Hér birtast námsmarkmið, námsefni og námsmat fyrir ${gradeNum}. bekk í ${subjectTitle}.</p>
-    </div>
-  `);
+  // Búum til auðkenni eins og 'islenska_1'
+  const cleanSubjectId = subjectTitle.split('—')[0].trim().toLowerCase()
+    .replace(/í/g, 'i').replace(/á/g, 'a').replace(/ð/g, 'd')
+    .replace(/é/g, 'e').replace(/ó/g, 'o').replace(/ú/g, 'u')
+    .replace(/ý/g, 'y').replace(/þ/g, 'th').replace(/æ/g, 'ae')
+    .replace(/ö/g, 'o').replace(/[^a-z0-9]/g, '');
+
+  const dataKey = `${cleanSubjectId}_${gradeNum}`;
+  const data = (window.SUBJECT_GRADE_DATA && window.SUBJECT_GRADE_DATA[dataKey]) ? window.SUBJECT_GRADE_DATA[dataKey] : null;
+
+  if (data) {
+    const sectionsHtml = data.sections.map(sec => `
+      <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+        <h4 class="font-bold text-sky-900 text-lg border-b pb-2 flex items-center gap-2">
+          <span>${sec.icon}</span> ${sec.title}
+        </h4>
+        <ul class="list-disc pl-5 space-y-2 text-xs md:text-sm text-slate-700 leading-relaxed">
+          ${sec.items.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+    `).join('');
+
+    const fullHtml = `
+      <div class="space-y-6">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+          <h3 class="font-bold text-amber-900 text-xl border-b pb-2 flex items-center gap-2">
+            📘 Yfirlit — ${gradeNum}. bekkur
+          </h3>
+          <p class="text-xs md:text-sm text-slate-700 leading-relaxed">${data.description}</p>
+        </div>
+        ${sectionsHtml}
+      </div>
+    `;
+
+    openDetailView(`${subjectTitle} — ${gradeNum}. árgangur`, data.icon || '📚', fullHtml);
+  } else {
+    // Sýna varasíðu ef gögn eru ekki enn til staðar fyrir viðkomandi bekk
+    openDetailView(`${subjectTitle} — ${gradeNum}. árgangur`, '📚', `
+      <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+        <h3 class="font-bold text-sky-900 text-lg border-b pb-2">Námskrá og kennsluáætlun</h3>
+        <p class="text-xs md:text-sm text-slate-600">Hér birtast námsmarkmið, námsefni og námsmat fyrir ${gradeNum}. bekk í ${subjectTitle} (í vinnslu).</p>
+      </div>
+    `);
+  }
 }
 
 // ==================== STARFSMANNA SPRETTIGLUGGI (MODAL) ====================
