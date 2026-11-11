@@ -80,20 +80,21 @@ Lögð er áhersla á að nemendur öðlist sjálfstraust til að nota málið �
     icon: '🏀',
     type: 'grades',
     startGrade: 1,
-    endGrade: 10
+    endGrade: 10,
+    description: `Megintilgangur náms og kennslu í íþrótta- og sundmennt er að búa nemendur undir alhliða hreyfiþroska, virkan lífsstíl og skilning á mikilvægi reglulegrar hreyfingar fyrir heilsu og vellíðan.<br><br>
+Í íþróttum og sundi læra nemendur grunnleikni í fjölbreyttum íþróttagreinum, leikjum og úti- og innihreyfingu. Lögð er áhersla á líkamsbeitingu, þol, styrk, liðleika og samvinnu ásamt því að virða regluleik og sýna góða íþróttamennsku (fair play).<br><br>
+Sundkennsla er samofinn hluti af náminu þar sem megináherslan er á sjálfsbjörgun í vatni, rétt sundtök, öryggi og ánægju af hreyfingu í vatni.`
   },
-  {
   {
     id: 'logv',
     title: 'List- og verkgreinar',
     icon: '🎨',
     type: 'grades',
     startGrade: 1,
-    endGrade: 8,
+    endGrade: 10,
     description: `Nám í list- og verkgreinum (myndmennt, hönnun og smíði, textílmennt, heimilisfræði og tónmennt) miðar að því að efla sköpunargáfu, verklega leikni, fínhreyfingar, fegurðarskyn og sjálfbærni hjá nemendum.<br><br>
 Í gegnum skapandi vinnu læra nemendur að umbreyta hugmyndum í afurðir, vinna með fjölbreyttan efnivið, nýta verkfæri og tækni af öryggi og gæta hreinlætis og umhverfisverndar.<br><br>
 Greinarnar reyna á samþættingu hugar og handa og stuðla að alhliða þroska, sjálfstrausti og virðingu fyrir handverki og menningararfi.`
-  }
   },
   {
     id: 'ahugasvidsval',
