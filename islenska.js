@@ -147,6 +147,53 @@ window.SUBJECT_GRADE_DATA['islenska_4'] = {
     }
   ]
 };
+// ==================== 5. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['islenska_5'] = {
+  title: "Íslenska — 5. árgangur",
+  icon: "📖",
+  description: "Á 5. árgangi (upphafi miðstigs) er lögð megináhersla á að dýpka lesskilning, efla lesfimi og auka orðaforða nemenda. Nemendur fá þjálfun í fjölbreyttum lestraraðferðum, málfræði (orðflokkum og málnotkun), skapandi og upplýsandi ritun ásamt umræðum um bókmenntir.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Talað mál, hlustun og áhorf:</strong> Nemandi tjái sig af öryggi í hóp, flytja stuttar frásagnir eða kynningar, hlusta af athygli og greina frá aðalatriðum í töluðu eða stafrænu efni.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi beiti ólíkum lestraraðferðum (leitolestri, glugglestri og nákvæmnislestri), nái góðri lesfimi, dragi ályktanir út frá texta og nýti orðaforða til að ráða í merkingu ókunnra orða.",
+        "<strong>Bókmenntir:</strong> Nemandi lesi fjölbreyttar sögur, ævintýri og ljóð ætluð aldurshópnum, greini söguþráð, persónulýsingar og umhverfi og beiti einföldum bókmenntahugtökum.",
+        "<strong>Ritun:</strong> Nemandi skrifi skýrt og læsilega (handskrift og tölvuritun), skipti texta í málsgreinar og efnisgreinar, nýti greinarmerki (punkt, kommu, spurnarmerki) og beiti stafsetningsreglum.",
+        "<strong>Mál og málnotkun:</strong> Nemandi þekki og greini helstu orðflokka (nafnorð, lýsingarorð, sagnorð), skilji einfaldar beygingar, nýti stafsetningar- og orðabækur og beiti almennri málfræðiþekkingu."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlanir og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Heimalestur:</strong> Reglubundinn heimalestur (a.m.k. 4–5 sinnum í viku) þar sem nemendur lesi bæði í hljóði og upphátt fyrir fullorðna.",
+        "<strong>Yndislestur og bókalestur:</strong> Lestur í skólastofu af fjölbreyttum bókalistum og bókasafnsbókum miðað við lestrargetu hvers og eins.",
+        "<strong>Lotuvinna og verkefni:</strong> Samhliða lestri er unnið í lotum með málfræði, lesskilning og skapandi ritunarverkefni.",
+        "<strong>Lesfimipróf:</strong> Standardiseraðar lesfimimælingar framkvæmdar 3 sinnum á skólaárinu (haust, vetur, vor)."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Málfræði og ritun:</strong> Málfræði- og stafsetningarhefti (t.d. efni frá MMS eða vinnubækur í málfræði).",
+        "<strong>Lesskilningur:</strong> Lesskilningshefti, sögutextar og stuttar sögur með dýpri spurningum.",
+        "<strong>Lestrarbækur og miðlar:</strong> Bækur af bókasafni, yndislestrarbækur við hæfi og stafræn námsgögn í iPad."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Leiðsagnarmat og vinnubækur:</strong> Reglulegt mat á daglegri virkni, ástundun og frágangi í vinnubókum.",
+        "<strong>Lesfimi:</strong> Niðurstöður lesfimiprófa mældar í september, janúar og maí.",
+        "<strong>Kannanir og verkefni:</strong> Stuttar stöðukannanir í málfræði/stafsetningu og mat á ritunarverkefnum út frá matskvörðum."
+      ]
+    }
+  ]
+};
 // ==================== 6. ÁRGANGUR ====================
 window.SUBJECT_GRADE_DATA['islenska_6'] = {
   title: "Íslenska — 6. árgangur",
