@@ -1,5 +1,22 @@
 var currentViewHistory = currentViewHistory || [];
 
+// ==================== VARAVALKOSTIR (FALLBACKS) ====================
+
+const DEFAULT_YEARS_LIST = [
+  { id: 'y1', title: '1. bekkur', icon: '🌱' },
+  { id: 'y2', title: '2. bekkur', icon: '🎨' },
+  { id: 'y3', title: '3. bekkur', icon: '📚' },
+  { id: 'y4', title: '4. bekkur', icon: '✏️' },
+  { id: 'y5', title: '5. bekkur', icon: '🔍' },
+  { id: 'y6', title: '6. bekkur', icon: '💡' },
+  { id: 'y7', title: '7. bekkur', icon: '🚀' },
+  { id: 'y8', title: '8. bekkur', icon: '🔬' },
+  { id: 'y9', title: '9. bekkur', icon: '💻' },
+  { id: 'y10', title: '10. bekkur', icon: '🎓' },
+  { id: 'stod', title: 'Stoðþjónusta', icon: '🤝' },
+  { id: 'isat', title: 'ÍSAT', icon: '💬' }
+];
+
 // ==================== VISIBILITY & NAVIGATION ====================
 
 function hideAllViews() {
@@ -57,9 +74,10 @@ function goBackFromDetail() {
 
 function renderYearsGrid() {
   const container = document.getElementById('yearsGrid');
-  if (!container || !window.YEARS_LIST) return;
+  const list = window.YEARS_LIST || DEFAULT_YEARS_LIST;
+  if (!container || !list) return;
 
-  container.innerHTML = YEARS_LIST.map(item => `
+  container.innerHTML = list.map(item => `
     <button onclick="openYearDetail('${item.id}')" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
       <span class="text-4xl group-hover:scale-110 transition duration-200">${item.icon}</span>
       <span class="text-sm font-bold text-slate-800 group-hover:text-sky-700">${item.title}</span>
@@ -69,9 +87,10 @@ function renderYearsGrid() {
 
 function renderSubjectsGrid() {
   const container = document.getElementById('subjectsGrid');
-  if (!container || !window.SUBJECTS_TREE) return;
+  const list = window.SUBJECTS_TREE || [];
+  if (!container || !list) return;
 
-  container.innerHTML = SUBJECTS_TREE.map(item => `
+  container.innerHTML = list.map(item => `
     <button onclick="handleSubjectClick('${item.id}')" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-600 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
       <span class="text-4xl group-hover:scale-110 transition duration-200">${item.icon}</span>
       <span class="text-sm font-bold text-slate-800 group-hover:text-amber-700">${item.title}</span>
@@ -537,12 +556,19 @@ function renderSubSubjects(parentSubject) {
   document.getElementById('detailIcon').innerText = parentSubject.icon;
   document.getElementById('detailTitle').innerText = parentSubject.title;
 
-  const tilesHtml = parentSubject.subSubjects.map(sub => `
-    <button onclick="renderGradeSelection(${JSON.stringify(sub).replace(/"/g, '&quot;')})" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-500 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
-      <span class="text-3xl group-hover:scale-110 transition duration-200">${sub.icon}</span>
-      <span class="text-sm font-bold text-slate-800 group-hover:text-amber-700">${sub.title}</span>
-    </button>
-  `).join('');
+  const tilesHtml = parentSubject.subSubjects.map(sub => {
+    const safeTitle = (sub.title || '').replace(/'/g, "\\'");
+    const safeIcon = sub.icon || '📘';
+    const start = sub.startGrade || 1;
+    const end = sub.endGrade || 10;
+    const safeDesc = (sub.description || '').replace(/'/g, "\\'");
+    return `
+      <button onclick="renderGradeSelection('${safeTitle}', '${safeIcon}', ${start}, ${end}, '${safeDesc}')" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-500 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
+        <span class="text-3xl group-hover:scale-110 transition duration-200">${safeIcon}</span>
+        <span class="text-sm font-bold text-slate-800 group-hover:text-amber-700">${sub.title}</span>
+      </button>
+    `;
+  }).join('');
 
   document.getElementById('detailContent').innerHTML = `
     <div class="space-y-4">
@@ -558,28 +584,51 @@ function renderSubSubjects(parentSubject) {
   window.scrollTo(0, 0);
 }
 
-function renderGradeSelection(subject) {
+// STYÐUR BÆÐI: renderGradeSelection(subjectObject) EÐA renderGradeSelection(title, icon, start, end, desc)
+function renderGradeSelection(subject, icon, startGrade, endGrade, description) {
   hideAllViews();
   currentViewHistory.push('grade_selection');
-  document.getElementById('detailIcon').innerText = subject.icon;
-  document.getElementById('detailTitle').innerText = subject.title;
+
+  let sTitle = '';
+  let sIcon = '📘';
+  let sStart = 1;
+  let sEnd = 10;
+  let sDesc = '';
+
+  if (typeof subject === 'object' && subject !== null) {
+    sTitle = subject.title || '';
+    sIcon = subject.icon || '📘';
+    sStart = subject.startGrade || 1;
+    sEnd = subject.endGrade || 10;
+    sDesc = subject.description || '';
+  } else {
+    sTitle = subject || '';
+    sIcon = icon || '📘';
+    sStart = startGrade || 1;
+    sEnd = endGrade || 10;
+    sDesc = description || '';
+  }
+
+  document.getElementById('detailIcon').innerText = sIcon;
+  document.getElementById('detailTitle').innerText = sTitle;
 
   let introBoxHtml = '';
-  if (subject.description) {
+  if (sDesc) {
     introBoxHtml = `
       <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-3 mb-6">
         <h3 class="font-bold text-amber-900 text-lg border-b pb-2 flex items-center gap-2">
-          📜 Um ${subject.title} í Aðalnámskrá
+          📜 Um ${sTitle} í Aðalnámskrá
         </h3>
-        <p class="text-xs md:text-sm text-slate-700 leading-relaxed">${subject.description}</p>
+        <p class="text-xs md:text-sm text-slate-700 leading-relaxed">${sDesc}</p>
       </div>
     `;
   }
 
   let tilesHtml = '';
-  for (let i = subject.startGrade; i <= subject.endGrade; i++) {
+  for (let i = sStart; i <= sEnd; i++) {
+    const safeTitle = sTitle.replace(/'/g, "\\'");
     tilesHtml += `
-      <button onclick="openSubjectGradeDetail('${subject.title}', ${i})" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-500 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
+      <button onclick="openSubjectGradeDetail('${safeTitle}', ${i})" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-500 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
         <span class="text-3xl group-hover:scale-110 transition duration-200">📘</span>
         <span class="text-sm font-bold text-slate-800 group-hover:text-amber-700">${i}. árgangur</span>
       </button>
