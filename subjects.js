@@ -97,11 +97,14 @@ Sundkennsla er samofinn hluti af náminu þar sem megináherslan er á sjálfsbj
 Greinarnar reyna á samþættingu hugar og handa og stuðla að alhliða þroska, sjálfstrausti og virðingu fyrir handverki og menningararfi.`
   },
   {
+  {
     id: 'ahugasvidsval',
     title: 'Áhugasviðsval',
     icon: '🌟',
     type: 'grades',
-    startGrade: 8,
-    endGrade: 10
+    startGrade: 9,
+    endGrade: 10,
+    description: `Áhugasviðsval veitir nemendum í 9.–10. árgangi tækifæri til að dýpka þekkingu sína, reyna á nýjar hliðar og velja námsgreinar eða námskeið í samræmi við eigin áhugamál, framtíðaráform og styrkleika.<br><br>
+Nemendur stýra sínu vali alfarið sjálfir og geta valið þá leið sem þeir vilja fara. Þeir fá úthlutað kennara sem leiðbeinir þeim í því verki sem þeir velja og vinna að því fram að annarskiptum í janúar. Á vorönn gefst nemendum tækifæri til að vinna að öðru verki að eigin vali.<br><br>
+Námið stuðlar að auknu sjálfstæði, ábyrgð á eigin námi og felur í sér góða brú yfir í framhaldsskólanám.`
   }
-];
