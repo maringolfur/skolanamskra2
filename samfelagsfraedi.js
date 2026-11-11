@@ -38,30 +38,48 @@ window.SUBJECT_GRADE_DATA['samfelagsfraedi_1'] = {
 window.SUBJECT_GRADE_DATA['samfelagsfraedi_6'] = {
   title: "Samfélagsfræði — 6. árgangur",
   icon: "🌍",
-  description: "Á 6. árgangi í samfélagsfræði er fjallað um Íslandssögu, landafræði Evrópu og Íslands, stjórnskipan, lýðræði og mannréttindi, ásamt helstu trúarbrögðum heimsins og siðfræði.",
+  description: "Í 6. bekk í samfélagsfræði er unnið heildstætt með landafræði Norðurlanda, kortalæsi, sögu frá Róm til Þingvalla, norræna menningu og goðafræði, samfélag, lýðræði, réttindi og stöðu Íslands í samfélagi þjóða.",
   sections: [
     {
       title: "🎯 Hæfniviðmið",
       icon: "🎯",
       items: [
-        "<strong>Saga og menningararfur:</strong> Nemandi þekki helstu tímabil í sögu Íslands, átti sig á orsökum og afleiðingum sögulegra atburða og beri saman lífskjör fyrr og nú.",
-        "<strong>Landafræði og kortaskilningur:</strong> Nemandi beiti landakortum af öryggi, þekki heimsálfur, landslagseinkenni Íslands og Evrópu og fjalli um auðlindir og búsetu.",
-        "<strong>Lýðræði, mannréttindi og trúarbrögð:</strong> Nemandi þekki grunnatriði lýðræðis, mannréttinda og stjórnskipunar, og sýni skilning og virðingu fyrir ólíkum trúarbrögðum og lífssýn."
+        "<strong>Kortalæsi og landafræði:</strong> Nemandi beiti kortalæsi, þekki lengdar- og breiddarbauga og geti fjallað um landslag, auðlindir og samfélög á Norðurlöndunum.",
+        "<strong>Saga og menning:</strong> Nemandi þekki sögulega þróun frá Róm til kristnitöku á Þingvöllum, kynnist norrænum rithöfundum og norrænni goðafræði.",
+        "<strong>Trú, siðfræði og lýðræði:</strong> Nemandi sýni skilning á siðferði, Gullnu reglunni, lífsgildum, réttindum, reglum og lýðræðislegri þátttöku í samfélaginu.",
+        "<strong>Ísland í samfélagi þjóða:</strong> Nemandi þekki stöðu Íslands í alþjóðlegu samhengi, sögulega atburði (t.d. Þorskastríðið) og samspil manns og náttúru."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og lotuskipting",
+      icon: "🗓️",
+      items: [
+        "<strong>Lota 1 (Ágúst–september) — Kort, landafræði og Norðurlönd:</strong> Kort og loftmyndir, lengdar- og breiddarbaugar, kortalæsi, umhverfi, auðlindir og samspil manns og náttúru. (Kortavinna, lestur, vinnubók, umræður og hópvinna).",
+        "<strong>Lota 2 (Október–janúar) — Norðurlöndin (lönd, samfélag og menning):</strong> Ísland/Norðurlönd, Noregur, Svíþjóð, Finnland, Álandseyjar, Danmörk, Færeyjar, Grænland og Samar. (Lestur, vinnubók, upplýsingaleit, samanburður landa, hópverkefni og kynningar).",
+        "<strong>Lota 3 (Nóvember–janúar) — Norræn menning og rithöfundar:</strong> Thorbjørn Egner, Astrid Lindgren og Tove Jansson. (Einstaklings-/hópverkefni, upplýsingaleit og skapandi kynningar).",
+        "<strong>Lota 4 (Janúar–mars) — Saga (frá Róm til Þingvalla):</strong> Söguleg þróun, samfélag fyrri tíma og efni fram að kristnitökunni á Íslandi. (Lestur, spurningar, vinnublöð, umræður og uppsóp).",
+        "<strong>Lota 5 (Janúar–júní) — Norræn goðafræði, trú og siðfræði:</strong> Lífið í Ásgarði, norræn goðafræði, trú, siðferði, Gullna reglan, lífsgildi, tákn og hátíðir. (Lestur, útdrættir, myndsköpun, umræður og verkefni).",
+        "<strong>Lota 6 (Apríl–maí) — Réttindi, reglur og lýðræði:</strong> Réttindi, reglur, lýðræðisleg þátttaka, samstarf og samfélag. (Verkefnavinna, samræður, hópvinna og kynningar).",
+        "<strong>Lota 7 (Maí–júní) — Jörðin okkar og Ísland í samfélagi þjóða:</strong> Jörðin okkar, Þorskastríðið og upprifjun landafræði Norðurlanda. (Þemaverkefni, upplýsingaleit, umræður og upprifjun)."
       ]
     },
     {
       title: "📚 Námsefni",
       icon: "📚",
       items: [
-        "<strong>Námsbækur og gagnagrunnar:</strong> Samfélagsfræðibækur frá MMS (t.d. Íslandssaga, Landafræði og Trúarbragðafræði).",
-        "<strong>Stafræn tæki:</strong> Gagnvirk landakort, upplýsingaleit og verkefnavinna á iPad."
+        "<strong>Norðurlönd:</strong> Lesbók og vinnubók.",
+        "<strong>Frá Róm til Þingvalla:</strong> Námsbók og vinnublöð í sögu.",
+        "<strong>Lífið í Ásgarði:</strong> Efni um norræna goðafræði.",
+        "<strong>Ítarefni:</strong> Fjölbreytt verkefni um norræna rithöfunda, trú og siðfræði, réttindi, reglur og lýðræði, Jörðina okkar og Þorskastríðið."
       ]
     },
     {
       title: "📝 Námsmat",
       icon: "📝",
       items: [
-        "<strong>Fjölbreytt mat:</strong> Kannanir úr kaflabókum, mat á rannsóknarverkefnum, kynningum og hópavinnu."
+        "<strong>Fjölbreytt símat:</strong> Byggir á vinnubókarvinnu, kortavinnu, upplýsingaleit, einstaklings- og hópverkefnum, kynningum og þátttöku í umræðum.",
+        "<strong>Hæfni og skilningur:</strong> Mat á notkun samfélagsfræðilegra hugtaka, upplýsingaöflun, samanburði samfélaga og miðlun þekkingar.",
+        "<strong>Vinnubrögð:</strong> Horft er til sjálfstæðra vinnubragða, samstarfs og þátttöku í lýðræðislegri samræðu."
       ]
     }
   ]
