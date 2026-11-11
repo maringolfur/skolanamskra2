@@ -249,3 +249,93 @@ window.SUBJECT_GRADE_DATA['enska_8'] = {
     }
   ]
 };
+// ==================== 9. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['enska_9'] = {
+  title: "Enska — 9. árgangur",
+  icon: "🇬🇧",
+  description: "Á 9. árgangi er kennsla í erlendum tungumálum samþætt þar sem enska og danska eru kenndar saman í 2–4 vikna lotum. Lögð er áhersla á aukinn dýpt í lesskilningi, skáldsögunámi (t.d. *Holes*), málfræði, munnlegum kynningum og símati í gegnum Mentor.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji aðal- og smáatriði í töluðu máli, frásögnum og fjölmiðlaefni (kvikmyndum og þáttum) og nýti í verkefnum sínum.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi lesi skáldsögur (t.d. <em>Holes</em>), léttlestrarbækur og fjölbreyttan texta af netinu af auknu sjálfstæði.",
+        "<strong>Samskipti og frásögn:</strong> Nemandi tjái sig í samræðum, undirbúi og flytji munnlegar kynningar og beiti réttum framburði og áherslum í töluðu máli.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað samfellda texta í einstaklings- og hópverkefnum og beiti grunnreglum málfræði og ríkulegum orðaforða."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Samþætting tungumála:</strong> Kennslu er skipulagt í 2–4 vikna lotum þar sem enska og danska eru kenndar saman.",
+        "<strong>Stundafjöldi:</strong> Kenndar eru 7 kennslustundir á viku í erlendum tungumálum, þar af 4 kennslustundir í ensku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Bækur & skáldsögur:</strong> <em>Next Up! 2</em> (lesbók og vinnubók), léttlestrarbækur og skáldsagan <em>Holes</em>.",
+        "<strong>Stafrænir miðlar:</strong> Kvikmyndir, þættir og lesefni af netinu.",
+        "<strong>Viðbótarefni:</strong> Sérniðið verkefnaefni frá kennara."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat í Mentor:</strong> Námsmat fer fram jafnóðum. Nemendur fá einkunnir fyrir einstök verkefni og lokaeinkunn fyrir hverja vinnulotu.",
+        "<strong>Fjölbreytt námsmat:</strong> Rafræn próf, munnlegar kynningar, hlustunaræfingar og próf, hópverkefni og einstaklingsverkefni.",
+        "<strong>Einkunnastigi:</strong> <strong>A</strong> (Vinna framúrskarandi), <strong>B+</strong> (Öllum hæfniviðmiðum náð en nokkur framúrskarandi), <strong>B</strong> (Hæfniviðmiðum náð), <strong>C+</strong> (Á góðri leið), <strong>C</strong> (Þarfnast þjálfunar / ekki öllum hæfniviðmiðum náð), <strong>D</strong> (Hæfni ekki náð / verkefni ekki skilað). Einnig er gefið <em>Lokið/Ólokið</em> fyrir stök verkefni.",
+        "<strong>Endurvinnsla og tækifæri:</strong> Einkunnir eru ekki endanlegar á meðan á símati stendur; nái nemandi ekki námsviðmiðum býðst honum að vinna upp eða endurvinna verkefnið til að dýpka hæfni sína og hækka einkunn."
+      ]
+    }
+  ]
+};
+// ==================== 10. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['enska_10'] = {
+  title: "Enska — 10. árgangur",
+  icon: "🇬🇧",
+  description: "Á 10. árgangi (lokaári grunnskóla) er kennsla í erlendum tungumálum samþætt þar sem enska og danska eru kenndar saman í 2–4 vikna lotum. Lögð er áhersla á aukið sjálfstæði í vinnubrögðum, dýpri lesskilning, skáldsögunám (t.d. *Holes*), málfræði, munnlegar kynningar og undirbúning fyrir framhaldsskóla með símati í gegnum Mentor.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji aðal- og smáatriði í töluðu máli, frásögnum og fjölmiðlaefni (kvikmyndum og þáttum) og nýti sér í flóknari verkefna- og úrvinnsluvinnu.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi lesi skáldsögur (t.d. <em>Holes</em>), léttlestrarbækur og fjölbreyttan texta af netinu af miklu sjálfstæði og öryggi sér til gagns og ánægju.",
+        "<strong>Samskipti og frásögn:</strong> Nemandi tjái sig af öryggi í samræðum, undirbúi og flytji munnlegar kynningar og beiti réttum framburði og áherslum í töluðu máli.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað mismunandi gerðir samfelldra texta í einstaklings- og hópverkefnum og beiti málfræðireglum og ríkulegum orðaforða."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Samþætting tungumála:</strong> Kennslu er skipulagt í 2–4 vikna lotum þar sem enska og danska eru kenndar saman.",
+        "<strong>Stundafjöldi:</strong> Kenndar eru 7 kennslustundir á viku í erlendum tungumálum, þar af 4 kennslustundir í ensku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Bækur & skáldsögur:</strong> <em>Next Up! 2</em> (lesbók og vinnubók), léttlestrarbækur og skáldsagan <em>Holes</em>.",
+        "<strong>Stafrænir miðlar:</strong> Kvikmyndir, þættir og lesefni af netinu.",
+        "<strong>Viðbótarefni:</strong> Sérniðið verkefnaefni frá kennara."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat í Mentor:</strong> Námsmat fer fram jafnóðum. Nemendur fá einkunnir fyrir einstök verkefni og lokaeinkunn fyrir hverja vinnulotu.",
+        "<strong>Fjölbreytt námsmat:</strong> Rafræn próf, munnlegar kynningar, hlustunaræfingar og próf, hópverkefni og einstaklingsverkefni.",
+        "<strong>Einkunnastigi:</strong> <strong>A</strong> (Vinna framúrskarandi), <strong>B+</strong> (Öllum hæfniviðmiðum náð en nokkur framúrskarandi), <strong>B</strong> (Hæfniviðmiðum náð), <strong>C+</strong> (Á góðri leið), <strong>C</strong> (Þarfnast þjálfunar / ekki öllum hæfniviðmiðum náð), <strong>D</strong> (Hæfni ekki náð / verkefni ekki skilað). Einnig er gefið <em>Lokið/Ólokið</em> fyrir einstaka verkefni.",
+        "<strong>Endurvinnsla og tækifæri:</strong> Einkunnir eru ekki endanlegar á meðan á símati stendur; nái nemandi ekki námsviðmiðum býðst honum að vinna upp eða endurvinna verkefnið til að dýpka hæfni sína og hækka einkunn."
+      ]
+    }
+  ]
+};
