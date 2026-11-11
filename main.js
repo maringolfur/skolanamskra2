@@ -17,6 +17,26 @@ const DEFAULT_YEARS_LIST = [
   { id: 'isat', title: 'ÍSAT', icon: '💬' }
 ];
 
+const DEFAULT_SUBJECTS_TREE = [
+  {
+    id: 'islenska',
+    title: 'Íslenska',
+    icon: '📖',
+    type: 'grades',
+    startGrade: 1,
+    endGrade: 10,
+    description: 'Íslenska er lykilgrein í öllu skólastarfi. Meginmarkmið kennslunnar er að efla málfærni nemenda, læsi, textaskilning og skapandi hugsun, ásamt því að rækta með þeim virðingu og tilfinningu fyrir íslenskri tungu og bókmenntum samkvæmt Aðalnámskrá grunnskóla.'
+  },
+  { id: 'staerdfraedi', title: 'Stærðfræði', icon: '📐', type: 'grades', startGrade: 1, endGrade: 10 },
+  { id: 'natturufraedi', title: 'Náttúrufræði', icon: '🌿', type: 'grades', startGrade: 1, endGrade: 10 },
+  { id: 'samfelagsfraedi', title: 'Samfélagsfræði', icon: '🌍', type: 'grades', startGrade: 1, endGrade: 10 },
+  { id: 'enska', title: 'Enska', icon: '🇬🇧', type: 'grades', startGrade: 1, endGrade: 10 },
+  { id: 'danska', title: 'Danska', icon: '🇩🇰', type: 'grades', startGrade: 5, endGrade: 10 },
+  { id: 'skolaithrottir', title: 'Skólaíþróttir', icon: '🏀', type: 'grades', startGrade: 1, endGrade: 10 },
+  { id: 'logv', title: 'List- og verkgreinar', icon: '🎨', type: 'grades', startGrade: 1, endGrade: 10 },
+  { id: 'ahugasvidsval', title: 'Áhugasviðsval', icon: '🌟', type: 'grades', startGrade: 8, endGrade: 10 }
+];
+
 // ==================== VISIBILITY & NAVIGATION ====================
 
 function hideAllViews() {
@@ -74,8 +94,8 @@ function goBackFromDetail() {
 
 function renderYearsGrid() {
   const container = document.getElementById('yearsGrid');
-  const list = window.YEARS_LIST || DEFAULT_YEARS_LIST;
-  if (!container || !list) return;
+  const list = (window.YEARS_LIST && window.YEARS_LIST.length > 0) ? window.YEARS_LIST : DEFAULT_YEARS_LIST;
+  if (!container) return;
 
   container.innerHTML = list.map(item => `
     <button onclick="openYearDetail('${item.id}')" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-sky-600 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
@@ -87,8 +107,8 @@ function renderYearsGrid() {
 
 function renderSubjectsGrid() {
   const container = document.getElementById('subjectsGrid');
-  const list = window.SUBJECTS_TREE || [];
-  if (!container || !list) return;
+  const list = (window.SUBJECTS_TREE && window.SUBJECTS_TREE.length > 0) ? window.SUBJECTS_TREE : DEFAULT_SUBJECTS_TREE;
+  if (!container) return;
 
   container.innerHTML = list.map(item => `
     <button onclick="handleSubjectClick('${item.id}')" class="p-6 bg-white border border-slate-200/80 rounded-2xl hover:border-amber-600 hover:shadow-xl hover:-translate-y-1 transition duration-200 text-center group flex flex-col items-center justify-center space-y-3">
@@ -121,7 +141,6 @@ function isStaffInYear(p, yearId) {
   const rawRole = getStaffProp(p, 'role', 'starf', 'stada', 'staða', 'titill').toLowerCase();
   const rawName = getStaffProp(p, 'name', 'full_name', 'nafn').toLowerCase();
 
-  // Unglingastig (8., 9., 10. bekkur): Öll 5 fagteymin hlaðast sjálfkrafa
   if (['y8', 'y9', 'y10'].includes(yearId)) {
     if (rawTeam.includes('isam') || rawTeam.includes('stae') || rawTeam.includes('tungumal') || 
         rawTeam.includes('sports') || rawTeam.includes('sport') || rawTeam.includes('logv')) {
@@ -129,10 +148,8 @@ function isStaffInYear(p, yearId) {
     }
   }
 
-  // Ef bekkjadálkur er tómur birtist starfsmaður alls staðar
   if (!rawGrades) return true;
 
-  // Stoðþjónusta og ÍSAT
   if (yearId === 'stod' || yearId === 'isat') {
     if (rawName.includes('páll') || rawName.includes('pall') || 
         rawName.includes('þorvaldur') || rawName.includes('thorvaldur') || 
@@ -275,7 +292,6 @@ async function openYearDetail(yearId) {
     markAssigned(supportService);
 
   } else if (isYouthGrade) {
-    // 1. Umsjónarkennarar
     homeroomTeachers = yearStaff.filter(p => {
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
       const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
@@ -283,7 +299,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(homeroomTeachers);
 
-    // 2. ÍSAM teymi
     isamTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -291,7 +306,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(isamTeam);
 
-    // 3. STÆ/Nát teymi
     staeNatTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -299,7 +313,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(staeNatTeam);
 
-    // 4. Tungumálateymi
     langTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -307,7 +320,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(langTeam);
 
-    // 5. Skólaíþróttir
     sportsTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -315,7 +327,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(sportsTeam);
 
-    // 6. List og verkgreinakennarar
     logvTeam = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const team = (getStaffProp(p, 'team', 'teymi', 'teams', 'flokkur') + ' ' + getStaffProp(p, 'role', 'starf')).toLowerCase();
@@ -323,7 +334,6 @@ async function openYearDetail(yearId) {
     });
     markAssigned(logvTeam);
 
-    // 7. Stjórnendur
     managers = yearStaff.filter(p => {
       if (!isUnassigned(p)) return false;
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
@@ -336,11 +346,9 @@ async function openYearDetail(yearId) {
     managers.sort((a, b) => getManagerRank(a) - getManagerRank(b));
     markAssigned(managers);
 
-    // 8. Aðrir kennarar / starfsmenn í árgangi (Öryggisnet)
     otherTeachers = yearStaff.filter(p => isUnassigned(p));
 
   } else {
-    // 1.-7. BEKKUR
     homeroomTeachers = yearStaff.filter(p => {
       const cat = getStaffProp(p, 'category', 'flokkur').toLowerCase();
       const role = getStaffProp(p, 'role', 'starf', 'stada', 'staða').toLowerCase();
@@ -408,50 +416,24 @@ async function openYearDetail(yearId) {
   } else if (isYouthGrade) {
     const youthSections = [];
 
-    if (homeroomHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>`);
-    }
-    if (isamHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">📖 ÍSAM</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${isamHtml}</div></div>`);
-    }
-    if (staeNatHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">📐 STÆ/Nát</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${staeNatHtml}</div></div>`);
-    }
-    if (langHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌍 Tungumál</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${langHtml}</div></div>`);
-    }
-    if (sportsHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏀 Skólaíþróttir</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${sportsHtml}</div></div>`);
-    }
-    if (logvHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 List og verkgreinakennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${logvHtml}</div></div>`);
-    }
-    if (otherTeachersHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>`);
-    }
-    if (managersHtml) {
-      youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
-    }
+    if (homeroomHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>`);
+    if (isamHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">📖 ÍSAM</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${isamHtml}</div></div>`);
+    if (staeNatHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">📐 STÆ/Nát</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${staeNatHtml}</div></div>`);
+    if (langHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌍 Tungumál</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${langHtml}</div></div>`);
+    if (sportsHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏀 Skólaíþróttir</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${sportsHtml}</div></div>`);
+    if (logvHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 List og verkgreinakennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${logvHtml}</div></div>`);
+    if (otherTeachersHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>`);
+    if (managersHtml) youthSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
 
     renderedStaffContent = youthSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
 
   } else {
     const stdSections = [];
-    if (homeroomHtml) {
-      stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>`);
-    }
-    if (assistantsHtml) {
-      stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>`);
-    }
-    if (supportHtml) {
-      stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>`);
-    }
-    if (otherTeachersHtml) {
-      stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>`);
-    }
-    if (managersHtml) {
-      stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
-    }
+    if (homeroomHtml) stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">👩‍🏫 Umsjónarkennarar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${homeroomHtml}</div></div>`);
+    if (assistantsHtml) stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🌱 Stuðningsfulltrúar</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${assistantsHtml}</div></div>`);
+    if (supportHtml) stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🤝 Stoðþjónusta</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${supportHtml}</div></div>`);
+    if (otherTeachersHtml) stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🎨 Aðrir kennarar í árgangi</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">${otherTeachersHtml}</div></div>`);
+    if (managersHtml) stdSections.push(`<div><h4 class="font-semibold text-xs text-sky-800 uppercase tracking-wider mb-2">🏫 Stjórnendur</h4><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${managersHtml}</div></div>`);
     renderedStaffContent = stdSections.map((group, idx) => idx === 0 ? group : `<div class="pt-3 border-t border-slate-100">${group}</div>`).join('');
   }
 
@@ -538,7 +520,8 @@ async function openYearDetail(yearId) {
 // ==================== FAGGREINAR LOGIC ====================
 
 function handleSubjectClick(subjectId) {
-  const subject = window.SUBJECTS_TREE ? window.SUBJECTS_TREE.find(s => s.id === subjectId) : null;
+  const list = (window.SUBJECTS_TREE && window.SUBJECTS_TREE.length > 0) ? window.SUBJECTS_TREE : DEFAULT_SUBJECTS_TREE;
+  const subject = list.find(s => s.id === subjectId);
   if (!subject) return;
 
   if (subject.type === 'parent') {
@@ -584,7 +567,6 @@ function renderSubSubjects(parentSubject) {
   window.scrollTo(0, 0);
 }
 
-// STYÐUR BÆÐI: renderGradeSelection(subjectObject) EÐA renderGradeSelection(title, icon, start, end, desc)
 function renderGradeSelection(subject, icon, startGrade, endGrade, description) {
   hideAllViews();
   currentViewHistory.push('grade_selection');
