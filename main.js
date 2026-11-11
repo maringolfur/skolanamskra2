@@ -25,7 +25,8 @@ const DEFAULT_SUBJECTS_TREE = [
     type: 'grades',
     startGrade: 1,
     endGrade: 10,
-    description: ''},
+    description: 'Íslenska er lykilgrein í öllu skólastarfi. Meginmarkmið kennslunnar er að efla málfærni nemenda, læsi, textaskilning og skapandi hugsun, ásamt því að rækta með þeim virðingu og tilfinningu fyrir íslenskri tungu og bókmenntum samkvæmt Aðalnámskrá grunnskóla.'
+  },
   { id: 'staerdfraedi', title: 'Stærðfræði', icon: '📐', type: 'grades', startGrade: 1, endGrade: 10 },
   { id: 'natturufraedi', title: 'Náttúrufræði', icon: '🌿', type: 'grades', startGrade: 1, endGrade: 10 },
   { id: 'samfelagsfraedi', title: 'Samfélagsfræði', icon: '🌍', type: 'grades', startGrade: 1, endGrade: 10 },
