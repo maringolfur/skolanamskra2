@@ -1,5 +1,6 @@
 window.SUBJECT_GRADE_DATA = window.SUBJECT_GRADE_DATA || {};
 
+// ==================== 1. ÁRGANGUR ====================
 window.SUBJECT_GRADE_DATA['islenska_1'] = {
   title: "Íslenska — 1. árgangur",
   icon: "📖",
@@ -31,6 +32,46 @@ window.SUBJECT_GRADE_DATA['islenska_1'] = {
         "<strong>Símot og virkni:</strong> Reglulegt mat á daglegri virkni, ástundun og stafakunnáttu.",
         "<strong>Lesfimimælingar:</strong> Stafakannanir og lesfimipróf framkvæmd 3–4 sinnum á skólaárinu.",
         "<strong>Leiðsagnarmat:</strong> Einstaklingsmiðuð endurgjöf um lestrartækni, stafamyndun og málskilning."
+      ]
+    }
+  ]
+};
+
+// ==================== 2. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['islenska_2'] = {
+  title: "Íslenska — 2. árgangur",
+  icon: "📖",
+  description: "Unnið er með öll hæfniviðmið í íslensku jafnt og þétt yfir skólaárið. Lestur og heimalestur fer fram daglega allt árið í skóla og heima. Kennsluáætlun er í stöðugri þróun og því er hér um að ræða gróft skipulag.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Talað mál, hlustun og áhorf:</strong> Nemandi beiti skýrum og áheyrilegum framburði, horfi og hlusti af athygli á fjölbreytt efni og greini frá upplifun sinni, ásamt því að segja frá atburði eða fyrirbæri, tjá sig frammi fyrir hópi og standa fyrir máli sínu.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi beiti aðferðum við umskráningu hljóða og stafa svo lestur flæði vel og merking texta komist til skila, skilji augljós efnisatriði valinna texta, greini og megi draga einfaldar ályktanir, ásamt því að velja og lesa sér til ánægju fjölbreytt lesefni sem hæfir aldri.",
+        "<strong>Bókmenntir:</strong> Nemandi vinni með ævintýri, sögur og ljóð ætluð börnum, átti sig á grunneinkennum ljóða og innihaldi þeirra, og beiti einföldum bókmenntahugtökum í umfjöllun.",
+        "<strong>Ritun:</strong> Nemandi dragi rétt til stafs, skrifi skýrt og læsilega og á lyklaborð. Setji fram eigin hugmyndir í texta, búi til setningar og málsgreinar með algengum samtengingum, beiti einföldum stafsetningarreglum og greinarmerkjasetningu og skilji ólíkar textategundir.",
+        "<strong>Mál og málnotkun:</strong> Nemandi þekki og ræði einkenni málsins, átti sig á sköpunarmætti tungumálsins (rím og orðaleikir) og raði í stafrófsröð með skilningi á notagildi þess."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Ritrún 1 og 2:</strong> Höfundar Kolbrún Sigurðardóttir og Þóra Kristinsdóttir (<a href=\"https://mms.is/namsefni/ritrun-2\" target=\"_blank\" class=\"text-sky-600 underline hover:text-sky-800\">Skoða á mms.is</a>).",
+        "<strong>Litla Lesrún:</strong> Höfundar Anna Þóra Jónsdóttir og Kristjana Pálsdóttir (<a href=\"https://mms.is/namsefni/litla-lesrun-rafbok\" target=\"_blank\" class=\"text-sky-600 underline hover:text-sky-800\">Skoða rafbók</a>).",
+        "<strong>Skrift 2a og 2b:</strong> Höfundur Sigurlaug Rún Brynleifsdóttir (<a href=\"https://mms.is/namsefni/skrift-2a-rafbok\" target=\"_blank\" class=\"text-sky-600 underline hover:text-sky-800\">Skrift 2a</a> | <a href=\"https://mms.is/namsefni/skrift-2b-rafbok\" target=\"_blank\" class=\"text-sky-600 underline hover:text-sky-800\">Skrift 2b</a>).",
+        "<strong>Ýmis verkefni:</strong> Út fyrir bókina (<a href=\"https://utfyrirbokina.is/\" target=\"_blank\" class=\"text-sky-600 underline hover:text-sky-800\">utfyrirbokina.is</a>) og Orð og setningar á <a href=\"https://nytt.skolavefurinn.is/islenska/yngsta-stig/ord-og-setningar/ord-og-setningar-1#bok-2\" target=\"_blank\" class=\"text-sky-600 underline hover:text-sky-800\">Skólavefnum</a>.",
+        "<strong>Önnur verkefni & Lestrarbækur:</strong> Lesskilningur, hlustun, áhorf, ýmis öpp í iPad og lestrarbækur við hæfi hvers og eins."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Leiðsagnarmat og verkefnavinna:</strong> Reglulegt leiðsagnarmat fer fram út frá þeim hæfniviðmiðum sem unnið er með.",
+        "<strong>Lesfimimælingar:</strong> Framkvæmdar þrisvar yfir skólaárið — í september, janúar og maí.",
+        "<strong>Matskvarðar:</strong> Flest hæfniviðmið eru metin út frá matskvörðunum: <em>Hæfni náð</em>, <em>Á góðri leið</em> og <em>Þarfnast þjálfunar</em>."
       ]
     }
   ]
