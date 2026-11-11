@@ -89,7 +89,7 @@ Lögð er áhersla á að nemendur öðlist sjálfstraust til að nota málið �
     icon: '🎨',
     type: 'grades',
     startGrade: 1,
-    endGrade: 10,
+    endGrade: 8,
     description: `Nám í list- og verkgreinum (myndmennt, hönnun og smíði, textílmennt, heimilisfræði og tónmennt) miðar að því að efla sköpunargáfu, verklega leikni, fínhreyfingar, fegurðarskyn og sjálfbærni hjá nemendum.<br><br>
 Í gegnum skapandi vinnu læra nemendur að umbreyta hugmyndum í afurðir, vinna með fjölbreyttan efnivið, nýta verkfæri og tækni af öryggi og gæta hreinlætis og umhverfisverndar.<br><br>
 Greinarnar reyna á samþættingu hugar og handa og stuðla að alhliða þroska, sjálfstrausti og virðingu fyrir handverki og menningararfi.`
