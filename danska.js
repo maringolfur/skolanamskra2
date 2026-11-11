@@ -108,3 +108,140 @@ window.SUBJECT_GRADE_DATA['danska_7'] = {
     }
   ]
 };
+// ==================== 8. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['danska_8'] = {
+  title: "Danska — 8. árgangur",
+  icon: "🇩🇰",
+  description: "Á 8. árgangi (upphafi unglingastigs) er kennsla í erlendum tungumálum samþætt þar sem enska og danska eru kenndar saman í 2–4 vikna lotum. Lögð er áhersla á málnotkun, framburð, lestur léttlestrarbóka, hlustun og símat í gegnum Mentor.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji megininntak og smáatriði í töluðu máli og stafrænu efni (kvikmyndum og þáttum) um þekkt málefni.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi lesi og skilji texta úr námsbókum, léttlestrarbókina <em>Alarm</em> og lesefni af netinu.",
+        "<strong>Samskipti og munnleg tjáning:</strong> Nemandi geti tekið þátt í samræðum, tjáð skoðanir sínar og flutt stuttar kynningar með réttum framburði.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað samfellda texta, beiti helstu grundvallarreglum málfræðinnar og nýti fjölbreyttan orðaforða."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Samþætting tungumála:</strong> Kennslu er skipulagt í 2–4 vikna lotum þar sem enska og danska eru kenndar saman.",
+        "<strong>Stundafjöldi:</strong> Kenndar eru 7 kennslustundir á viku í erlendum tungumálum, þar af 3 kennslustundir í dönsku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Bækur & léttlestur:</strong> <em>Tak</em> (lesbók), <em>Tak</em> (vinnubók A) og léttlestrarbókin <em>Alarm</em>.",
+        "<strong>Stafrænir miðlar:</strong> Kvikmyndir, þættir og lesefni af netinu.",
+        "<strong>Viðbótarefni:</strong> Sérniðið verkefnaefni frá kennara."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat í Mentor:</strong> Námsmat fer fram jafnóðum. Nemendur fá einkunnir fyrir einstök verkefni og lokaeinkunn fyrir hverja vinnulotu.",
+        "<strong>Fjölbreytt námsmat:</strong> Rafræn próf, munnlegar kynningar, hlustunaræfingar og próf, hópverkefni og einstaklingsverkefni.",
+        "<strong>Einkunnastigi:</strong> <strong>A</strong> (Vinna framúrskarandi), <strong>B+</strong> (Öllum hæfniviðmiðum náð en nokkur framúrskarandi), <strong>B</strong> (Hæfniviðmiðum náð), <strong>C+</strong> (Á góðri leið), <strong>C</strong> (Þarfnast þjálfunar / ekki öllum hæfniviðmiðum náð), <strong>D</strong> (Hæfni ekki náð / verkefni ekki skilað). Einnig er gefið <em>Lokið/Ólokið</em> fyrir einstaka verkefni.",
+        "<strong>Endurvinnsla og tækifæri:</strong> Einkunnir eru ekki endanlegar á meðan á símati stendur; nái nemandi ekki námsviðmiðum býðst honum að vinna upp eða endurvinna verkefnið til að dýpka hæfni sína og hækka einkunn."
+      ]
+    }
+  ]
+};
+
+// ==================== 9. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['danska_9'] = {
+  title: "Danska — 9. árgangur",
+  icon: "🇩🇰",
+  description: "Á 9. árgangi er kennsla í erlendum tungumálum samþætt þar sem enska og danska eru kenndar saman í 2–4 vikna lotum. Lögð er áhersla á dýpri orðaforða, skáld- og léttlestur, málfræði, munnlega tjáningu og símat í gegnum Mentor.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji töluð mál og stafrænt efni (kvikmyndir og þætti) um fjölbreytt og flóknari málefni.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi lesi texta úr námsbókum, léttlestrarbókina <em>Scooter</em> og fjölbreytt efni af netinu af auknu sjálfstæði.",
+        "<strong>Samskipti og frásögn:</strong> Nemandi tjái sig í samræðum af auknu öryggi, undirbúi kynningar og beiti réttum framburði og áherslum.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað samfellda texta í einstaklings- og hópverkefnum og beiti málfræðireglum af öryggi."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Samþætting tungumála:</strong> Kennslu er skipulagt í 2–4 vikna lotum þar sem enska og danska eru kenndar saman.",
+        "<strong>Stundafjöldi:</strong> Kenndar eru 7 kennslustundir á viku í erlendum tungumálum, þar af 3 kennslustundir í dönsku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Bækur & léttlestur:</strong> <em>Tak</em> (lesbók), <em>Tak</em> (vinnubók B) og léttlestrarbókin <em>Scooter</em>.",
+        "<strong>Stafrænir miðlar:</strong> Kvikmyndir, þættir og lesefni af netinu.",
+        "<strong>Viðbótarefni:</strong> Sérniðið verkefnaefni frá kennara."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat í Mentor:</strong> Námsmat fer fram jafnóðum. Nemendur fá einkunnir fyrir einstök verkefni og lokaeinkunn fyrir hverja vinnulotu.",
+        "<strong>Fjölbreytt námsmat:</strong> Rafræn próf, munnlegar kynningar, hlustunaræfingar og próf, hópverkefni og einstaklingsverkefni.",
+        "<strong>Einkunnastigi:</strong> <strong>A</strong> (Vinna framúrskarandi), <strong>B+</strong> (Öllum hæfniviðmiðum náð ásamt nokkrum framúrskarandi), <strong>B</strong> (Hæfniviðmiðum náð), <strong>C+</strong> (Á góðri leið), <strong>C</strong> (Þarfnast þjálfunar / ekki öllum hæfniviðmiðum náð), <strong>D</strong> (Hæfni ekki náð / verkefni ekki skilað). Einnig er gefið <em>Lokið/Ólokið</em> fyrir einstaka verkefni.",
+        "<strong>Endurvinnsla og tækifæri:</strong> Einkunnir eru ekki endanlegar á meðan á símati stendur; nái nemandi ekki námsviðmiðum býðst honum að vinna upp eða endurvinna verkefnið til að dýpka hæfni sína og hækka einkunn."
+      ]
+    }
+  ]
+};
+
+// ==================== 10. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['danska_10'] = {
+  title: "Danska — 10. árgangur",
+  icon: "🇩🇰",
+  description: "Á 10. árgangi (lokaári grunnskóla) er kennsla í erlendum tungumálum samþætt þar sem enska og danska eru kenndar saman í 2–4 vikna lotum. Lögð er áhersla á dýpri orðaforða, skáld- og léttlestur, málfræði, munnlega tjáningu, undirbúning fyrir framhaldsskóla og símat í gegnum Mentor.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji töluð mál og stafrænt efni (kvikmyndir og þætti) um fjölbreytt og flóknari málefni.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi lesi texta úr námsbókum, léttlestrarbókina <em>Scooter</em> og fjölbreytt efni af netinu af auknu sjálfstæði og öryggi.",
+        "<strong>Samskipti og frásögn:</strong> Nemandi tjái sig í samræðum af auknu öryggi, undirbúi kynningar og beiti réttum framburði og áherslum.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað samfellda texta í einstaklings- og hópverkefnum og beiti málfræðireglum af öryggi."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Samþætting tungumála:</strong> Kennslu er skipulagt í 2–4 vikna lotum þar sem enska og danska eru kenndar saman.",
+        "<strong>Stundafjöldi:</strong> Kenndar eru 7 kennslustundir á viku í erlendum tungumálum, þar af 3 kennslustundir í dönsku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Bækur & léttlestur:</strong> <em>Tak</em> (lesbók), <em>Tak</em> (vinnubók B) og léttlestrarbókin <em>Scooter</em>.",
+        "<strong>Stafrænir miðlar:</strong> Kvikmyndir, þættir og lesefni af netinu.",
+        "<strong>Viðbótarefni:</strong> Sérniðið verkefnaefni frá kennara."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat í Mentor:</strong> Námsmat fer fram jafnóðum. Nemendur fá einkunnir fyrir einstök verkefni og lokaeinkunn fyrir hverja vinnulotu.",
+        "<strong>Fjölbreytt námsmat:</strong> Rafræn próf, munnlegar kynningar, hlustunaræfingar og próf, hópverkefni og einstaklingsverkefni.",
+        "<strong>Einkunnastigi:</strong> <strong>A</strong> (Vinna framúrskarandi), <strong>B+</strong> (Öllum hæfniviðmiðum náð ásamt nokkrum framúrskarandi), <strong>B</strong> (Hæfniviðmiðum náð), <strong>C+</strong> (Á góðri leið), <strong>C</strong> (Þarfnast þjálfunar / ekki öllum hæfniviðmiðum náð), <strong>D</strong> (Hæfni ekki náð / verkefni ekki skilað). Einnig er gefið <em>Lokið/Ólokið</em> fyrir einstaka verkefni.",
+        "<strong>Endurvinnsla og tækifæri:</strong> Einkunnir eru ekki endanlegar á meðan á símati stendur; nái nemandi ekki námsviðmiðum býðst honum að vinna upp eða endurvinna verkefnið til að dýpka hæfni sína og hækka einkunn."
+      ]
+    }
+  ]
+};
