@@ -1,6 +1,9 @@
 window.SUBJECT_GRADE_DATA = window.SUBJECT_GRADE_DATA || {};
 
 // ==================== 6. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA = window.SUBJECT_GRADE_DATA || {};
+
+// ==================== 6. ÁRGANGUR ====================
 window.SUBJECT_GRADE_DATA['danska_6'] = {
   title: "Danska — 6. árgangur",
   icon: "🇩🇰",
@@ -37,6 +40,38 @@ window.SUBJECT_GRADE_DATA['danska_6'] = {
       icon: "📝",
       items: [
         "<strong>Fjölbreytt símat:</strong> Mat á munnlegri þátttöku, vinnubókarvinnu og stuttum kannunum úr orðaforða."
+      ]
+    }
+  ]
+};
+
+// ==================== 7. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['danska_7'] = {
+  title: "Danska — 7. árgangur",
+  icon: "🇩🇰",
+  description: "Á 7. árgangi (lokaári miðstigs) auka nemendur sjálfstæði sínu í danskri málnotkun, æfa samfelldan lestur og ritun ásamt því að efla skilning á danskri menningu og samfélagi.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Lestur og hlustun:</strong> Nemandi finni lykilupplýsingar í textum og hlustunarefni um kunnugleg efni.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað samfelldar efnisgreinar og beiti grunnreglum málfræði.",
+        "<strong>Munnleg frásögn:</strong> Nemandi geti undirbúið og flutt stutta frásögn eða kynningu á dönsku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Dönskunámsefni MMS:</strong> Les- og vinnubækur fyrir 7. bekk."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat og kaflapróf:</strong> Málfærnisyfirferð, vinnubókamat og munnlegar kannanir."
       ]
     }
   ]
