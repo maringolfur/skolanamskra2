@@ -204,3 +204,48 @@ window.SUBJECT_GRADE_DATA['enska_6'] = {
     }
   ]
 };
+// ==================== 8. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['enska_8'] = {
+  title: "Enska — 8. árgangur",
+  icon: "🇬🇧",
+  description: "Á 8. árgangi (upphafi unglingastigs) er kennsla í erlendum tungumálum samþætt þar sem enska og danska eru kenndar saman í 2–4 vikna lotum. Lögð er áhersla á fjölbreytta málnotkun, skáldsagnalestur, munnlegar kynningar, hlustun og símat í gegnum Mentor.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji aðal- og smáatriði í töluðu máli og fjölmiðlaefni (kvikmyndum og þáttum) og nýti sér í verkefnum.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi lesi skáldsögur (t.d. <em>Billy Elliot</em>), léttlestrarbækur og rauntexta af netinu sér til gagns og ánægju.",
+        "<strong>Samskipti og frásögn:</strong> Nemandi taki þátt í samræðum og flytji munnlegar kynningar einn eða í hóp af öryggi.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað samfellda texta í einstaklings- og hópverkefnum og beiti málfræði og orðaforða við hæfi."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og skipulag",
+      icon: "🗓️",
+      items: [
+        "<strong>Samþætting tungumála:</strong> Kennslu er skipulagt í 2–4 vikna lotum þar sem enska og danska eru kenndar saman.",
+        "<strong>Stundafjöldi:</strong> Kenndar eru 7 kennslustundir á viku í erlendum tungumálum, þar af 4 kennslustundir í ensku."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Bækur & skáldsögur:</strong> <em>Next Up! 1</em> (lesbók og vinnubók), léttlestrarbækur og skáldsagan <em>Billy Elliot</em>.",
+        "<strong>Stafrænir miðlar:</strong> Kvikmyndir, þættir og lesefni af netinu.",
+        "<strong>Viðbótarefni:</strong> Sérniðið verkefnaefni frá kennara."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Símat í Mentor:</strong> Námsmat fer fram jafnóðum. Nemendur fá einkunnir fyrir einstök verkefni og lokaeinkunn fyrir hverja vinnulotu.",
+        "<strong>Fjölbreytt námsmat:</strong> Rafræn próf, munnlegar kynningar, hlustunaræfingar og próf, hópverkefni og einstaklingsverkefni.",
+        "<strong>Einkunnastigi:</strong> <strong>A</strong> (Framúrskarandi), <strong>B+</strong> (Öllum viðmiðum náð og nokkur framúrskarandi), <strong>B</strong> (Hæfniviðmiðum náð), <strong>C+</strong> (Á góðri leið), <strong>C</strong> (Þarfnast þjálfunar / ekki öllum viðmiðum náð), <strong>D</strong> (Hæfni ekki náð / verkefni ekki skilað). Einnig er gefið <em>Lokið/Ólokið</em> fyrir stök verkefni.",
+        "<strong>Endurvinnsla og tækifæri:</strong> Einkunnir eru ekki endanlegar á meðan á símati stendur; nái nemandi ekki námsviðmiðum býðst honum að vinna upp eða endurvinna verkefnið til að dýpka hæfni sína og hækka einkunn."
+      ]
+    }
+  ]
+};
