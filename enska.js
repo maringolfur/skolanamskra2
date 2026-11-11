@@ -159,11 +159,48 @@ window.SUBJECT_GRADE_DATA['enska_5'] = {
 window.SUBJECT_GRADE_DATA['enska_6'] = {
   title: "Enska — 6. árgangur",
   icon: "🇬🇧",
-  description: "Tungumálanám í 6. bekk miðar að því að rækta með nemendum félagslegt og menningarlæsi, efla sjálfstraust í alþjóðlegum samskiptum og veita heildstæða þjálfun í hlustun, lestri, samskiptum, frásögn, ritun og málnotkun.",
+  description: "Tungumálanám í 6. bekk á að veita nemendum tækifæri til að rækta með sér tilfinningu fyrir félagslegum og menningarlegum aðstæðum hjá öðrum þjóðum, sjá sig sem hluta af og jafnoka í alþjóðasamfélagi og auka vitund um möguleika erlendra tungumála. Lögð er áhersla á að nemendur öðlist hæfni til að tileinka sér talað og ritað mál af ólíkum toga og beita enskunni á skapandi hátt í ræðu og riti.",
   sections: [
     {
       title: "🎯 Hæfniviðmið",
       icon: "🎯",
       items: [
-        "<strong>Hlustun og áhorf:</strong> Nemandi skilji talað mál og frásagnir tengdar námi og daglegu lífi, fylgi þræði í efni á margvíslegum miðlum og hlusti eftir aðalatriðum til að nýta í verkefnum.",
-        "<strong>Lestur og lesskilningur:</strong> Nemandi finni lykilupplýsingar, skilji megininntak rauntexta, lesi einfaldar smásögur og skáldsögur sér til
+        "<strong>Hlustun og áhorf:</strong> Nemandi skilji talað mál, frásagnir og fyrirmæli tengd námi og daglegu lífi, fylgi þræði í efni á margvíslegum miðlum og hlusti eftir aðalatriðum til að greina og nýta í verkefnavinnu.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi finni lykilupplýsingar í texta, skilji megininntak rauntexta, lesi sér til gagns og ánægju einfaldar smásögur/skáldsögur, skilji auðlesið efni og hugtök úr öðrum námsgreinum og ná valdi á algengum orðaforða.",
+        "<strong>Samskipti:</strong> Nemandi taki þátt í óformlegu samtali um áhugamál og daglegt líf, bjargi sér við algengar aðstæður með almennum kurteisisvenjum, beiti málinu í kennslustundum og geti undirbúið, tekið og veitt viðtal.",
+        "<strong>Frásögn og framsögn:</strong> Nemandi tjái sig um reynslu sína og skoðanir, undirbúi og flytji frásögn eða kynningu (einn eða í félagi við aðra) og beiti málinu með nokkuð eðlilegum framburði og áherslum.",
+        "<strong>Ritun og málnotkun:</strong> Nemandi skrifað mismunandi gerðir samfelldra texta með lesanda í huga, beiti grunnreglum málfræði og stafsetningar, endursagt texta um það sem hann hefur lesið/séð/heyrt, lýst eigin reynslu og samið skapandi texta þar sem ímyndunaraflið fær að njóta sín.",
+        "<strong>Menningarlæsi:</strong> Nemandi sýni að hann þekki til menningar og daglegs lífs á enskumælandi málsvæðum, setji sig í spor annarra til að bera saman aðstæður og átti sig á skyldleika erlenda málsins við íslensku eða önnur tungumál."
+      ]
+    },
+    {
+      title: "🗓️ Kennsluáætlun og lotuskipting",
+      icon: "🗓️",
+      items: [
+        "<strong>Ágúst–september (Me, myself & school):</strong> Kynningarleikir, <em>Together again</em>, <em>My school day</em>, <em>When I grow up</em>, <em>Me, myself and I</em>. (Hæfni í forgrunni: Samskipti, einföld ritun, lestur, hlustun).",
+        "<strong>Október–nóvember (Reading, vocabulary & everyday English):</strong> <em>Yes We Can</em>, stutt myndbönd, Halloween-verkefni, comic strip, lýsa sjálfum sér/fjölskyldu/vinum. (Hæfni í forgrunni: Lestur, orðaforði, hlustun, ritun).",
+        "<strong>Desember–janúar (Culture, communication & stories):</strong> Jólaverkefni, viðtal, <em>Would you rather?</em>, <em>Our mysterious world</em>, byrja Mystery. (Hæfni í forgrunni: Menningarlæsi, samskipti, málfræði, lestur).",
+        "<strong>Febrúar (Mystery – stór samþætt lota):</strong> Hópverkefni, upplýsingaleit, ritun, undirbúningur og kynning. (Hæfni í forgrunni: Lestur, frásögn, samskipti, ritun).",
+        "<strong>Mars–apríl (English in real life & across subjects):</strong> Munnlegt námsmat, Food chain / geography / math, málfræði, frásögn um liðinn atburð. (Hæfni í forgrunni: Tal, framburður, þverfaglegur lestur, ritun).",
+        "<strong>Maí–júní (Listen, read & create):</strong> Mystery story, stuttmynd, smásögur, eigin saga, listening comprehension og lokauppsóp. (Hæfni í forgrunni: Hlustun, lestur, skapandi ritun og samþætt námsmat)."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Yes We Can 6:</strong> Lesbók og vinnubók.",
+        "<strong>Málfræði og lesskilningur:</strong> Enskar málfræðiæfingar B og C, ásamt <em>Dock</em> lesskilningshefti.",
+        "<strong>Lestrar- og myndmiðlar:</strong> Léttlestrarbækur, smásögur, stuttmyndir og myndbönd.",
+        "<strong>Verkefnahefti kennara:</strong> Fjölbreytt verkefni (Mystery, ritun, málfræði, hlustun, lesskilningur, árstíðabundin verkefni o.fl.)."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Fjölbreytt námsmat:</strong> Metið er jafnt og þétt yfir skólaárið út frá lestri og lesskilningi, hlustun og áhorfi, samskiptum og töluðu máli, frásögn og kynningu, ritun og málræði, menningarlæsi og vinnusemi."
+      ]
+    }
+  ]
+};
