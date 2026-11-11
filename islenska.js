@@ -147,3 +147,129 @@ window.SUBJECT_GRADE_DATA['islenska_4'] = {
     }
   ]
 };
+
+Hæfniviðmið: 
+Hæfniviðmið í íslensku eru sett fram í fimm mismunandi flokkum, talað mál, hlustun og áhorf mynda þann fyrsta, síðan lestur og lesskilningur, þá bókmenntir svo ritun og að síðustu mál og málnotkun. Út frá Aðalnámskrá grunnskóla hefur verið unnin skólanámskrá er byggir á sömu viðmiðum. 
+
+Talað mál, hlustun og áhorf
+Nemandi getur:
+flutt mál sitt skýrt og áheyrilega og gert sér grein fyrir undirstöðuatriðum góðrar framsagnar, 
+gert grein fyrir þekkingu sinni og reynslu og tjáð hugmyndir sínar og skoðanir frammi fyrir hópi, 
+hlustað og horft af athygli á fjölbreytt efni, beitt þekkingu sinni og reynslu til að skilja það og greint frá aðalatriðum, 
+nýtt sér myndefni og stafrænt efni á gagnrýninn hátt og greint frá aðalatriðum þess. 
+
+Lestur og lesskilningur
+Nemandi getur:
+lesið texta við hæfi á nákvæman og sjálfvirkan hátt og með tjáningu sem sýnir skilning á tilgangi og merkingu texta, 
+beitt lestraraðferðum sem hæfa tilgangi og viðfangsefni hverju sinni, 
+beitt fjölbreyttum orðaforða og fyrri þekkingu til að mynda samhengi og skilning í lestri og notað aðferðir til að ráða í merkingu ókunnra orða og orðasambanda 
+skilið, fjallað um og dregið saman efni ólíkra texta, dregið ályktanir af efninu, greint og lagt mat á merkingu þeirra og tilgang á gagnrýninn hátt, 
+valið og lesið sér til gagns og ánægju fjölbreytta texta og miðlað áhuga sínum og skoðunum til annarra. 
+
+Bókmenntir
+Nemandi getur: 
+lesið ýmsar bókmenntir og unnið með efni þeirra á fjölbreyttan hátt, 
+beitt nokkrum grunnhugtökum í bókmenntafræði við umfjöllun um fjölbreyttar bókmenntir, 
+lesið einfalda texta frá fyrri tímum og áttað sig á því að þeir mótist af sögulegu samhengi, 
+notað einföld bókmenntahugtök í umræðu og vinnu með innihald og einkenni ljóða frá ólíkum tímum. 
+
+Ritun
+Nemandi getur:
+miðlað texta í gegnum sjálfvirka og læsilega skrift og fyrirhafnarlausan innslátt á lyklaborð og gengið frá texta samkvæmt fyrirmælum, 
+skrifað texta þar sem málsgreinar eru fjölbreyttar og texta er skipt upp í efnisgreinar, 
+skipulagt og orðað texta á þann hátt sem hæfir tilefni, viðtakendum og birtingarformi, 
+tjáð hugmyndir sínar, reynslu og sköpun í texta, metið, mótað og endurskrifað með hliðsjón af hjálpargögnum, 
+beitt algengum atriðum stafsetningar og greinarmerkjasetningar og notað tiltæk hjálpargögn við hæfi. 
+
+Mál og málnotkun
+Nemandi getur:
+beitt málfræðiþekkingu sinni í umræðu um ýmis einkenni málsins og málnotkun sína, 
+notað góðan orðaforða í ræðu og riti og nýtt sér fjölbreytt málsnið við orðmyndun, tal og ritun, 
+nýtt orðaforða sinn til að skapa ný orð og orðasambönd og notað þau í texta, 
+áttað sig á hvernig orðaforðinn skiptist í sagnorð, fallorð og óbeygjanleg orð og greint hlutverk og helstu einkenni þeirra, 
+notað algeng orðtök og málshætti í töluðu máli og rituðu og greint notagildi þeirra í texta, 
+nýtt sér kunnáttu og færni til að fletta upp orðum í orðabókum og öðrum gagnabrunnum um tungumál. 
+
+Kennsluáætlun: 
+Allan veturinn
+
+Heimalestur. Nemendur lesa heima 5x í viku í 20 mínútur í senn. Gert er ráð fyrir að nemendur lesi upphátt fyrir fullorðinn. Nemendur velja ýmist bækur að heiman eða bók af bókasafni.
+
+PALS. Nemendur fara tvisvar í viku í tíma hjá lestrarþjálfara.
+
+Yndislestur. Nemendur lesa í skólastofu a.m.k. þrisvar í viku. Valdar eru vandaðar bækur af bókalista frá kennara. Lesið er ýmist í hljóði eða upphátt. 
+
+Lesfimipróf. Nemendur þreyta próf í lesfimi þrisvar á skólaárinu og er prófið lagt fyrir af sérkennara. Niðurstöður birtast á Ísland.is
+
+
+Lota 1 
+24. ágúst - 2. október
+
+Námsefni:
+Orðspor- áhersla á málfræði 
+Annar smellur- áhersla á lesskilning
+Söguskinna- áhersla á flökkusögur og ritun
+
+Hæfniviðmið:
+skrifað texta þar sem málsgreinar eru fjölbreyttar og texta er skipt upp í efnisgreinar, 
+Nemandi getur valið og lesið sér til gagns og ánægju fjölbreytta texta og miðlað áhuga sínum og skoðunum til annarra. 
+Nemandi getur áttað sig á hvernig orðaforðinn skiptist í sagnorð, fallorð og óbeygjanleg orð og greint hlutverk og helstu einkenni þeirra 
+Nemandi getur skilið, fjallað um og dregið saman efni ólíkra texta, dregið ályktanir af efninu, greint og lagt mat á merkingu þeirra og tilgang á gagnrýninn hátt, 
+beitt fjölbreyttum orðaforða og fyrri þekkingu til að mynda samhengi og skilning í lestri og notað aðferðir til að ráða í merkingu ókunnra orða og orðasambanda, 
+
+Lota 2 
+5. október-27. nóvember
+
+Námsefni:
+Bókin PóGó- prumpið sem bjargaði heiminum eftir Bergrúnu Írisi Sævarsdóttur
+Nemendur vinna í bókaklúbbum þar sem lesarar skiptast á að lesa söguna upphátt fyrir félaga sína í klúbbnum. Nemendur vinna verkefni út frá hverjum kafla. Í lok lotunnar skila nemendur lokaverkefni (skapandi skil, t.d. plakat, bók osfrv.) sem inniheldur öll verkefni lotunnar.
+
+Hæfniviðmið
+
+Talað mál, hlustun og áhorf
+Nemandi getur flutt mál sitt skýrt og áheyrilega og gert sér grein fyrir undirstöðuatriðum góðrar framsagnar, 
+Nemandi getur gert grein fyrir þekkingu sinni og reynslu og tjáð hugmyndir sínar og skoðanir frammi fyrir hóp, 
+Nemandi getur hlustað og horft af athygli á fjölbreytt efni, beitt þekkingu sinni og reynslu til að skilja það og greint frá aðalatriðum, 
+
+Lestur og lesskilningur
+Nemandi getur lesið texta við hæfi á nákvæman og sjálfvirkan hátt og með tjáningu sem sýnir skilning á tilgangi og merkingu texta, 
+Nemandi getur beitt lestraraðferðum sem hæfa tilgangi og viðfangsefni hverju sinni,
+Nemandi getur skilið, fjallað um og dregið saman efni ólíkra texta, dregið ályktanir af efninu, greint og lagt mat á merkingu þeirra og tilgang á gagnrýninn hátt,  
+Bókmenntir
+Nemandi getur lesið ýmsar bókmenntir og unnið með efni þeirra á fjölbreyttan hátt, 
+Ritun
+Nemandi getur tjáð hugmyndir sínar, reynslu og sköpun í texta, metið, mótað og endurskrifað með hliðsjón af hjálpargögnum, 
+Nemandi getur skipulagt og orðað texta á þann hátt sem hæfir tilefni, viðtakendum og birtingarformi, 
+Mál og málnotkun
+Nemandi getur notað góðan orðaforða í ræðu og riti og nýtt sér fjölbreytt málsnið við orðmyndun, tal og ritun, 
+
+Lota 3
+30. nóvember- 15. janúar
+
+Námsefni:
+Orðspor- áhersla á málfræði 
+Annar smellur- áhersla á lesskilning
+Söguskinna- áhersla á flökkusögur og ritun
+
+Hæfniviðmið:
+skrifað texta þar sem málsgreinar eru fjölbreyttar og texta er skipt upp í efnisgreinar, 
+Nemandi getur valið og lesið sér til gagns og ánægju fjölbreytta texta og miðlað áhuga sínum og skoðunum til annarra. 
+Nemandi getur áttað sig á hvernig orðaforðinn skiptist í sagnorð, fallorð og óbeygjanleg orð og greint hlutverk og helstu einkenni þeirra 
+Nemandi getur skilið, fjallað um og dregið saman efni ólíkra texta, dregið ályktanir af efninu, greint og lagt mat á merkingu þeirra og tilgang á gagnrýninn hátt, 
+beitt fjölbreyttum orðaforða og fyrri þekkingu til að mynda samhengi og skilning í lestri og notað aðferðir til að ráða í merkingu ókunnra orða og orðasambanda, 
+
+
+Námsefni: 
+Orðspor
+Annar smellur
+Söguskinna
+PóGó- prumpið sem bjargaði heiminum eftir Bergrúnu Írisi Sævarsdóttur
+
+
+
+
+Námsmat: 
+Notast er við leiðsagnamat og áhersla lögð á sjálfstæð vinnubrögð nemenda. 
+Verkefnavinna í vinnubók
+Hópavinna- jafningjamat
+Einstaklingsvinna- sjálfsmat
