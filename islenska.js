@@ -76,3 +76,74 @@ window.SUBJECT_GRADE_DATA['islenska_2'] = {
     }
   ]
 };
+// ==================== 3. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['islenska_3'] = {
+  title: "Íslenska — 3. árgangur",
+  icon: "📖",
+  description: "Unnið er með öll hæfniviðmið í íslensku jafnt og þétt yfir skólaárið. Lestur og heimalestur fer fram daglega allt árið í skóla og heima. Kennsluáætlun er í stöðugri þróun og því er hér um að ræða gróft skipulag.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Talað mál, hlustun og áhorf:</strong> Nemandi beiti skýrum og áheyrilegum framburði, nýti sér og endursegi efni á stafrænu formi, segði frá atburði eða fyrirbæri, tjái sig frammi fyrir hópi og standi fyrir máli sínu, ásamt því að horfa og hlusta af athygli á fjölbreytt efni og greina frá upplifun sinni.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi beiti aðferðum við umskráningu hljóða og stafa svo lestur flæði vel, skilji augljós efnisatriði valinna texta og dragi einfaldar ályktanir, þekki og beiti einföldum lestraraðferðum, velji og lesi sér til ánægju fjölbreytt lesefni og beiti góðum orðaforða til að ráða í merkingu ókunnra orða.",
+        "<strong>Bókmenntir:</strong> Nemandi vinni með ævintýri, sögur og ljóð ætluð börnum, átti sig á grunneinkennum ljóða, beiti einföldum bókmenntahugtökum og lesi einfalda texta frá fyrri tímum og setji sig í spor persóna og lesenda í fortíðinni.",
+        "<strong>Ritun:</strong> Nemandi dragi rétt til stafs, skrifi skýrt og læsilega og á lyklaborð, setji fram eigin hugmyndir í texta, búi til setningar og málsgreinar með algengum samtengingum, beiti einföldum stafsetningarreglum og greinarmerkjasetningu og skilji ólíkar textategundir.",
+        "<strong>Mál og málnotkun:</strong> Nemandi þekki og ræði einkenni málsins, átti sig á mismunandi hlutverki nafnorða, lýsingarorða og sagnorða, átti sig á sköpunarmætti tungumálsins (rím og orðaleikir) og raði í stafrófsröð með skilningi á notagildi þess."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Lestrarbækur og hljóðbækur:</strong> Bækur af lestrarlista og af bókasafni við hæfi hvers og eins, ásamt hljóðlestrarbókum.",
+        "<strong>Námsbækur:</strong> Ritrún 3, Lesrún, Skrift 2a og 2b (Ítalíuskrift), Blái blýanturinn og Setningar og málsgreinar.",
+        "<strong>Verkefnavinna:</strong> Ýmis lesskilnings- og ritunarverkefni."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Lesfimimælingar:</strong> Mældar þrisvar yfir skólaárið — í september, janúar og maí.",
+        "<strong>Símat og kannanir:</strong> Reglulegt símat og stöðukannanir í málfræði, skrift og ritun."
+      ]
+    }
+  ]
+};// ==================== 4. ÁRGANGUR ====================
+window.SUBJECT_GRADE_DATA['islenska_4'] = {
+  title: "Íslenska — 4. árgangur",
+  icon: "📖",
+  description: "Unnið er með öll hæfniviðmið í íslensku jafnt og þétt yfir skólaárið. Lögð er áhersla á aukna lesfimi, dýpri lesskilning, fjölbreytta ritun, málfræði og bókmenntaskilning við lok yngsta stigs. Lestur og heimalestur fer fram daglega allt skólaárið.",
+  sections: [
+    {
+      title: "🎯 Hæfniviðmið",
+      icon: "🎯",
+      items: [
+        "<strong>Talað mál, hlustun og áhorf:</strong> Nemandi beiti skýrum framburði, tjái skoðanir sínar í hóp, hlusta af athygli á kynningar og flytja stuttar frásagnir eða kynningar fyrir bekkinn.",
+        "<strong>Lestur og lesskilningur:</strong> Nemandi nái góðri lesfimi, beiti ólíkum lestraraðferðum eftir textategundum, dragi ályktanir út frá texta og nýti orðaforða til að ráða í merkingu ókunnra orða.",
+        "<strong>Bókmenntir:</strong> Nemandi lesi fjölbreyttar barnabækur, ævintýri og ljóð, átti sig á söguþræði, persónulýsingum og umhverfi, ásamt því að beita einföldum bókmenntahugtökum.",
+        "<strong>Ritun:</strong> Nemandi skrifi skýrt og læsilega (handskrift og tölvuritun), semji stuttar sögur og upplýsingatexta, nýti greinarmerki (punkt og kommu) og beiti algengum stafsetningarreglum.",
+        "<strong>Mál og málnotkun:</strong> Nemandi greini helstu orðflokka (nafnorð, lýsingarorð, sagnorð), skilji einfaldar beygingar og nýti stafrófsröðun af öryggi."
+      ]
+    },
+    {
+      title: "📚 Námsefni",
+      icon: "📚",
+      items: [
+        "<strong>Lestrarbækur og hljóðbækur:</strong> Fjölbreyttar yfirlestrar- og bókasafnsbækur við hæfi hvers nemanda.",
+        "<strong>Námsbækur og ritun:</strong> Ritrún 4, Málfræðihefti og stafsetningarverkefni.",
+        "<strong>Verkefnavinna:</strong> Lesskilningshefti, ritunarverkefni og stafræn verkefni á iPad."
+      ]
+    },
+    {
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Lesfimimælingar:</strong> Mældar þrisvar yfir skólaárið — í september, janúar og maí.",
+        "<strong>Símat og vinnubækur:</strong> Reglulegt mat á ritun, málfræði, stafsetningu og virkni í kennslustundum."
+      ]
+    }
+  ]
+};
