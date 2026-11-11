@@ -1,56 +1,35 @@
 window.SUBJECT_GRADE_DATA = window.SUBJECT_GRADE_DATA || {};
 
 window.SUBJECT_GRADE_DATA['ahugasvidsval'] = {
-  title: "Áhugasviðsval — Unglingastig",
+  title: "Áhugasviðsval",
   icon: "🌟",
-  description: "Í áhugasviðsvali velja nemendur verkefni eða viðfangsefni sem endurspegla eigin áhuga, styrkleika og framtíðardrauma. Námið miðar að því að efla sjálfstæð vinnubrögð, ábyrgð og sköpunargáfu þar sem unnið er frá hugmynd að fullbúinni afurð eða kynningu.",
+  description: "Áhugasviðsval á unglingastigi veitir nemendum tækifæri til að velja sér viðfangsefni í samræmi við eigin áhugamál, styrkleika og framtíðaráform. Námið miðar að því að efla sjálfstæð vinnubrögð, frumkvæði, sköpunargáfu og ábyrgð á eigin námi.",
   sections: [
     {
-      title: "📋 Um verkefnið og vinnulag",
+      title: "🎯 Markmið námsins",
+      icon: "🎯",
+      items: [
+        "<strong>Dýpka þekkingu:</strong> Nemendur fá svigrúm til að kafa dýpra í viðfangsefni sem þau hafa sérstakan áhuga á (t.d. listir, íþróttir, tækni, tungumál, matargerð, nýsköpun eða handverk).",
+        "<strong>Sjálfstætt vinnulag:</strong> Lögð er áhersla á að nemandinn setji sér eigin markmið, skipuleggi vinnutíma sinn og beri ábyrgð á framvindu verkefnisins.",
+        "<strong>Framtíðarsýn:</strong> Áhugasviðsval þjónar sem góð brú yfir í framhaldsskólanám og hjálpar nemendum að átta sig á eigin styrkleikum."
+      ]
+    },
+    {
+      title: "📋 Vinnulag og framkvæmd",
       icon: "📋",
       items: [
-        "<strong>Fjölbreyttir flokkar:</strong> Nemendur geta valið verkefni úr völdum flokkum eða samþætt ólík svið.",
-        "<strong>Sjálfstæð vinnubrögð:</strong> Nemandi setur sér markmið, gerir verkáætlun, heldur utan um vinnuferlið og skilar lokanámsmati.",
-        "<strong>Námsmat & Leiðsögn:</strong> Metið er út frá ferlinu, stjórnun vinnutíma, frumkvæði og lokaafurð."
+        "<strong>Verkáætlun:</strong> Nemandi mótar sína hugmynd í samráði við kennara og gerir raunhæfa tíma- og verkefnaáætlun.",
+        "<strong>Framkvæmd:</strong> Unnið er úr hugmyndum með skapandi eða verklegum hætti þar sem fullbúin afurð, sýning, kynning eða skýrsla verður til.",
+        "<strong>Ígrundun:</strong> Nemandi leggur mat á eigin vinnu og nýtir endurgjöf til að bæta vinnubrögð sín."
       ]
-    }
-  ],
-  tiles: [
-    {
-      id: "synidaemi",
-      title: "Sýnidæmi",
-      icon: "💡",
-      description: "Dæmi um árangursrík verkefni nemenda, hugmyndabanka og lokaafurðir úr ólíkum áttum."
     },
     {
-      id: "ithrottir",
-      title: "Íþróttir",
-      icon: "🏀",
-      description: "Verkefni tengd líkamsrækt, æfingakerfum, íþróttasögu, þjálfun og heilbrigðum lífsstíl."
-    },
-    {
-      id: "tonlist",
-      title: "Tónlist",
-      icon: "🎵",
-      description: "Hljóðfæraspil, tónsmíðar, stafræn hljóðvinnsla, hlaðvörp og tónlistarsaga."
-    },
-    {
-      title: "Hönnun og smíði",
-      id: "honnun_smidi",
-      icon: "🛠️",
-      description: "Trésmíði, teiknun, vöruhönnun, módelsmíði, tækniteikning og endurnýting efniviðar."
-    },
-    {
-      id: "tungumal",
-      title: "Tungumál",
-      icon: "🌐",
-      description: "Tungumálanám, skapandi ritun, þýðingar, menningarlæsi og alþjóðleg samskipti."
-    },
-    {
-      id: "heimilisfraedi",
-      title: "Heimilisfræði",
-      icon: "🍳",
-      description: "Baking, matargerð úr ólíkum heimsálfum, næringarfræði og rekstur heimilis."
+      title: "📝 Námsmat",
+      icon: "📝",
+      items: [
+        "<strong>Leiðsagnarmat og vinnusemi:</strong> Metið er út frá virkni, mætingu, sjálfstæði og vinnubrögðum á vinnutíma.",
+        "<strong>Lokaafurð:</strong> Heildstætt mat á lokaverkefni, frágangi og munnlegri eða stafrænni miðlun."
+      ]
     }
   ]
 };
