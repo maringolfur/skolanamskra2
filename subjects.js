@@ -63,14 +63,14 @@ window.SUBJECTS_TREE = [
     icon: '🎨',
     type: 'grades',
     startGrade: 1,
-    endGrade: 10
+    endGrade: 8
   },
   {
     id: 'ahugasvidsval',
     title: 'Áhugasviðsval',
     icon: '🌟',
     type: 'grades',
-    startGrade: 8,
+    startGrade: 9,
     endGrade: 10
   }
 ];
