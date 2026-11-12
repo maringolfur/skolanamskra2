@@ -7,7 +7,7 @@ window.SUBJECT_GRADE_DATA = window.SUBJECT_GRADE_DATA || {};
 window.SUBJECT_GRADE_DATA['danska_6'] = {
   title: "Danska — 6. árgangur",
   icon: "🇩🇰",
-  description: "Nám í dönsku hefst í 6. bekk. Megináherslan er lögð á jákvætt viðhorf til tungumálsins, hlustunarskilning, framburðarþjálfun og uppbyggingu á einföldum orðaforða tengdum nærumhverfi, fjölskyldu og áhugamálum.",
+  description: "Nám í dönsku hefst í 6. bekk. Megináherslan er lögð á jákvætt viðhorf til tungumálsins, hlustun, framburð og uppbyggingu á einföldum orðaforða tengdum nærumhverfi, fjölskyldu og áhugamálum.",
   sections: [
     {
       title: "🎯 Hæfniviðmið",
