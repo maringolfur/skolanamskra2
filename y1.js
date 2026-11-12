@@ -4,7 +4,7 @@ window.YEARS_DATA['y1'] = {
   title: '1. árgangur',
   icon: '🌱',
   info: {
-    students: '50 nemendur (skólaárið 2026–2027)',
+    students: '50 nemendur eru í 1. árgangi og skiptast þeir í 3 bekkjardeildir skólaárið 2026–2027.',
     rooms: 'Stofur 6, 7 og 8 (vesturgangur, vesturinngangur)',
     hours: 'Hefst alla daga kl. 08:10 (30 stundir/viku)',
     recess: 'Kl. 09:30 – 09:50 alla daga',
